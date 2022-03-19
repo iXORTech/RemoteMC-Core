@@ -1,6 +1,23 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
+
+val versionPropertiesFile = "${projectDir}/version.properties"
+
+fun getProperties(file: String, key: String): String {
+    val fileInputStream = FileInputStream(file)
+    val props = Properties()
+    props.load(fileInputStream)
+    return props.getProperty(key)
+}
+
+fun getVersion(): String {
+    return getProperties(versionPropertiesFile, "version") + "-" +
+            getProperties(versionPropertiesFile, "stage")
+}
 
 plugins {
     application
@@ -8,7 +25,7 @@ plugins {
 }
 
 group = "tech.ixor"
-version = "0.0.1"
+version = getVersion()
 application {
     mainClass.set("tech.ixor.ApplicationKt")
 
