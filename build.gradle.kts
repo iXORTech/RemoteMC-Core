@@ -1,3 +1,4 @@
+import java.io.ByteArrayOutputStream
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -6,6 +7,20 @@ val kotlin_version: String by project
 val logback_version: String by project
 
 val versionPropertiesFile = "${projectDir}/version.properties"
+
+fun String.runCommand(currentWorkingDir: File = file("./")): String {
+    val byteOut = ByteArrayOutputStream()
+    project.exec {
+        workingDir = currentWorkingDir
+        commandLine = this@runCommand.split("\\s".toRegex())
+        standardOutput = byteOut
+    }
+    return String(byteOut.toByteArray()).trim()
+}
+
+fun getRevision(): String {
+    return "git rev-parse --short=7 HEAD".runCommand()
+}
 
 fun getProperties(file: String, key: String): String {
     val fileInputStream = FileInputStream(file)
@@ -16,7 +31,8 @@ fun getProperties(file: String, key: String): String {
 
 fun getVersion(): String {
     return getProperties(versionPropertiesFile, "version") + "-" +
-            getProperties(versionPropertiesFile, "stage")
+            getProperties(versionPropertiesFile, "stage") + "+" +
+            getRevision()
 }
 
 plugins {
