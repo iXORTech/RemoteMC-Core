@@ -30,9 +30,11 @@ fun getProperties(file: String, key: String): String {
 }
 
 fun getVersion(): String {
-    return getProperties(versionPropertiesFile, "version") + "-" +
-            getProperties(versionPropertiesFile, "stage") + "+" +
-            getRevision()
+    return getProperties(versionPropertiesFile, "version")
+}
+
+fun getStage(): String {
+    return getProperties(versionPropertiesFile, "stage")
 }
 
 plugins {
@@ -42,14 +44,14 @@ plugins {
 }
 
 group = "tech.ixor"
-version = getVersion()
+version = getVersion() + "-" + getStage() + "+" + getRevision()
 
 tasks {
     val projectProps by registering(WriteProperties::class) {
         outputFile = file("${projectDir}/src/main/resources/version.properties")
         encoding = "UTF-8"
-        property("version", getProperties(versionPropertiesFile, "version"))
-        property("stage", getProperties(versionPropertiesFile, "stage"))
+        property("version", getVersion())
+        property("stage", getStage())
         property("revision", getRevision())
     }
 
