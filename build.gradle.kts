@@ -6,7 +6,7 @@ val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
 
-val versionPropertiesFile = "${projectDir}/version.properties"
+val versionPropertiesFile = "${projectDir}/project.properties"
 
 fun String.runCommand(currentWorkingDir: File = file("./")): String {
     val byteOut = ByteArrayOutputStream()
