@@ -53,6 +53,7 @@ tasks {
     }
 
     processResources {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         from(projectProps)
     }
 }
