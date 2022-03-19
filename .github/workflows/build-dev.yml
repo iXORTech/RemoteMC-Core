@@ -21,7 +21,7 @@ jobs:
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew shadowJar
     - name: Get short SHA
       run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
     - name: Upload Artifacts
