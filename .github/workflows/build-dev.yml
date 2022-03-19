@@ -27,5 +27,5 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: MCDRemoteCore-${{ env.SHORT_SHA }}
+        name: RemoteMC-Core-${{ env.SHORT_SHA }}
         path: build/libs

@@ -1,3 +1,3 @@
-# MCDRemoteCore
+# RemoteMC-Core
 **Powered by iXOR Technology**
-> [WIP] MCDRemote 系列处理与API核心
+> [WIP] Processing and API Core of RemoteMC Series | RemoteMC 系列处理与API核心

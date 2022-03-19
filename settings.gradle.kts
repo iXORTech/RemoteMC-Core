@@ -1,1 +1,1 @@
-rootProject.name = "MCDRemoteCore"
+rootProject.name = "RemoteMC-Core"

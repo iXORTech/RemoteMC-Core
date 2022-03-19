@@ -6,7 +6,7 @@ import tech.ixor.plugins.*
 import tech.ixor.utils.*
 
 fun main() {
-    println("Starting MCDRemoteCore...\n")
+    println("Starting RemoteMC-Core...\n")
     println("${VersionUtil.getVersion()}\n")
 
     embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
