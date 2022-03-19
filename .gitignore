@@ -1,3 +1,7 @@
+# Generate when building/running
+/src/main/resources/version.properties
+
+# Intellij IDEA Defaults
 .DS_Store
 .idea/shelf
 /confluence/target

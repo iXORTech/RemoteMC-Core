@@ -42,6 +42,21 @@ plugins {
 
 group = "tech.ixor"
 version = getVersion()
+
+tasks {
+    val projectProps by registering(WriteProperties::class) {
+        outputFile = file("${projectDir}/src/main/resources/version.properties")
+        encoding = "UTF-8"
+        property("version", getProperties(versionPropertiesFile, "version"))
+        property("stage", getProperties(versionPropertiesFile, "stage"))
+        property("revision", getRevision())
+    }
+
+    processResources {
+        from(projectProps)
+    }
+}
+
 application {
     mainClass.set("tech.ixor.ApplicationKt")
 
