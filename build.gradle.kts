@@ -82,7 +82,7 @@ dependencies {
     implementation("io.ktor:ktor-server-core:$ktor_version")
     implementation("io.ktor:ktor-server-netty:$ktor_version")
     implementation("io.ktor:ktor-client-java:$ktor_version")
-    implementation("io.ktor:ktor-html-builder::$ktor_version")
+    implementation("io.ktor:ktor-html-builder:$ktor_version")
     // Logback
     implementation("ch.qos.logback:logback-classic:$logback_version")
 
