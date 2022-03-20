@@ -58,6 +58,7 @@ tasks {
 
     processResources {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        exclude("conf/config.yaml")
         from(projectProps)
     }
 }
