@@ -1,8 +1,10 @@
 package tech.ixor.entity
 
+import java.io.File
 import kotlin.io.path.Path
 
 import com.sksamuel.hoplite.ConfigLoader
+import tech.ixor.utils.FileDownloader
 
 class ConfigEntity {
     data class Ktor(val host: String, val port: Int)
@@ -19,6 +21,13 @@ class ConfigEntity {
     fun loadConfig(): Config {
         val pwd = System.getProperty("user.dir")
         val confFile = "$pwd/conf/config.yaml"
+        if (!File(confFile).exists()) {
+            val fileDownloader = FileDownloader()
+            fileDownloader.downloadFile(
+                "https://cdn.jsdelivr.net/gh/iXORTech/RemoteMC-Core/src/main/resources/conf/config.yaml",
+                confFile
+            )
+        }
         return ConfigLoader().loadConfigOrThrow(Path(confFile))
     }
 }

@@ -1,3 +1,6 @@
+# Test Configuration:
+/conf
+
 # Generate when building/running
 /src/main/resources/version.properties
 
