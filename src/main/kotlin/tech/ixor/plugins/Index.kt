@@ -33,6 +33,14 @@ class Index constructor(private val version: String) {
             hr {}
 
             p {
+                a(href = "https://github.com/iXORTech/RemoteMC-Core/issues") {
+                    +"Report a Bug"
+                }
+            }
+
+            hr {}
+
+            p {
                 + "Powered by "
                 a(href = "https://ixor.tech") { +"iXOR Technology" }
                 + " with 💗."
