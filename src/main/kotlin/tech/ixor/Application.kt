@@ -8,7 +8,7 @@ import tech.ixor.utils.*
 
 fun main() {
     println("Starting RemoteMC-Core...\n")
-    println("${VersionUtil.getVersion()}\n")
+    println("Version ${VersionUtil.getVersion()}\n")
 
     val config = ConfigEntity().loadConfig()
 
