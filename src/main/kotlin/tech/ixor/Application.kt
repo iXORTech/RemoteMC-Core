@@ -8,7 +8,15 @@ import tech.ixor.utils.*
 
 fun main() {
     println("Starting RemoteMC-Core...\n")
-    println("Version ${VersionUtil.getVersion()}\n")
+
+    val version = VersionUtil.getVersion()
+    println("Version $version")
+    if (version.contains("dev") || version.contains("alpha") || version.contains("beta")) {
+        println("THIS IS IN EXPERIMENTAL STAGE, DO NOT USE IN PRODUCTION ENVIRONMENT!")
+    } else if (version.contains("rc")) {
+        println("THIS IS A RELEASE CANDIDATE, DO NOT USE IN PRODUCTION ENVIRONMENT!")
+    }
+    println()
 
     val config = ConfigEntity().loadConfig()
 
