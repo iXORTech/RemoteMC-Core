@@ -2,6 +2,7 @@ package tech.ixor.plugins
 
 import kotlinx.html.*
 import tech.ixor.entity.ConfigEntity
+import tech.ixor.entity.MinecraftServers
 
 class Status(private val config: ConfigEntity.Config) {
     val status: HTML.() -> Unit = {
@@ -14,19 +15,23 @@ class Status(private val config: ConfigEntity.Config) {
             h3 {
                 + "Connections:"
             }
+
             h4 {
                 + "Minecraft Servers"
             }
+            h5 {
+                + "Online: "
+            }
             ol {
-                var gotDefault = false
-                for (minecraftServer in config.minecraftServers) {
+                val onlineServers = MinecraftServers.getOnlineServers()
+                for (minecraftServer in onlineServers) {
                     li {
                         b {
                             +minecraftServer.serverName
                         }
                         +" - ${minecraftServer.host} : ${minecraftServer.port}"
-                        if (minecraftServer.default && !gotDefault) {
-                            gotDefault = true
+                        if (minecraftServer.default &&
+                            MinecraftServers.getDefaultServer()?.equals(minecraftServer) == true) {
                             i {
                                 +" (default)"
                             }
@@ -34,6 +39,21 @@ class Status(private val config: ConfigEntity.Config) {
                     }
                 }
             }
+            h5 {
+                + "Offline: "
+            }
+            ol {
+                val offlineServers = MinecraftServers.getOfflineServers()
+                for (minecraftServer in offlineServers) {
+                    li {
+                        b {
+                            +minecraftServer.serverName
+                        }
+                        +" - ${minecraftServer.host} : ${minecraftServer.port}"
+                    }
+                }
+            }
+
             h4 {
                 + "QQ Chat Bots"
             }
