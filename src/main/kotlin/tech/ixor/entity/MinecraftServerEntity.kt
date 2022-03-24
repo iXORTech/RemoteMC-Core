@@ -1,6 +1,6 @@
 package tech.ixor.entity
 
-class MinecraftServerEntity constructor(val serverName: String, val host: String, val port: Int) {
+class MinecraftServerEntity constructor(val serverName: String, val host: String, val port: Int, default: Boolean) {
     var isOnline: Boolean = false
 }
 
@@ -11,8 +11,8 @@ object MinecraftServers {
         servers.add(server)
     }
 
-    fun addServer(serverName: String, host: String, port: Int) {
-        servers.add(MinecraftServerEntity(serverName, host, port))
+    fun addServer(serverName: String, host: String, port: Int, default: Boolean) {
+        servers.add(MinecraftServerEntity(serverName, host, port, default))
     }
 
     fun getServerByName(serverName: String): MinecraftServerEntity? {
