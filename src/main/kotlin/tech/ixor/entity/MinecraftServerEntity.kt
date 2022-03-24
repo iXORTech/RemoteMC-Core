@@ -1,6 +1,6 @@
 package tech.ixor.entity
 
-class MinecraftServerEntity constructor(val serverName: String, val host: String, val port: Int, default: Boolean) {
+class MinecraftServerEntity constructor(val serverName: String, val host: String, val port: Int, val default: Boolean) {
     var isOnline: Boolean = false
 }
 
@@ -26,4 +26,9 @@ object MinecraftServers {
     fun getServer(host: String, port: Int): MinecraftServerEntity? {
         return servers.find { it.host == host && it.port == port }
     }
+
+    fun getDefaultServer(): MinecraftServerEntity? {
+        return servers.find { it.isOnline && it.default }
+    }
+
 }
