@@ -31,4 +31,12 @@ object MinecraftServers {
         return servers.find { it.isOnline && it.default }
     }
 
+    fun getOnlineServers(): List<MinecraftServerEntity> {
+        return servers.filter { it.isOnline }
+    }
+
+    fun getOfflineServers(): List<MinecraftServerEntity> {
+        return servers.filter { !it.isOnline }
+    }
+
 }
