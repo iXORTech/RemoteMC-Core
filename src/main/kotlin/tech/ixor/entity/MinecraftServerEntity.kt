@@ -19,11 +19,11 @@ object MinecraftServers {
         servers.add(MinecraftServerEntity(serverName, host, port, default))
     }
 
-    fun getServerByName(serverName: String): MinecraftServerEntity? {
+    fun getServer(serverName: String): MinecraftServerEntity? {
         return servers.find { it.serverName == serverName }
     }
 
-    fun getServerByAddress(host: String, port: Int): MinecraftServerEntity? {
+    fun getServer(host: String, port: Int): MinecraftServerEntity? {
         return servers.find { it.host == host && it.port == port }
     }
 }
