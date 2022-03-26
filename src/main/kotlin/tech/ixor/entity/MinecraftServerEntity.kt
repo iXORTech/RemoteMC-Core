@@ -54,6 +54,10 @@ object MinecraftServers {
         servers.add(MinecraftServerEntity(serverName, host, port, ssl, default))
     }
 
+    fun getAllServers(): List<MinecraftServerEntity> {
+        return servers
+    }
+
     fun getServer(serverName: String): MinecraftServerEntity? {
         return servers.find { it.serverName == serverName }
     }
