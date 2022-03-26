@@ -16,6 +16,10 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
 
     var isOnline: Boolean = false
 
+    fun switchOnline() {
+        isOnline = !isOnline
+    }
+
     suspend fun ping(): Int {
         val url = if (ssl) "https://$host:$port/ping" else "http://$host:$port/ping"
         val client = HttpClient(CIO)
