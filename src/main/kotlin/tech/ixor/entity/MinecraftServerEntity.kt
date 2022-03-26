@@ -1,7 +1,37 @@
 package tech.ixor.entity
 
+import com.beust.klaxon.Json
+import com.beust.klaxon.Klaxon
+import io.ktor.client.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.request.*
+import io.ktor.http.*
+
 class MinecraftServerEntity constructor(val serverName: String, val host: String, val port: Int, val ssl: Boolean, val default: Boolean) {
+    class HTTPResponse(
+        @Json(name = "status_code")
+        val status: Int,
+        val message: String
+    )
+
     var isOnline: Boolean = false
+
+    suspend fun ping(): Int {
+        val url = if (ssl) "https://$host:$port/ping" else "http://$host:$port/ping"
+        val client = HttpClient(CIO)
+        val response = Klaxon().parse<HTTPResponse>(
+            client.get<String>(url) {
+                method = HttpMethod.Get
+            }.toString()
+        )
+
+        if (response != null) {
+            return response.status
+        } else {
+            return 502
+        }
+
+    }
 
 }
 
