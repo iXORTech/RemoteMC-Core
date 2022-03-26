@@ -2,6 +2,7 @@ import java.io.ByteArrayOutputStream
 import java.io.FileInputStream
 import java.util.Properties
 
+val krontab_version: String by project
 val hoplite_version: String by project
 val ktor_version: String by project
 val kotlin_version: String by project
@@ -76,6 +77,8 @@ repositories {
 
 dependencies {
     // Dependencies
+    // Scheduled Jobs
+    implementation("dev.inmo:krontab:$krontab_version")
     // Config Loader
     implementation("com.sksamuel.hoplite:hoplite-core:$hoplite_version")
     implementation("com.sksamuel.hoplite:hoplite-yaml:$hoplite_version")
