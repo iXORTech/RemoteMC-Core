@@ -6,6 +6,7 @@ import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
 import io.ktor.http.*
+import kotlinx.coroutines.runBlocking
 
 class MinecraftServerEntity constructor(val serverName: String, val host: String, val port: Int, val ssl: Boolean, val default: Boolean) {
     class HTTPResponse(
@@ -16,8 +17,11 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
 
     var isOnline: Boolean = false
 
-    fun switchOnline() {
-        isOnline = !isOnline
+    fun updateOnlineStatus() {
+        val online = runBlocking { ping() } == 200
+        if (online != isOnline) {
+            isOnline = online
+        }
     }
 
     suspend fun ping(): Int {
