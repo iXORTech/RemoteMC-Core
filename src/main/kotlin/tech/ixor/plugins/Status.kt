@@ -3,9 +3,12 @@ package tech.ixor.plugins
 import kotlinx.html.*
 import tech.ixor.entity.ConfigEntity
 import tech.ixor.entity.MinecraftServers
+import tech.ixor.job.MinecraftServerAliveMonitor
 
 class Status(private val config: ConfigEntity.Config) {
     val status: HTML.() -> Unit = {
+        val minecraftServerAliveMonitor = MinecraftServerAliveMonitor()
+        minecraftServerAliveMonitor.forceUpdate()
         head {
             title { +"Status - RemoteMC-Core" }
         }
