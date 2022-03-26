@@ -9,11 +9,11 @@ import tech.ixor.utils.FileDownloader
 class ConfigEntity {
     data class Ktor(val host: String, val port: Int)
 
-    data class QQBot(val host: String, val port: Int)
+    data class QQBot(val host: String, val port: Int, val ssl: Boolean)
 
     data class QQGroups(val groupName: String, val groupCode: Long, val default: Boolean)
 
-    data class MinecraftServer(val serverName: String, val host: String, val port: Int, val default: Boolean)
+    data class MinecraftServer(val serverName: String, val host: String, val port: Int, val ssl: Boolean, val default: Boolean)
 
     data class Config(val key: String, val ktor: Ktor, val qqBot: QQBot,
                       val qqGroups: List<QQGroups>, val minecraftServers: List<MinecraftServer>)

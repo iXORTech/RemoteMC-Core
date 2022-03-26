@@ -7,6 +7,7 @@ ktor:
 qqBot:
   host: "127.0.0.1"
   port: 65361
+  ssl: false
 
 qqGroups:
   - groupName: "Group Name 0"
@@ -20,8 +21,10 @@ minecraftServers:
   - serverName: "Server Name 0"
     host: "127.0.0.1"
     port: 65362
+    ssl: false
     default: false
   - serverName: "Server Name 1"
     host: "127.0.0.1"
     port: 65363
+    ssl: false
     default: true
