@@ -9,6 +9,7 @@ import tech.ixor.entity.MinecraftServers
 
 class MinecraftServerAliveMonitor() {
     fun start() {
+        forceUpdate()
         val servers = MinecraftServers.getAllServers()
         GlobalScope.launch {
             doInfinity("0 /5 * * *") {
