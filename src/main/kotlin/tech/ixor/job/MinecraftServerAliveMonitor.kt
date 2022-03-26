@@ -19,4 +19,11 @@ class MinecraftServerAliveMonitor() {
         }
     }
 
+    fun forceUpdate() {
+        val servers = MinecraftServers.getAllServers()
+        for (server in servers) {
+            server.updateOnlineStatus()
+        }
+    }
+
 }
