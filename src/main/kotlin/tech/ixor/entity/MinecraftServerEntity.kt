@@ -7,6 +7,7 @@ import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.coroutines.runBlocking
+import java.net.ConnectException
 
 class MinecraftServerEntity constructor(val serverName: String, val host: String, val port: Int, val ssl: Boolean, val default: Boolean) {
     class HTTPResponse(
@@ -18,7 +19,7 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
     var isOnline: Boolean = false
 
     fun updateOnlineStatus() {
-        val online = runBlocking { ping() } == 200
+        val online = runBlocking { ping() == 200 }
         if (online != isOnline) {
             isOnline = online
         }
@@ -28,16 +29,16 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
         val url = if (ssl) "https://$host:$port/ping" else "http://$host:$port/ping"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
-            client.get<String>(url) {
-                method = HttpMethod.Get
-            }.toString()
+            try {
+                client.get<String>(url) {
+                    method = HttpMethod.Get
+                }.toString()
+            } catch (e: ConnectException) {
+                return 502
+            }
         )
 
-        if (response != null) {
-            return response.status
-        } else {
-            return 502
-        }
+        return response?.status ?: 502
 
     }
 
