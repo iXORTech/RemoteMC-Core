@@ -4,6 +4,7 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import tech.ixor.entity.ConfigEntity
 import tech.ixor.entity.MinecraftServers
+import tech.ixor.job.MinecraftServerAliveMonitor
 import tech.ixor.plugins.*
 import tech.ixor.utils.*
 
@@ -12,6 +13,8 @@ fun loadMinecraftServers(config: ConfigEntity.Config) {
     for (server in config.minecraftServers) {
         minecraftServers.addServer(server)
     }
+    val minecraftServerAliveMonitor = MinecraftServerAliveMonitor()
+    minecraftServerAliveMonitor.start()
 }
 
 fun main() {
