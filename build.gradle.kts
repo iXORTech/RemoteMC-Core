@@ -2,6 +2,7 @@ import java.io.ByteArrayOutputStream
 import java.io.FileInputStream
 import java.util.Properties
 
+val klaxon_version: String by project
 val krontab_version: String by project
 val hoplite_version: String by project
 val ktor_version: String by project
@@ -77,6 +78,8 @@ repositories {
 
 dependencies {
     // Dependencies
+    // JSON Parser
+    implementation("com.beust:klaxon:$klaxon_version")
     // Scheduled Jobs
     implementation("dev.inmo:krontab:$krontab_version")
     // Config Loader
