@@ -53,6 +53,22 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
 
     }
 
+    suspend fun status(): String {
+        val url = getUrl() + "/api/v1/mcserver/status"
+        val client = HttpClient(CIO)
+        val response = Klaxon().parse<HTTPResponse>(
+            try {
+                client.get<String>(url) {
+                    method = HttpMethod.Get
+                }.toString()
+            } catch (e: ConnectException) {
+                return "Server is offline"
+            }
+        )
+
+        return response?.message ?: "Server is offline"
+    }
+
     suspend fun executeCommand(command: String): String {
         val url = getUrl() + "/api/v1/mcserver/execute_command"
         val client = HttpClient(CIO)
