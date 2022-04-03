@@ -13,7 +13,8 @@ class ConfigEntity {
 
     data class QQGroups(val groupName: String, val groupCode: Long, val default: Boolean)
 
-    data class MinecraftServer(val serverName: String, val host: String, val port: Int, val ssl: Boolean, val default: Boolean)
+    data class MinecraftServer(val serverName: String, val host: String, val port: Int,
+                               val ssl: Boolean, val authKey: String, val default: Boolean)
 
     data class Config(val key: String, val ktor: Ktor, val qqBot: QQBot,
                       val qqGroups: List<QQGroups>, val minecraftServers: List<MinecraftServer>)
