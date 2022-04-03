@@ -10,12 +10,14 @@ import kotlinx.coroutines.runBlocking
 import java.net.ConnectException
 
 class MinecraftServerEntity constructor(val serverName: String, val host: String, val port: Int,
-                                        val ssl: Boolean, private val authKey: String, val default: Boolean) {
+                                        val ssl: Boolean, val default: Boolean) {
     class HTTPResponse(
         @Json(name = "status_code")
         val status: Int,
         val message: String
     )
+
+    private val authKey = ConfigEntity().loadConfig().authKey
 
     var isOnline: Boolean = false
 
@@ -97,11 +99,11 @@ object MinecraftServers {
     }
 
     fun addServer(server: ConfigEntity.MinecraftServer) {
-        servers.add(MinecraftServerEntity(server.serverName, server.host, server.port, server.ssl, server.authKey, server.default))
+        servers.add(MinecraftServerEntity(server.serverName, server.host, server.port, server.ssl, server.default))
     }
 
-    fun addServer(serverName: String, host: String, port: Int, ssl: Boolean, authKey: String, default: Boolean) {
-        servers.add(MinecraftServerEntity(serverName, host, port, ssl, authKey, default))
+    fun addServer(serverName: String, host: String, port: Int, ssl: Boolean, default: Boolean) {
+        servers.add(MinecraftServerEntity(serverName, host, port, ssl, default))
     }
 
     fun getAllServers(): List<MinecraftServerEntity> {

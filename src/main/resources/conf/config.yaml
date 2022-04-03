@@ -1,4 +1,4 @@
-key: YouShouldChangeThis
+authKey: YouShouldChangeThis
 
 ktor:
   host: "127.0.0.1"
@@ -22,11 +22,9 @@ minecraftServers:
     host: "127.0.0.1"
     port: 65362
     ssl: false
-    authKey: "YouShouldChangeThis"
     default: false
   - serverName: "Server Name 1"
     host: "127.0.0.1"
     port: 65363
     ssl: false
-    authKey: "YouShouldChangeThis"
     default: true
