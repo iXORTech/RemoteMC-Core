@@ -51,6 +51,42 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
 
     }
 
+    suspend fun executeCommand(command: String): String {
+        val url = getUrl() + "/api/v1/mcserver/execute_command"
+        val client = HttpClient(CIO)
+        val response = Klaxon().parse<HTTPResponse>(
+            try {
+                client.post<String>(url) {
+                    contentType(ContentType.Application.Json)
+                    body = Klaxon().toJsonString(
+                        mapOf(
+                            "auth_key" to authKey,
+                            "command" to command
+                        )
+                    )
+                }.toString()
+            } catch (e: ConnectException) {
+                return "Server is offline"
+            }
+        )
+
+        val status = response?.status ?: 502
+        return if (status == 200) {
+            val message = response?.message ?: "OK"
+            if (message == "OK") {
+                "Command executed successfully!"
+            } else {
+                message
+            }
+        } else if (status == 401) {
+            "Invalid auth key"
+        } else if (status == 502) {
+            "Server is offline"
+        } else {
+            "Unknown error"
+        }
+    }
+
 }
 
 object MinecraftServers {
