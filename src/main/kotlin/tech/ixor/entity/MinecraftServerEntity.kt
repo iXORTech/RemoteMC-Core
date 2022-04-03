@@ -18,6 +18,14 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
 
     var isOnline: Boolean = false
 
+    private fun getUrl(): String {
+        return if (ssl) {
+            "https://$host:$port"
+        } else {
+            "http://$host:$port"
+        }
+    }
+
     fun updateOnlineStatus() {
         val online = runBlocking { ping() == 200 }
         if (online != isOnline) {
@@ -26,7 +34,7 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
     }
 
     suspend fun ping(): Int {
-        val url = if (ssl) "https://$host:$port/ping" else "http://$host:$port/ping"
+        val url = getUrl() + "/ping"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
             try {
