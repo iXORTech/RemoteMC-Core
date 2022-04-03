@@ -183,7 +183,7 @@ object MinecraftServers {
     }
 
     fun getDefaultServer(): MinecraftServerEntity? {
-        return servers.find { it.isOnline && it.default }
+        return servers.find { it.default }
     }
 
     fun getOnlineServers(): List<MinecraftServerEntity> {
