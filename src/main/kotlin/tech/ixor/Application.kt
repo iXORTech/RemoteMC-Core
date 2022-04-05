@@ -1,5 +1,8 @@
 package tech.ixor
 
+import io.ktor.application.*
+import io.ktor.features.*
+import io.ktor.gson.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import tech.ixor.entity.ConfigEntity
@@ -33,6 +36,13 @@ fun main() {
     loadMinecraftServers(config)
 
     embeddedServer(Netty, port = config.ktor.port, host = config.ktor.host) {
+        install(ContentNegotiation) {
+            gson {
+                setPrettyPrinting()
+                disableHtmlEscaping()
+            }
+        }
+
         registerWebRoutes()
     }.start(wait = true)
 }
