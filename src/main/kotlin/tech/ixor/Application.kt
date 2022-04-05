@@ -5,7 +5,7 @@ import io.ktor.server.netty.*
 import tech.ixor.entity.ConfigEntity
 import tech.ixor.entity.MinecraftServers
 import tech.ixor.job.MinecraftServerAliveMonitor
-import tech.ixor.plugins.*
+import tech.ixor.routes.web.registerWebRoutes
 import tech.ixor.utils.*
 
 fun loadMinecraftServers(config: ConfigEntity.Config) {
@@ -33,6 +33,6 @@ fun main() {
     loadMinecraftServers(config)
 
     embeddedServer(Netty, port = config.ktor.port, host = config.ktor.host) {
-        configureRouting()
+        registerWebRoutes()
     }.start(wait = true)
 }
