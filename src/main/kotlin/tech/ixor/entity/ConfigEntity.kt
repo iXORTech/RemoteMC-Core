@@ -1,7 +1,6 @@
 package tech.ixor.entity
 
 import java.io.File
-import kotlin.io.path.Path
 
 import com.sksamuel.hoplite.ConfigLoader
 import tech.ixor.utils.FileDownloader
@@ -29,6 +28,6 @@ class ConfigEntity {
                 confFile
             )
         }
-        return ConfigLoader().loadConfigOrThrow(Path(confFile))
+        return ConfigLoader().loadConfigOrThrow(confFile)
     }
 }
