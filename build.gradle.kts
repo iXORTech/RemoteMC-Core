@@ -51,6 +51,12 @@ group = "tech.ixor"
 version = getVersion() + "-" + getStage() + "+" + getRevision()
 
 tasks {
+    compileKotlin {
+        kotlinOptions {
+            jvmTarget = "11"
+        }
+    }
+
     val projectProps by registering(WriteProperties::class) {
         outputFile = file("${projectDir}/src/main/resources/version.properties")
         encoding = "UTF-8"
