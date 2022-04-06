@@ -2,6 +2,7 @@ import java.io.ByteArrayOutputStream
 import java.io.FileInputStream
 import java.util.Properties
 
+val i18n4k_version: String by project
 val klaxon_version: String by project
 val krontab_version: String by project
 val hoplite_version: String by project
@@ -78,6 +79,8 @@ repositories {
 
 dependencies {
     // Dependencies
+    // i18n
+    implementation("de.comahe.i18n4k:i18n4k-core-jvm:$i18n4k_version")
     // JSON Parser
     implementation("com.beust:klaxon:$klaxon_version")
     // Scheduled Jobs
