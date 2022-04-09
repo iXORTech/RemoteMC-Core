@@ -8,3 +8,7 @@ data class MCServerSayRequest(
     val host: String, val port: Int, val authKey: String,
     val source: String, val sender: String, val message: String
 )
+
+data class MCServerBroadcastRequest(
+    val host: String, val port: Int, val authKey: String, val message: String
+)
