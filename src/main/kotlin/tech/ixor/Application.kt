@@ -8,6 +8,7 @@ import io.ktor.server.netty.*
 import tech.ixor.entity.ConfigEntity
 import tech.ixor.entity.MinecraftServers
 import tech.ixor.job.MinecraftServerAliveMonitor
+import tech.ixor.routes.controller.mcserver.registerMCServerController
 import tech.ixor.routes.web.registerWebRoutes
 import tech.ixor.utils.*
 
@@ -44,5 +45,6 @@ fun main() {
         }
 
         registerWebRoutes()
+        registerMCServerController()
     }.start(wait = true)
 }
