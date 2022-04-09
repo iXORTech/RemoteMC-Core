@@ -6,5 +6,6 @@ import io.ktor.routing.*
 fun Application.registerMCServerController() {
     routing {
         mcServerStatus()
+        mcServerMessaging()
     }
 }
