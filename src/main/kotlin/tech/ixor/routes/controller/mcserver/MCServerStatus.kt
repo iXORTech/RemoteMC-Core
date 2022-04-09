@@ -1,6 +1,7 @@
 package tech.ixor.routes.controller.mcserver
 
 import io.ktor.application.*
+import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
@@ -16,7 +17,7 @@ fun Route.mcServerStatus() {
         if (minecraftServer != null) {
             call.respondText(minecraftServer.status())
         } else {
-            call.respondText("Server not found")
+            call.respondText("Server not found", status = HttpStatusCode.NotFound)
         }
     }
 }
