@@ -13,7 +13,7 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
                                         val ssl: Boolean, val default: Boolean) {
     class HTTPResponse(
         @Json(name = "status_code")
-        val status: Int,
+        val statusCode: Int,
         val message: String
     )
 
@@ -49,7 +49,7 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
             }
         )
 
-        return response?.status ?: 502
+        return response?.statusCode ?: 502
 
     }
 
@@ -88,7 +88,7 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
             }
         )
 
-        val status = response?.status ?: 502
+        val status = response?.statusCode ?: 502
         return if (status == 200) {
             val message = response?.message ?: "OK"
             if (message == "OK") {
@@ -126,7 +126,7 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
             }
         )
 
-        val status = response?.status ?: 502
+        val status = response?.statusCode ?: 502
         return if (status == 200) {
             "Message sent successfully!"
         } else if (status == 401) {
@@ -157,7 +157,7 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
             }
         )
 
-        val status = response?.status ?: 502
+        val status = response?.statusCode ?: 502
         return if (status == 200) {
             "Broadcast sent successfully!"
         } else if (status == 401) {
