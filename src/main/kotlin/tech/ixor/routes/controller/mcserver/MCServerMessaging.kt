@@ -15,7 +15,7 @@ fun Route.mcServerMessaging() {
     post("/mcserver/say") {
         val request = call.receive<MCServerSayRequest>()
         if (authKey != request.authKey) {
-            call.respondText("Auth key is not valid", status = HttpStatusCode.Forbidden)
+            call.respondText("Auth key (on your client) is not valid", status = HttpStatusCode.Forbidden)
             return@post
         }
 
@@ -26,8 +26,16 @@ fun Route.mcServerMessaging() {
             val source = request.source
             val sender = request.sender
             val message = request.message
-            minecraftServer.say(source, sender, message)
-            call.respondText("Message sent")
+            val mcServerResponse = minecraftServer.say(source, sender, message)
+            if (mcServerResponse.statusCode == 200) {
+                call.respondText("Message sent!", status = HttpStatusCode.OK)
+            } else if (mcServerResponse.statusCode == 401) {
+                call.respondText("Auth key (on RemoteMC-Core) is not valid", status = HttpStatusCode.Forbidden)
+            } else if (mcServerResponse.statusCode == 500 && mcServerResponse.message == "Server is offline") {
+                call.respondText("Target server offline", status = HttpStatusCode.InternalServerError)
+            } else {
+                call.respondText("Unknown error", status = HttpStatusCode.InternalServerError)
+            }
         } else {
             call.respondText("Server not found", status = HttpStatusCode.NotFound)
             return@post
@@ -37,7 +45,7 @@ fun Route.mcServerMessaging() {
     post("/mcserver/broadcast") {
         val request = call.receive<MCServerBroadcastRequest>()
         if (authKey != request.authKey) {
-            call.respondText("Auth key is not valid", status = HttpStatusCode.Forbidden)
+            call.respondText("Auth key (on your client) is not valid", status = HttpStatusCode.Forbidden)
             return@post
         }
 
@@ -46,11 +54,20 @@ fun Route.mcServerMessaging() {
         val minecraftServer: MinecraftServerEntity? = MinecraftServers.getServer(host, port)
         if (minecraftServer != null) {
             val message = request.message
-            minecraftServer.broadcast(message)
-            call.respondText("broadcast sent")
+            val mcServerResponse = minecraftServer.broadcast(message)
+            if (mcServerResponse.statusCode == 200) {
+                call.respondText("Broadcast sent!", status = HttpStatusCode.OK)
+            } else if (mcServerResponse.statusCode == 401) {
+                call.respondText("Auth key (on RemoteMC-Core) is not valid", status = HttpStatusCode.Forbidden)
+            } else if (mcServerResponse.statusCode == 500 && mcServerResponse.message == "Server is offline") {
+                call.respondText("Target server offline", status = HttpStatusCode.InternalServerError)
+            } else {
+                call.respondText("Unknown error", status = HttpStatusCode.InternalServerError)
+            }
         } else {
             call.respondText("Server not found", status = HttpStatusCode.NotFound)
             return@post
         }
     }
+
 }
