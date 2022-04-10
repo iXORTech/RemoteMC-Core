@@ -30,13 +30,13 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
     }
 
     fun updateOnlineStatus() {
-        val online = runBlocking { ping() == 200 }
+        val online = runBlocking { ping().statusCode == 200 }
         if (online != isOnline) {
             isOnline = online
         }
     }
 
-    suspend fun ping(): Int {
+    suspend fun ping(): ResponseEntity {
         val url = getUrl() + "/ping"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
@@ -45,15 +45,25 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
                     method = HttpMethod.Get
                 }.toString()
             } catch (e: ConnectException) {
-                return 502
+                return ResponseEntity(statusCode = 500, message = "Server is offline")
             }
         )
 
-        return response?.statusCode ?: 502
+        return if (response != null) {
+            if (response.statusCode == 200) {
+                ResponseEntity(statusCode = 200, message = "OK")
+            } else if (response.statusCode == 500) {
+                ResponseEntity(statusCode = 500, message = "Server is offline")
+            } else {
+                ResponseEntity(statusCode = 500, message = "Unknown error")
+            }
+        } else {
+            ResponseEntity(statusCode = 500, message = "Server is offline")
+        }
 
     }
 
-    suspend fun status(): String {
+    suspend fun status(): ResponseEntity {
         val url = getUrl() + "/api/v1/mcserver/status"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
@@ -62,14 +72,26 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
                     method = HttpMethod.Get
                 }.toString()
             } catch (e: ConnectException) {
-                return "Server is offline"
+                return ResponseEntity(statusCode = 500, message = "Server is offline")
             }
         )
 
-        return response?.message ?: "Server is offline"
+        return if (response != null) {
+            if (response.statusCode == 200) {
+                ResponseEntity(statusCode = 200, message = response.message)
+            } else if (response.statusCode == 401) {
+                ResponseEntity(statusCode = 401, message = "Unauthorized")
+            } else if (response.statusCode == 500) {
+                ResponseEntity(statusCode = 500, message = "Server is offline")
+            } else {
+                ResponseEntity(statusCode = 500, message = "Unknown error")
+            }
+        } else {
+            ResponseEntity(statusCode = 500, message = "Server is offline")
+        }
     }
 
-    suspend fun executeCommand(command: String): String {
+    suspend fun executeCommand(command: String): ResponseEntity {
         val url = getUrl() + "/api/v1/mcserver/execute_command"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
@@ -84,28 +106,31 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
                     )
                 }.toString()
             } catch (e: ConnectException) {
-                return "Server is offline"
+                return ResponseEntity(statusCode = 500, message = "Server is offline")
             }
         )
 
-        val status = response?.statusCode ?: 502
-        return if (status == 200) {
-            val message = response?.message ?: "OK"
-            if (message == "OK") {
-                "Command executed successfully!"
+        return if (response != null) {
+            if (response.statusCode == 200) {
+                val message = response.message
+                if (message == "OK") {
+                    ResponseEntity(statusCode = 200, message = "Command executed successfully!")
+                } else {
+                    ResponseEntity(statusCode = 200, message = message)
+                }
+            } else if (response.statusCode == 401) {
+                ResponseEntity(statusCode = 401, message = "Unauthorized")
+            } else if (response.statusCode == 500) {
+                ResponseEntity(statusCode = 500, message = "Server is offline")
             } else {
-                message
+                ResponseEntity(statusCode = 500, message = "Unknown error")
             }
-        } else if (status == 401) {
-            "Invalid auth key"
-        } else if (status == 502) {
-            "Server is offline"
         } else {
-            "Unknown error"
+            ResponseEntity(statusCode = 500, message = "Server is offline")
         }
     }
 
-    suspend fun say(source: String, sender: String, message: String): String {
+    suspend fun say(source: String, sender: String, message: String): ResponseEntity {
         val url = getUrl() + "/api/v1/mcserver/say"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
@@ -122,23 +147,26 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
                     )
                 }.toString()
             } catch (e: ConnectException) {
-                return "Server is offline"
+                return ResponseEntity(statusCode = 500, message = "Server is offline")
             }
         )
 
-        val status = response?.statusCode ?: 502
-        return if (status == 200) {
-            "Message sent successfully!"
-        } else if (status == 401) {
-            "Invalid auth key"
-        } else if (status == 502) {
-            "Server is offline"
+        return if (response != null) {
+            if (response.statusCode == 200) {
+                ResponseEntity(statusCode = 200, message = "Message sent successfully!")
+            } else if (response.statusCode == 401) {
+                ResponseEntity(statusCode = 401, message = "Unauthorized")
+            } else if (response.statusCode == 500) {
+                ResponseEntity(statusCode = 500, message = "Server is offline")
+            } else {
+                ResponseEntity(statusCode = 500, message = "Unknown error")
+            }
         } else {
-            "Unknown error"
+            ResponseEntity(statusCode = 500, message = "Server is offline")
         }
     }
 
-    suspend fun broadcast(message: String): String {
+    suspend fun broadcast(message: String): ResponseEntity {
         val url = getUrl() + "/api/v1/mcserver/broadcast"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
@@ -153,19 +181,22 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
                     )
                 }.toString()
             } catch (e: ConnectException) {
-                return "Server is offline"
+                return ResponseEntity(statusCode = 500, message = "Server is offline")
             }
         )
 
-        val status = response?.statusCode ?: 502
-        return if (status == 200) {
-            "Broadcast sent successfully!"
-        } else if (status == 401) {
-            "Invalid auth key"
-        } else if (status == 502) {
-            "Server is offline"
+        return if (response != null) {
+            if (response.statusCode == 200) {
+                ResponseEntity(statusCode = 200, message = "Broadcast sent successfully!")
+            } else if (response.statusCode == 401) {
+                ResponseEntity(statusCode = 401, message = "Unauthorized")
+            } else if (response.statusCode == 500) {
+                ResponseEntity(statusCode = 500, message = "Server is offline")
+            } else {
+                ResponseEntity(statusCode = 500, message = "Unknown error")
+            }
         } else {
-            "Unknown error"
+            ResponseEntity(statusCode = 500, message = "Server is offline")
         }
     }
 
