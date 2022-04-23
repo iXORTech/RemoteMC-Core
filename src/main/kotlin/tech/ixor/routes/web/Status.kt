@@ -7,6 +7,7 @@ import io.ktor.routing.*
 import kotlinx.html.*
 import tech.ixor.entity.ConfigEntity
 import tech.ixor.entity.MinecraftServers
+import tech.ixor.entity.QQBots
 import tech.ixor.job.MinecraftServerAliveMonitor
 
 fun Route.status() {
@@ -67,20 +68,38 @@ fun Route.status() {
                 h4 {
                     +"QQ Chat Bots"
                 }
+                h5 {
+                    +"Online: "
+                }
                 ol {
-                    b {
-                        +"${config.qqBot.host}:${config.qqBot.port}"
-                    }
-                    var gotDefault = false
-                    for (qqGroup in config.qqGroups) {
+                    val onlineBots = QQBots.getOnlineBots()
+                    for (qqBot in onlineBots) {
                         li {
-                            +" - ${qqGroup.groupName} (@${qqGroup.groupCode})"
-                            if (qqGroup.default && !gotDefault) {
-                                gotDefault = true
+                            b {
+                                +"${qqBot.host} : ${qqBot.port}"
+                            }
+                            +" - ${qqBot.groupName} (${qqBot.groupCode})"
+                            if (qqBot.default &&
+                               QQBots.getDefaultBot()?.equals(qqBot) == true
+                            ) {
                                 i {
                                     +" (default)"
                                 }
                             }
+                        }
+                    }
+                }
+                h5 {
+                    +"Offline: "
+                }
+                ol {
+                    val offlineBots = QQBots.getOfflineBots()
+                    for (qqBot in offlineBots) {
+                        li {
+                            b {
+                                +"${qqBot.host} : ${qqBot.port}"
+                            }
+                            +" - ${qqBot.groupName} (${qqBot.groupCode})"
                         }
                     }
                 }
