@@ -39,12 +39,12 @@ object QQBots {
         return qqBots.find { it.default }
     }
 
-    fun getOnlineBots(): QQBotEntity? {
-        return qqBots.find { it.isOnline }
+    fun getOnlineBots(): List<QQBotEntity> {
+        return qqBots.filter { it.isOnline }
     }
 
-    fun getOfflineBots(): QQBotEntity? {
-        return qqBots.find { !it.isOnline }
+    fun getOfflineBots(): List<QQBotEntity> {
+        return qqBots.filter { !it.isOnline }
     }
 
 }
