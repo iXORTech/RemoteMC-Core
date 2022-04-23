@@ -1,19 +1,20 @@
-authKey: YouShouldChangeThis
+authKey: you_should_change_this
 
 ktor:
   host: "127.0.0.1"
   port: 65360
 
 qqBot:
-  host: "127.0.0.1"
-  port: 65361
-  ssl: false
-
-qqGroups:
-  - groupName: "Group Name 0"
+  - host: "127.0.0.1"
+    port: 65361
+    ssl: true
+    groupName: "Group Name 0"
     groupCode: 3692432137
     default: true
-  - groupName: "Group Name 1"
+  - host: "127.0.0.1"
+    port: 65361
+    ssl: false
+    groupName: "Group Name 1"
     groupCode: 3842465973
     default: false
 
@@ -22,9 +23,9 @@ minecraftServers:
     host: "127.0.0.1"
     port: 65362
     ssl: false
-    default: false
+    default: true
   - serverName: "Server Name 1"
     host: "127.0.0.1"
     port: 65363
     ssl: false
-    default: true
+    default: false
