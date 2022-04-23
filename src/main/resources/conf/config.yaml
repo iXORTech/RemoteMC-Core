@@ -4,7 +4,7 @@ ktor:
   host: "127.0.0.1"
   port: 65360
 
-qqBot:
+qqBots:
   - host: "127.0.0.1"
     port: 65361
     ssl: true
