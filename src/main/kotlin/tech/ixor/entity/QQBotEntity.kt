@@ -36,7 +36,12 @@ object QQBots {
     }
 
     fun getDefaultBot(): QQBotEntity? {
-        return qqBots.find { it.default }
+        for (bot in qqBots) {
+            if (bot.default && bot.isOnline) {
+                return bot
+            }
+        }
+        return null
     }
 
     fun getOnlineBots(): List<QQBotEntity> {
