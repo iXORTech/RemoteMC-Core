@@ -7,6 +7,7 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import tech.ixor.entity.ConfigEntity
 import tech.ixor.entity.MinecraftServers
+import tech.ixor.entity.QQBots
 import tech.ixor.job.MinecraftServerAliveMonitor
 import tech.ixor.routes.controller.mcserver.registerMCServerController
 import tech.ixor.routes.web.registerWebRoutes
@@ -19,6 +20,13 @@ fun loadMinecraftServers(config: ConfigEntity.Config) {
     }
     val minecraftServerAliveMonitor = MinecraftServerAliveMonitor()
     minecraftServerAliveMonitor.start()
+}
+
+fun loadQQBots(config: ConfigEntity.Config) {
+    val qqBots = QQBots
+    for (bot in config.qqBots) {
+        qqBots.addBot(bot)
+    }
 }
 
 fun main() {
@@ -35,6 +43,7 @@ fun main() {
 
     val config = ConfigEntity().loadConfig()
     loadMinecraftServers(config)
+    loadQQBots(config)
 
     embeddedServer(Netty, port = config.ktor.port, host = config.ktor.host) {
         install(ContentNegotiation) {
