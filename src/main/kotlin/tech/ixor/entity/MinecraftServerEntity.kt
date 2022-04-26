@@ -60,7 +60,6 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
         } else {
             ResponseEntity(statusCode = 500, message = "Server is offline")
         }
-
     }
 
     suspend fun status(): ResponseEntity {
