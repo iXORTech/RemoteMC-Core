@@ -6,6 +6,7 @@ import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
 import io.ktor.http.*
+import kotlinx.coroutines.runBlocking
 import java.net.ConnectException
 
 class QQBotEntity constructor(val host: String, val port: Int, val ssl: Boolean,
@@ -25,6 +26,13 @@ class QQBotEntity constructor(val host: String, val port: Int, val ssl: Boolean,
             "https://$host:$port"
         } else {
             "http://$host:$port"
+        }
+    }
+
+    fun updateOnlineStatus() {
+        val online = runBlocking { ping().statusCode == 200 }
+        if (online != isOnline) {
+            isOnline = online
         }
     }
 
