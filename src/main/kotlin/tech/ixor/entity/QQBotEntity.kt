@@ -1,10 +1,26 @@
 package tech.ixor.entity
 
+import com.beust.klaxon.Json
+
 class QQBotEntity constructor(val host: String, val port: Int, val ssl: Boolean,
                               val groupName: String, val groupCode: Long, val default: Boolean) {
+    class HTTPResponse(
+        @Json(name = "status_code")
+        val statusCode: Int,
+        val message: String
+    )
+
     private val authKey = ConfigEntity().loadConfig().authKey
 
     var isOnline: Boolean = false
+
+    private fun getUrl(): String {
+        return if (ssl) {
+            "https://$host:$port"
+        } else {
+            "http://$host:$port"
+        }
+    }
 
 }
 
