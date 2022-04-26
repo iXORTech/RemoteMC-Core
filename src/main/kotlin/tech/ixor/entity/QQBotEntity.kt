@@ -1,6 +1,12 @@
 package tech.ixor.entity
 
 import com.beust.klaxon.Json
+import com.beust.klaxon.Klaxon
+import io.ktor.client.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.request.*
+import io.ktor.http.*
+import java.net.ConnectException
 
 class QQBotEntity constructor(val host: String, val port: Int, val ssl: Boolean,
                               val groupName: String, val groupCode: Long, val default: Boolean) {
@@ -19,6 +25,32 @@ class QQBotEntity constructor(val host: String, val port: Int, val ssl: Boolean,
             "https://$host:$port"
         } else {
             "http://$host:$port"
+        }
+    }
+
+    suspend fun ping(): ResponseEntity {
+        val url = getUrl() + "/ping"
+        val client = HttpClient(CIO)
+        val response = Klaxon().parse<QQBotEntity.HTTPResponse>(
+            try {
+                client.get<String>(url) {
+                    method = HttpMethod.Get
+                }.toString()
+            } catch (e: ConnectException) {
+                return ResponseEntity(statusCode = 500, message = "The chat bot is offline")
+            }
+        )
+
+        return if (response != null) {
+            if (response.statusCode == 200) {
+                ResponseEntity(statusCode = 200, message = "OK")
+            } else if (response.statusCode == 500) {
+                ResponseEntity(statusCode = 500, message = "The chat bot is offline")
+            } else {
+                ResponseEntity(statusCode = 500, message = "Unknown error")
+            }
+        } else {
+            ResponseEntity(statusCode = 500, message = "The chat bot is offline")
         }
     }
 
