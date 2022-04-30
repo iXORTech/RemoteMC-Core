@@ -87,10 +87,6 @@ object QQBots {
         return qqBots.find { it.groupCode == groupCode }
     }
 
-    fun getBot(host: String, port: Int): QQBotEntity? {
-        return qqBots.find { it.host == host && it.port == port }
-    }
-
     fun getDefaultBot(): QQBotEntity? {
         for (bot in qqBots) {
             if (bot.default && bot.isOnline) {
