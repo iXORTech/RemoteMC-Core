@@ -62,6 +62,36 @@ class QQBotEntity constructor(val host: String, val port: Int, val ssl: Boolean,
         }
     }
 
+    suspend fun sendMessage(source: String, sender: String, message: String): ResponseEntity {
+        var url = getUrl() + "/groupMessage?group=$groupCode&source=$source&sender=$sender&message=$message"
+        val client = HttpClient(CIO)
+        val response = Klaxon().parse<QQBotEntity.HTTPResponse>(
+            try {
+                client.get<String>(url) {
+                    method = HttpMethod.Get
+                }.toString()
+            } catch (e: ConnectException) {
+                return ResponseEntity(statusCode = 500, message = "The chat bot is offline")
+            }
+        )
+
+        return if (response != null) {
+            if (response.statusCode == 200) {
+                ResponseEntity(statusCode = 200, message = "OK")
+            } else if (response.statusCode == 500) {
+                if (response.message == "Error: Group Not Found!") {
+                    ResponseEntity(statusCode = 500, message = "Group Not Found!")
+                } else {
+                    ResponseEntity(statusCode = 500, message = "The chat bot is offline")
+                }
+            } else {
+                ResponseEntity(statusCode = 500, message = "Unknown error")
+            }
+        } else {
+            ResponseEntity(statusCode = 500, message = "The chat bot is offline")
+        }
+    }
+
 }
 
 object QQBots {
