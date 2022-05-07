@@ -9,6 +9,7 @@ import tech.ixor.entity.ConfigEntity
 import tech.ixor.entity.MinecraftServers
 import tech.ixor.entity.QQBots
 import tech.ixor.job.MinecraftServerAliveMonitor
+import tech.ixor.job.QQBotAliveMonitor
 import tech.ixor.routes.controller.mcserver.registerMCServerController
 import tech.ixor.routes.web.registerWebRoutes
 import tech.ixor.utils.*
@@ -27,6 +28,8 @@ fun loadQQBots(config: ConfigEntity.Config) {
     for (bot in config.qqBots) {
         qqBots.addBot(bot)
     }
+    val qqBotAliveMonitor = QQBotAliveMonitor()
+    qqBotAliveMonitor.start()
 }
 
 fun main() {
