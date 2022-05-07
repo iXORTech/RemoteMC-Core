@@ -16,8 +16,8 @@ import tech.ixor.utils.*
 
 fun loadMinecraftServers(config: ConfigEntity.Config) {
     val minecraftServers = MinecraftServers
-    for (server in config.minecraftServers) {
-        minecraftServers.addServer(server)
+    config.minecraftServers.forEach {
+        minecraftServers.addServer(it)
     }
     val minecraftServerAliveMonitor = MinecraftServerAliveMonitor()
     minecraftServerAliveMonitor.start()
@@ -25,8 +25,8 @@ fun loadMinecraftServers(config: ConfigEntity.Config) {
 
 fun loadQQBots(config: ConfigEntity.Config) {
     val qqBots = QQBots
-    for (bot in config.qqBots) {
-        qqBots.addBot(bot)
+    config.qqBots.forEach {
+        qqBots.addBot(it)
     }
     val qqBotAliveMonitor = QQBotAliveMonitor()
     qqBotAliveMonitor.start()
