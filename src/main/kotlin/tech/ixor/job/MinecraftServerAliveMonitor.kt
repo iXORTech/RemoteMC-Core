@@ -13,8 +13,8 @@ class MinecraftServerAliveMonitor() {
         val servers = MinecraftServers.getAllServers()
         GlobalScope.launch {
             doInfinity("0 /5 * * *") {
-                for (server in servers) {
-                    server.updateOnlineStatus()
+                servers.forEach {
+                    it.updateOnlineStatus()
                 }
             }
         }
@@ -22,8 +22,8 @@ class MinecraftServerAliveMonitor() {
 
     fun forceUpdate() {
         val servers = MinecraftServers.getAllServers()
-        for (server in servers) {
-            server.updateOnlineStatus()
+        servers.forEach {
+            it.updateOnlineStatus()
         }
     }
 
