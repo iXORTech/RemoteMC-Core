@@ -39,7 +39,7 @@ class QQBotEntity constructor(val host: String, val port: Int, val ssl: Boolean,
     suspend fun ping(): ResponseEntity {
         val url = getUrl() + "/ping"
         val client = HttpClient(CIO)
-        val response = Klaxon().parse<QQBotEntity.HTTPResponse>(
+        val response = Klaxon().parse<HTTPResponse>(
             try {
                 client.get<String>(url) {
                     method = HttpMethod.Get
@@ -67,7 +67,7 @@ class QQBotEntity constructor(val host: String, val port: Int, val ssl: Boolean,
     suspend fun sendMessage(source: String, sender: String, message: String): ResponseEntity {
         val url = getUrl() + "/groupMessage?group=$groupCode&source=$source&sender=$sender&message=$message"
         val client = HttpClient(CIO)
-        val response = Klaxon().parse<QQBotEntity.HTTPResponse>(
+        val response = Klaxon().parse<HTTPResponse>(
             try {
                 client.get<String>(url) {
                     method = HttpMethod.Get
