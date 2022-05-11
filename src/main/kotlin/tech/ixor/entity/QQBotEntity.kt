@@ -52,6 +52,8 @@ class QQBotEntity constructor(val host: String, val port: Int, val ssl: Boolean,
         return if (response != null) {
             if (response.statusCode == 200) {
                 ResponseEntity(statusCode = 200, message = "OK")
+            } else if (response.statusCode == 401) {
+                ResponseEntity(statusCode = 401, message = "Unauthorized")
             } else if (response.statusCode == 500) {
                 ResponseEntity(statusCode = 500, message = "The chat bot is offline")
             } else {
@@ -78,6 +80,8 @@ class QQBotEntity constructor(val host: String, val port: Int, val ssl: Boolean,
         return if (response != null) {
             if (response.statusCode == 200) {
                 ResponseEntity(statusCode = 200, message = "OK")
+            } else if (response.statusCode == 401) {
+                ResponseEntity(statusCode = 401, message = "Unauthorized")
             } else if (response.statusCode == 500) {
                 if (response.message == "Error: Group Not Found!") {
                     ResponseEntity(statusCode = 500, message = "Group Not Found!")
