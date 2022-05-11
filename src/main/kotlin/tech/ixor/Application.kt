@@ -10,7 +10,7 @@ import tech.ixor.entity.MinecraftServers
 import tech.ixor.entity.QQBots
 import tech.ixor.job.MinecraftServerAliveMonitor
 import tech.ixor.job.QQBotAliveMonitor
-import tech.ixor.routes.controller.mcserver.registerMCServerController
+import tech.ixor.routes.controller.mcserver.registerMCServerRoutes
 import tech.ixor.routes.web.registerWebRoutes
 import tech.ixor.utils.*
 
@@ -57,6 +57,6 @@ fun main() {
         }
 
         registerWebRoutes()
-        registerMCServerController()
+        registerMCServerRoutes()
     }.start(wait = true)
 }

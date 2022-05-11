@@ -40,11 +40,3 @@ fun Route.mcServerExecuteCommand() {
         }
     }
 }
-
-fun Application.registerMCServerController() {
-    routing {
-        mcServerStatus()
-        mcServerMessaging()
-        mcServerExecuteCommand()
-    }
-}
