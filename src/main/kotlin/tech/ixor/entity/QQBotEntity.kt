@@ -65,7 +65,7 @@ class QQBotEntity constructor(val host: String, val port: Int, val ssl: Boolean,
     }
 
     suspend fun sendMessage(source: String, sender: String, message: String): ResponseEntity {
-        var url = getUrl() + "/groupMessage?group=$groupCode&source=$source&sender=$sender&message=$message"
+        val url = getUrl() + "/groupMessage?group=$groupCode&source=$source&sender=$sender&message=$message"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<QQBotEntity.HTTPResponse>(
             try {
@@ -84,7 +84,7 @@ class QQBotEntity constructor(val host: String, val port: Int, val ssl: Boolean,
                 ResponseEntity(statusCode = 401, message = "Unauthorized")
             } else if (response.statusCode == 500) {
                 if (response.message == "Error: Group Not Found!") {
-                    ResponseEntity(statusCode = 500, message = "Group Not Found!")
+                    ResponseEntity(statusCode = 500, message = response.message)
                 } else {
                     ResponseEntity(statusCode = 500, message = "The chat bot is offline")
                 }
