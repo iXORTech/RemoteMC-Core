@@ -65,7 +65,7 @@ class QQBotEntity constructor(val host: String, val port: Int, val ssl: Boolean,
     }
 
     suspend fun sendMessage(source: String, sender: String, message: String): ResponseEntity {
-        val url = getUrl() + "/groupMessage?group=$groupCode&source=$source&sender=$sender&message=$message"
+        val url = getUrl() + "/groupMessage?authKey=$authKey&group=$groupCode&source=$source&sender=$sender&message=$message"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
             try {
