@@ -69,8 +69,8 @@ class QQBotEntity constructor(val host: String, val port: Int, val ssl: Boolean,
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
             try {
-                client.get<String>(url) {
-                    method = HttpMethod.Get
+                client.post<String>(url) {
+                    method = HttpMethod.Post
                 }.toString()
             } catch (e: ConnectException) {
                 return ResponseEntity(statusCode = 500, message = "The chat bot is offline")
