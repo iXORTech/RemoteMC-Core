@@ -1,5 +1,7 @@
 package tech.ixor
 
+import de.comahe.i18n4k.i18n4k
+import de.comahe.i18n4k.config.I18n4kConfigDefault
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.gson.*
@@ -14,6 +16,7 @@ import tech.ixor.routes.controller.mcserver.registerMCServerRoutes
 import tech.ixor.routes.controller.qqbot.registerQQBotRoutes
 import tech.ixor.routes.web.registerWebRoutes
 import tech.ixor.utils.*
+import java.util.*
 
 fun loadMinecraftServers(config: ConfigEntity.Config) {
     val minecraftServers = MinecraftServers
@@ -34,6 +37,12 @@ fun loadQQBots(config: ConfigEntity.Config) {
 }
 
 fun main() {
+    val config = ConfigEntity().loadConfig()
+
+    val i18n4kConfig = I18n4kConfigDefault()
+    i18n4k = i18n4kConfig
+    i18n4kConfig.locale = Locale(config.language)
+
     println("Starting RemoteMC-Core...\n")
     println("${I18N.selectedLanguage()} ${I18N.language()}")
 
@@ -46,7 +55,6 @@ fun main() {
     }
     println()
 
-    val config = ConfigEntity().loadConfig()
     loadMinecraftServers(config)
     loadQQBots(config)
 
