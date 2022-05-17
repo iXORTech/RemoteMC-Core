@@ -1,4 +1,4 @@
-# Languages: e.g. en, zh-Hans
+# Languages: e.g. en, zh_CN
 language: "en"
 
 authKey: you_should_change_this

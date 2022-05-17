@@ -52,7 +52,7 @@ group = "tech.ixor"
 version = getVersion() + "-" + getStage() + "+" + getRevision()
 
 i18n4k {
-    sourceCodeLocales = listOf("en", "zh-Hans")
+    sourceCodeLocales = listOf("en", "zh_CN")
 }
 
 tasks {
