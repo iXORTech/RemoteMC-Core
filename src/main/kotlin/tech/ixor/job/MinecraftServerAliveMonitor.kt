@@ -1,18 +1,18 @@
 package tech.ixor.job
 
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-
 import dev.inmo.krontab.doInfinity
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 import tech.ixor.entity.MinecraftServers
 
 class MinecraftServerAliveMonitor() {
-    fun start() {
+    fun start() = runBlocking {
         forceUpdate()
         val servers = MinecraftServers.getAllServers()
-        GlobalScope.launch {
+        launch {
             doInfinity("0 /5 * * *") {
+                println("Checking servers")
                 servers.forEach {
                     it.updateOnlineStatus()
                 }
