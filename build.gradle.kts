@@ -51,6 +51,10 @@ plugins {
 group = "tech.ixor"
 version = getVersion() + "-" + getStage() + "+" + getRevision()
 
+i18n4k {
+    sourceCodeLocales = listOf("en", "zh-Hans")
+}
+
 tasks {
     compileKotlin {
         kotlinOptions {

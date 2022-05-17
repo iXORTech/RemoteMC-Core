@@ -35,6 +35,7 @@ fun loadQQBots(config: ConfigEntity.Config) {
 
 fun main() {
     println("Starting RemoteMC-Core...\n")
+    println("${I18N.selectedLanguage()} ${I18N.language()}")
 
     val version = VersionUtil.getVersion()
     println("Version $version")
