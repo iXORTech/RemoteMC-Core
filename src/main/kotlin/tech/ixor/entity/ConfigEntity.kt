@@ -14,8 +14,8 @@ class ConfigEntity {
     data class MinecraftServer(val serverName: String, val host: String, val port: Int,
                                val ssl: Boolean, val default: Boolean)
 
-    data class Config(val authKey: String, val ktor: Ktor, val qqBots: List<QQBot>,
-                      val minecraftServers: List<MinecraftServer>)
+    data class Config(val language: String, val authKey: String, val ktor: Ktor,
+                      val qqBots: List<QQBot>, val minecraftServers: List<MinecraftServer>)
 
     fun loadConfig(): Config {
         val pwd = System.getProperty("user.dir")

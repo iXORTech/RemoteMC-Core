@@ -1,3 +1,6 @@
+# Languages: e.g. en, zh-Hans
+language: "en"
+
 authKey: you_should_change_this
 
 ktor:
