@@ -43,15 +43,15 @@ fun main() {
     i18n4k = i18n4kConfig
     i18n4kConfig.locale = Locale(config.language)
 
-    println("Starting RemoteMC-Core...\n")
-    println("${I18N.selectedLanguage()} ${I18N.language()}")
+    println("${I18N.starting}\n")
+    println("${I18N.selectedLanguage} ${I18N.language}")
 
     val version = VersionUtil.getVersion()
-    println("Version $version")
+    println("${I18N.version} $version")
     if (version.contains("dev") || version.contains("alpha") || version.contains("beta")) {
-        println("THIS IS IN EXPERIMENTAL STAGE, DO NOT USE IN PRODUCTION ENVIRONMENT!")
+        println("${I18N.experimental}")
     } else if (version.contains("rc")) {
-        println("THIS IS A RELEASE CANDIDATE, DO NOT USE IN PRODUCTION ENVIRONMENT!")
+        println("${I18N.releaseCandidate}")
     }
     println()
 
