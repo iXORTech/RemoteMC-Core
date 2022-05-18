@@ -5,6 +5,7 @@ import io.ktor.html.*
 import io.ktor.http.*
 import io.ktor.routing.*
 import kotlinx.html.*
+import tech.ixor.I18N
 import tech.ixor.utils.VersionUtil
 
 fun Route.index() {
@@ -13,28 +14,28 @@ fun Route.index() {
 
         call.respondHtml(HttpStatusCode.OK) {
             head {
-                title { +"Wecome to RemoteMC-Core!" }
+                title { +"${I18N.welcome}" }
             }
             body {
-                h1 { +"Wecome to RemoteMC-Core!" }
+                h1 { +"${I18N.welcome}" }
 
                 hr {}
 
                 p {
-                    b { +"Version " }
+                    b { +"${I18N.version} " }
                     +version
                 }
                 if (version.contains("dev") || version.contains("alpha") || version.contains("beta")) {
-                    p { b { +"THIS IS IN EXPERIMENTAL STAGE, DO NOT USE IN PRODUCTION ENVIRONMENT!" } }
+                    p { b { +"${I18N.experimental}" } }
                 } else if (version.contains("rc")) {
-                    p { b { +"THIS IS A RELEASE CANDIDATE, DO NOT USE IN PRODUCTION ENVIRONMENT!" } }
+                    p { b { +"${I18N.releaseCandidate}" } }
                 }
 
                 hr {}
                 br {}
 
                 p {
-                    +"If you see this page, the built-in web server of RemoteMC-Core is successfully installed and working."
+                    +"${I18N.successfullyInstalled}"
                 }
 
                 br {}
@@ -42,16 +43,16 @@ fun Route.index() {
 
                 p {
                     a(href = "https://github.com/iXORTech/RemoteMC-Core/issues") {
-                        +"Report a Bug"
+                        +"${I18N.reportBug}"
                     }
                 }
 
                 hr {}
 
                 p {
-                    + "Powered by "
+                    + "${I18N.poweredBy} "
                     a(href = "https://ixor.tech") { +"iXOR Technology" }
-                    + " with 💗."
+                    + " ${I18N.withLove}"
                 }
             }
         }
