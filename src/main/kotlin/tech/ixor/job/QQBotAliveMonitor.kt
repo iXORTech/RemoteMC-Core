@@ -1,15 +1,17 @@
 package tech.ixor.job
 
-import dev.inmo.krontab.doInfinity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import dev.inmo.krontab.doInfinity
+
 import tech.ixor.entity.QQBots
 
 class QQBotAliveMonitor {
-    fun start() = runBlocking {
+    fun start() {
         forceUpdate()
         val bots = QQBots.getAllBots()
-        launch {
+        CoroutineScope(Dispatchers.Default).launch {
             doInfinity("0 /5 * * *") {
                 bots.forEach {
                     it.updateOnlineStatus()
