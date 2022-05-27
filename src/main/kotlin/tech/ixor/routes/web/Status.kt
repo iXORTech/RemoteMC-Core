@@ -5,6 +5,7 @@ import io.ktor.server.html.*
 import io.ktor.http.*
 import io.ktor.server.routing.*
 import kotlinx.html.*
+import tech.ixor.I18N
 import tech.ixor.entity.MinecraftServers
 import tech.ixor.entity.QQBots
 import tech.ixor.job.MinecraftServerAliveMonitor
@@ -15,20 +16,20 @@ fun Route.status() {
             val minecraftServerAliveMonitor = MinecraftServerAliveMonitor()
             minecraftServerAliveMonitor.forceUpdate()
             head {
-                title { +"Status - RemoteMC-Core" }
+                title { +"${I18N.website_status}" }
             }
             body {
-                h2 { +"Status - RemoteMC-Core" }
+                h2 { +"${I18N.website_status}" }
 
                 h3 {
-                    +"Connections:"
+                    +"${I18N.connections}"
                 }
 
                 h4 {
-                    +"Minecraft Servers"
+                    +"${I18N.minecraft_server}"
                 }
                 h5 {
-                    +"Online: "
+                    +"${I18N.online} "
                 }
                 ol {
                     val onlineServers = MinecraftServers.getOnlineServers()
@@ -42,14 +43,14 @@ fun Route.status() {
                                 MinecraftServers.getDefaultServer()?.equals(minecraftServer) == true
                             ) {
                                 i {
-                                    +" (default)"
+                                    +" ${I18N.default}"
                                 }
                             }
                         }
                     }
                 }
                 h5 {
-                    +"Offline: "
+                    +"${I18N.offline}"
                 }
                 ol {
                     val offlineServers = MinecraftServers.getOfflineServers()
@@ -64,10 +65,10 @@ fun Route.status() {
                 }
 
                 h4 {
-                    +"QQ Chat Bots"
+                    +"${I18N.qq_chat_bots}"
                 }
                 h5 {
-                    +"Online: "
+                    +"${I18N.online} "
                 }
                 ol {
                     val onlineBots = QQBots.getOnlineBots()
@@ -81,14 +82,14 @@ fun Route.status() {
                                 QQBots.getDefaultBot()?.equals(qqBot) == true
                             ) {
                                 i {
-                                    +" (default)"
+                                    +" ${I18N.default}"
                                 }
                             }
                         }
                     }
                 }
                 h5 {
-                    +"Offline: "
+                    +"${I18N.offline}"
                 }
                 ol {
                     val offlineBots = QQBots.getOfflineBots()
@@ -107,16 +108,16 @@ fun Route.status() {
 
                 p {
                     a(href = "https://github.com/iXORTech/RemoteMC-Core/issues") {
-                        +"Report a Bug"
+                        +"${I18N.reportBug}"
                     }
                 }
 
                 hr {}
 
                 p {
-                    +"Powered by "
+                    +"${I18N.poweredBy} "
                     a(href = "https://ixor.tech") { +"iXOR Technology" }
-                    +" with 💗."
+                    +" ${I18N.withLove}"
                 }
             }
         }
