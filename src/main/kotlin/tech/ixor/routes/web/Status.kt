@@ -1,18 +1,16 @@
 package tech.ixor.routes.web
 
-import io.ktor.application.*
-import io.ktor.html.*
+import io.ktor.server.application.*
+import io.ktor.server.html.*
 import io.ktor.http.*
-import io.ktor.routing.*
+import io.ktor.server.routing.*
 import kotlinx.html.*
-import tech.ixor.entity.ConfigEntity
 import tech.ixor.entity.MinecraftServers
 import tech.ixor.entity.QQBots
 import tech.ixor.job.MinecraftServerAliveMonitor
 
 fun Route.status() {
     get("/status") {
-        val config = ConfigEntity().loadConfig()
         call.respondHtml(HttpStatusCode.OK) {
             val minecraftServerAliveMonitor = MinecraftServerAliveMonitor()
             minecraftServerAliveMonitor.forceUpdate()
@@ -80,7 +78,7 @@ fun Route.status() {
                             }
                             +" - ${qqBot.groupName} (${qqBot.groupCode})"
                             if (qqBot.default &&
-                               QQBots.getDefaultBot()?.equals(qqBot) == true
+                                QQBots.getDefaultBot()?.equals(qqBot) == true
                             ) {
                                 i {
                                     +" (default)"

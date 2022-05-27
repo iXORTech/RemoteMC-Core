@@ -1,9 +1,9 @@
 package tech.ixor.routes.web
 
-import io.ktor.application.*
-import io.ktor.html.*
+import io.ktor.server.application.*
+import io.ktor.server.html.*
 import io.ktor.http.*
-import io.ktor.routing.*
+import io.ktor.server.routing.*
 import kotlinx.html.*
 import tech.ixor.I18N
 import tech.ixor.utils.VersionUtil
@@ -50,9 +50,9 @@ fun Route.index() {
                 hr {}
 
                 p {
-                    + "${I18N.poweredBy} "
+                    +"${I18N.poweredBy} "
                     a(href = "https://ixor.tech") { +"iXOR Technology" }
-                    + " ${I18N.withLove}"
+                    +" ${I18N.withLove}"
                 }
             }
         }

@@ -3,14 +3,17 @@ package tech.ixor.entity
 import com.beust.klaxon.Json
 import com.beust.klaxon.Klaxon
 import io.ktor.client.*
+import io.ktor.client.call.body
 import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.coroutines.runBlocking
 import java.net.ConnectException
 
-class QQBotEntity constructor(val host: String, val port: Int, val ssl: Boolean,
-                              val groupName: String, val groupCode: Long, val default: Boolean) {
+class QQBotEntity constructor(
+    val host: String, val port: Int, val ssl: Boolean,
+    val groupName: String, val groupCode: Long, val default: Boolean
+) {
     class HTTPResponse(
         @Json(name = "status_code")
         val statusCode: Int,
@@ -41,9 +44,10 @@ class QQBotEntity constructor(val host: String, val port: Int, val ssl: Boolean,
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
             try {
-                client.get<String>(url) {
+                client.get(url) {
                     method = HttpMethod.Get
-                }.toString()
+                }
+                    .body<String>().toString()
             } catch (e: ConnectException) {
                 return ResponseEntity(statusCode = 500, message = "The chat bot is offline")
             }
@@ -65,13 +69,15 @@ class QQBotEntity constructor(val host: String, val port: Int, val ssl: Boolean,
     }
 
     suspend fun sendMessage(source: String, sender: String, message: String): ResponseEntity {
-        val url = getUrl() + "/groupMessage?authKey=$authKey&group=$groupCode&source=$source&sender=$sender&message=$message"
+        val url =
+            getUrl() + "/groupMessage?authKey=$authKey&group=$groupCode&source=$source&sender=$sender&message=$message"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
             try {
-                client.post<String>(url) {
+                client.post(url) {
                     method = HttpMethod.Post
-                }.toString()
+                }
+                    .body<String>().toString()
             } catch (e: ConnectException) {
                 return ResponseEntity(statusCode = 500, message = "The chat bot is offline")
             }

@@ -2,9 +2,9 @@ package tech.ixor
 
 import de.comahe.i18n4k.i18n4k
 import de.comahe.i18n4k.config.I18n4kConfigDefault
-import io.ktor.application.*
-import io.ktor.features.*
-import io.ktor.gson.*
+import io.ktor.server.application.*
+import io.ktor.server.plugins.contentnegotiation.*
+import io.ktor.serialization.gson.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import tech.ixor.entity.ConfigEntity

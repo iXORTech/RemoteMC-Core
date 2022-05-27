@@ -1,8 +1,8 @@
 package tech.ixor.utils
 
 import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.features.*
+import io.ktor.client.call.body
+import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import kotlinx.coroutines.runBlocking
@@ -19,7 +19,7 @@ class FileDownloader {
                     println("Received $bytesSentTotal bytes from $contentLength")
                 }
             }
-            val responseBody: ByteArray = httpResponse.receive()
+            val responseBody: ByteArray = httpResponse.body()
             file.parentFile.mkdirs()
             file.writeBytes(responseBody)
         }

@@ -3,14 +3,17 @@ package tech.ixor.entity
 import com.beust.klaxon.Json
 import com.beust.klaxon.Klaxon
 import io.ktor.client.*
+import io.ktor.client.call.body
 import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.coroutines.runBlocking
 import java.net.ConnectException
 
-class MinecraftServerEntity constructor(val serverName: String, val host: String, val port: Int,
-                                        val ssl: Boolean, val default: Boolean) {
+class MinecraftServerEntity constructor(
+    val serverName: String, val host: String, val port: Int,
+    val ssl: Boolean, val default: Boolean
+) {
     class HTTPResponse(
         @Json(name = "status_code")
         val statusCode: Int,
@@ -41,9 +44,10 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
             try {
-                client.get<String>(url) {
+                client.get(url) {
                     method = HttpMethod.Get
-                }.toString()
+                }
+                    .body<String>().toString()
             } catch (e: ConnectException) {
                 return ResponseEntity(statusCode = 500, message = "Server is offline")
             }
@@ -67,9 +71,10 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
             try {
-                client.get<String>(url) {
+                client.get(url) {
                     method = HttpMethod.Get
-                }.toString()
+                }
+                    .body<String>().toString()
             } catch (e: ConnectException) {
                 return ResponseEntity(statusCode = 500, message = "Server is offline")
             }
@@ -95,15 +100,18 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
             try {
-                client.post<String>(url) {
+                client.post(url) {
                     contentType(ContentType.Application.Json)
-                    body = Klaxon().toJsonString(
-                        mapOf(
-                            "auth_key" to authKey,
-                            "command" to command
+                    setBody(
+                        Klaxon().toJsonString(
+                            mapOf(
+                                "auth_key" to authKey,
+                                "command" to command
+                            )
                         )
                     )
-                }.toString()
+                }
+                    .body<String>().toString()
             } catch (e: ConnectException) {
                 return ResponseEntity(statusCode = 500, message = "Server is offline")
             }
@@ -134,17 +142,20 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
             try {
-                client.post<String>(url) {
+                client.post(url) {
                     contentType(ContentType.Application.Json)
-                    body = Klaxon().toJsonString(
-                        mapOf(
-                            "auth_key" to authKey,
-                            "source" to source,
-                            "sender" to sender,
-                            "message" to message
+                    setBody(
+                        Klaxon().toJsonString(
+                            mapOf(
+                                "auth_key" to authKey,
+                                "source" to source,
+                                "sender" to sender,
+                                "message" to message
+                            )
                         )
                     )
-                }.toString()
+                }
+                    .body<String>().toString()
             } catch (e: ConnectException) {
                 return ResponseEntity(statusCode = 500, message = "Server is offline")
             }
@@ -170,15 +181,18 @@ class MinecraftServerEntity constructor(val serverName: String, val host: String
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
             try {
-                client.post<String>(url) {
+                client.post(url) {
                     contentType(ContentType.Application.Json)
-                    body = Klaxon().toJsonString(
-                        mapOf(
-                            "auth_key" to authKey,
-                            "message" to message
+                    setBody(
+                        Klaxon().toJsonString(
+                            mapOf(
+                                "auth_key" to authKey,
+                                "message" to message
+                            )
                         )
                     )
-                }.toString()
+                }
+                    .body<String>().toString()
             } catch (e: ConnectException) {
                 return ResponseEntity(statusCode = 500, message = "Server is offline")
             }

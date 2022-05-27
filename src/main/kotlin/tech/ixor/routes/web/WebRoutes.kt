@@ -1,7 +1,7 @@
 package tech.ixor.routes.web
 
-import io.ktor.application.*
-import io.ktor.routing.*
+import io.ktor.server.application.*
+import io.ktor.server.routing.*
 
 fun Application.registerWebRoutes() {
     routing {

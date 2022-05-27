@@ -1,10 +1,10 @@
 package tech.ixor.routes.controller.qqbot
 
-import io.ktor.application.*
+import io.ktor.server.application.*
 import io.ktor.http.*
-import io.ktor.request.*
-import io.ktor.response.*
-import io.ktor.routing.*
+import io.ktor.server.request.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 import tech.ixor.entity.ConfigEntity
 import tech.ixor.entity.QQBotEntity
 import tech.ixor.entity.QQBots
@@ -25,7 +25,10 @@ fun Route.qqBotMessaging() {
         val qqBot: QQBotEntity? = QQBots.getBot(groupCode)
         if (qqBot != null) {
             if (qqBot.host != host || qqBot.port != port) {
-                call.respondText("The host and port of QQBot might be wrong! Verify your request!", status = HttpStatusCode.NotFound)
+                call.respondText(
+                    "The host and port of QQBot might be wrong! Verify your request!",
+                    status = HttpStatusCode.NotFound
+                )
                 return@post
             }
             val source = request.source
