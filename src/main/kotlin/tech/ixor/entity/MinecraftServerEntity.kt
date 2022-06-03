@@ -43,11 +43,11 @@ class MinecraftServerEntity constructor(
                 }
                     .body<String>().toString()
             } catch (e: ConnectException) {
-                return HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
+                return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
             }
         )
 
-        return response ?: HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
+        return response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
     }
 
     suspend fun status(): HTTPResponse {
@@ -60,11 +60,11 @@ class MinecraftServerEntity constructor(
                 }
                     .body<String>().toString()
             } catch (e: ConnectException) {
-                return HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
+                return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
             }
         )
 
-        return response ?: HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
+        return response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
     }
 
     suspend fun executeCommand(command: String): HTTPResponse {
@@ -85,11 +85,11 @@ class MinecraftServerEntity constructor(
                 }
                     .body<String>().toString()
             } catch (e: ConnectException) {
-                return HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
+                return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
             }
         )
 
-        return response ?: HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
+        return response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
     }
 
     suspend fun say(source: String, sender: String, message: String): HTTPResponse {
@@ -112,11 +112,11 @@ class MinecraftServerEntity constructor(
                 }
                     .body<String>().toString()
             } catch (e: ConnectException) {
-                return HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
+                return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
             }
         )
 
-        return response ?: HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
+        return response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
     }
 
     suspend fun broadcast(message: String): HTTPResponse {
@@ -137,11 +137,11 @@ class MinecraftServerEntity constructor(
                 }
                     .body<String>().toString()
             } catch (e: ConnectException) {
-                return HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
+                return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
             }
         )
 
-        return response ?: HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
+        return response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
     }
 
 }

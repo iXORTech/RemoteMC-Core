@@ -44,11 +44,11 @@ class QQBotEntity constructor(
                 }
                     .body<String>().toString()
             } catch (e: ConnectException) {
-                return HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
+                return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
             }
         )
 
-        return response ?: HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
+        return response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
     }
 
     suspend fun sendMessage(source: String, sender: String, message: String): HTTPResponse {
@@ -62,11 +62,11 @@ class QQBotEntity constructor(
                 }
                     .body<String>().toString()
             } catch (e: ConnectException) {
-                return HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
+                return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
             }
         )
 
-        return response ?: HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
+        return response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
     }
 
 }
