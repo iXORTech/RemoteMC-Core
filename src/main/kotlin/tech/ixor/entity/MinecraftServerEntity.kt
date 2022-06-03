@@ -1,6 +1,5 @@
 package tech.ixor.entity
 
-import com.beust.klaxon.Json
 import com.beust.klaxon.Klaxon
 import io.ktor.client.*
 import io.ktor.client.call.body
@@ -14,11 +13,6 @@ class MinecraftServerEntity constructor(
     val serverName: String, val host: String, val port: Int,
     val ssl: Boolean, val default: Boolean
 ) {
-    class HTTPResponse(
-        @Json(name = "status_code")
-        val statusCode: Int,
-        val message: String
-    )
 
     private val authKey = ConfigEntity().loadConfig().authKey
 
@@ -39,7 +33,7 @@ class MinecraftServerEntity constructor(
         }
     }
 
-    suspend fun ping(): ResponseEntity {
+    suspend fun ping(): HTTPResponse {
         val url = getUrl() + "/ping"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
@@ -49,24 +43,14 @@ class MinecraftServerEntity constructor(
                 }
                     .body<String>().toString()
             } catch (e: ConnectException) {
-                return ResponseEntity(statusCode = 500, message = "Server is offline")
+                return HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
             }
         )
 
-        return if (response != null) {
-            if (response.statusCode == 200) {
-                ResponseEntity(statusCode = 200, message = "OK")
-            } else if (response.statusCode == 500) {
-                ResponseEntity(statusCode = 500, message = "Server is offline")
-            } else {
-                ResponseEntity(statusCode = 500, message = "Unknown error")
-            }
-        } else {
-            ResponseEntity(statusCode = 500, message = "Server is offline")
-        }
+        return response ?: HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
     }
 
-    suspend fun status(): ResponseEntity {
+    suspend fun status(): HTTPResponse {
         val url = getUrl() + "/api/v1/mcserver/status"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
@@ -76,26 +60,14 @@ class MinecraftServerEntity constructor(
                 }
                     .body<String>().toString()
             } catch (e: ConnectException) {
-                return ResponseEntity(statusCode = 500, message = "Server is offline")
+                return HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
             }
         )
 
-        return if (response != null) {
-            if (response.statusCode == 200) {
-                ResponseEntity(statusCode = 200, message = response.message)
-            } else if (response.statusCode == 401) {
-                ResponseEntity(statusCode = 401, message = "Unauthorized")
-            } else if (response.statusCode == 500) {
-                ResponseEntity(statusCode = 500, message = "Server is offline")
-            } else {
-                ResponseEntity(statusCode = 500, message = "Unknown error")
-            }
-        } else {
-            ResponseEntity(statusCode = 500, message = "Server is offline")
-        }
+        return response ?: HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
     }
 
-    suspend fun executeCommand(command: String): ResponseEntity {
+    suspend fun executeCommand(command: String): HTTPResponse {
         val url = getUrl() + "/api/v1/mcserver/execute_command"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
@@ -113,31 +85,14 @@ class MinecraftServerEntity constructor(
                 }
                     .body<String>().toString()
             } catch (e: ConnectException) {
-                return ResponseEntity(statusCode = 500, message = "Server is offline")
+                return HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
             }
         )
 
-        return if (response != null) {
-            if (response.statusCode == 200) {
-                val message = response.message
-                if (message == "OK") {
-                    ResponseEntity(statusCode = 200, message = "Command executed successfully!")
-                } else {
-                    ResponseEntity(statusCode = 200, message = message)
-                }
-            } else if (response.statusCode == 401) {
-                ResponseEntity(statusCode = 401, message = "Unauthorized")
-            } else if (response.statusCode == 500) {
-                ResponseEntity(statusCode = 500, message = "Server is offline")
-            } else {
-                ResponseEntity(statusCode = 500, message = "Unknown error")
-            }
-        } else {
-            ResponseEntity(statusCode = 500, message = "Server is offline")
-        }
+        return response ?: HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
     }
 
-    suspend fun say(source: String, sender: String, message: String): ResponseEntity {
+    suspend fun say(source: String, sender: String, message: String): HTTPResponse {
         val url = getUrl() + "/api/v1/mcserver/say"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
@@ -157,26 +112,14 @@ class MinecraftServerEntity constructor(
                 }
                     .body<String>().toString()
             } catch (e: ConnectException) {
-                return ResponseEntity(statusCode = 500, message = "Server is offline")
+                return HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
             }
         )
 
-        return if (response != null) {
-            if (response.statusCode == 200) {
-                ResponseEntity(statusCode = 200, message = "Message sent successfully!")
-            } else if (response.statusCode == 401) {
-                ResponseEntity(statusCode = 401, message = "Unauthorized")
-            } else if (response.statusCode == 500) {
-                ResponseEntity(statusCode = 500, message = "Server is offline")
-            } else {
-                ResponseEntity(statusCode = 500, message = "Unknown error")
-            }
-        } else {
-            ResponseEntity(statusCode = 500, message = "Server is offline")
-        }
+        return response ?: HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
     }
 
-    suspend fun broadcast(message: String): ResponseEntity {
+    suspend fun broadcast(message: String): HTTPResponse {
         val url = getUrl() + "/api/v1/mcserver/broadcast"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
@@ -194,23 +137,11 @@ class MinecraftServerEntity constructor(
                 }
                     .body<String>().toString()
             } catch (e: ConnectException) {
-                return ResponseEntity(statusCode = 500, message = "Server is offline")
+                return HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
             }
         )
 
-        return if (response != null) {
-            if (response.statusCode == 200) {
-                ResponseEntity(statusCode = 200, message = "Broadcast sent successfully!")
-            } else if (response.statusCode == 401) {
-                ResponseEntity(statusCode = 401, message = "Unauthorized")
-            } else if (response.statusCode == 500) {
-                ResponseEntity(statusCode = 500, message = "Server is offline")
-            } else {
-                ResponseEntity(statusCode = 500, message = "Unknown error")
-            }
-        } else {
-            ResponseEntity(statusCode = 500, message = "Server is offline")
-        }
+        return response ?: HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
     }
 
 }

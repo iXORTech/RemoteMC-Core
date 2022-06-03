@@ -14,11 +14,6 @@ class QQBotEntity constructor(
     val host: String, val port: Int, val ssl: Boolean,
     val groupName: String, val groupCode: Long, val default: Boolean
 ) {
-    class HTTPResponse(
-        @Json(name = "status_code")
-        val statusCode: Int,
-        val message: String
-    )
 
     private val authKey = ConfigEntity().loadConfig().authKey
 
@@ -39,7 +34,7 @@ class QQBotEntity constructor(
         }
     }
 
-    suspend fun ping(): ResponseEntity {
+    suspend fun ping(): HTTPResponse {
         val url = getUrl() + "/ping"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
@@ -49,26 +44,14 @@ class QQBotEntity constructor(
                 }
                     .body<String>().toString()
             } catch (e: ConnectException) {
-                return ResponseEntity(statusCode = 500, message = "The chat bot is offline")
+                return HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
             }
         )
 
-        return if (response != null) {
-            if (response.statusCode == 200) {
-                ResponseEntity(statusCode = 200, message = "OK")
-            } else if (response.statusCode == 401) {
-                ResponseEntity(statusCode = 401, message = "Unauthorized")
-            } else if (response.statusCode == 500) {
-                ResponseEntity(statusCode = 500, message = "The chat bot is offline")
-            } else {
-                ResponseEntity(statusCode = 500, message = "Unknown error")
-            }
-        } else {
-            ResponseEntity(statusCode = 500, message = "The chat bot is offline")
-        }
+        return response ?: HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
     }
 
-    suspend fun sendMessage(source: String, sender: String, message: String): ResponseEntity {
+    suspend fun sendMessage(source: String, sender: String, message: String): HTTPResponse {
         val url =
             getUrl() + "/groupMessage?authKey=$authKey&group=$groupCode&source=$source&sender=$sender&message=$message"
         val client = HttpClient(CIO)
@@ -79,27 +62,11 @@ class QQBotEntity constructor(
                 }
                     .body<String>().toString()
             } catch (e: ConnectException) {
-                return ResponseEntity(statusCode = 500, message = "The chat bot is offline")
+                return HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
             }
         )
 
-        return if (response != null) {
-            if (response.statusCode == 200) {
-                ResponseEntity(statusCode = 200, message = "OK")
-            } else if (response.statusCode == 401) {
-                ResponseEntity(statusCode = 401, message = "Unauthorized")
-            } else if (response.statusCode == 500) {
-                if (response.message == "Error: Group Not Found!") {
-                    ResponseEntity(statusCode = 500, message = response.message)
-                } else {
-                    ResponseEntity(statusCode = 500, message = "The chat bot is offline")
-                }
-            } else {
-                ResponseEntity(statusCode = 500, message = "Unknown error")
-            }
-        } else {
-            ResponseEntity(statusCode = 500, message = "The chat bot is offline")
-        }
+        return response ?: HTTPResponse(statusCode = 504, message = "GATEWAY_TIMEOUT")
     }
 
 }
