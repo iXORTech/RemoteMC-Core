@@ -20,8 +20,8 @@
 <sup>Copyright © 2022 JetBrains s.r.o. IntelliJ IDEA and the IntelliJ IDEA logo are registered trademarks of JetBrains s.r.o.</sup>
 
 ## 📜 协议&许可证
-> **RemoteMC-Core 使用 [AGPL-3.0协议](LICENSE-zh)（[原文](LICENSE)）作为软件分发许可证。<br/>
-用户可以更改，再分发本开源代码，进行商业使用，但必须遵守 [AGPL-3.0协议](LICENSE-zh)（[原文](LICENSE)）内容**
+> **RemoteMC-Core 使用 [AGPL-3.0协议](license-translations/LICENSE-zh)（[原文](LICENSE)）作为软件分发许可证。<br/>
+用户可以更改，再分发本开源代码，进行商业使用，但必须遵守 [AGPL-3.0协议](license-translations/LICENSE-zh)（[原文](LICENSE)）内容**
 
 但同时，用户不得：
 - 将该项目用于违反**美国**，**加拿大**，**中华人民共和国**以及用户所处国家的法律的用途
