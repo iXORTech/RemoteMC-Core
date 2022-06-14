@@ -42,7 +42,7 @@ open class ServerEntity constructor(val host: String, val port: Int, val ssl: Bo
         return getResponse(url)
     }
 
-    protected fun updateOnlineStatus() {
+    fun updateOnlineStatus() {
         val online = runBlocking { ping().statusCode == 200 }
         if (online != isOnline) {
             isOnline = online
