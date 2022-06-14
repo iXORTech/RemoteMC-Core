@@ -15,7 +15,12 @@ fun Route.mcServerStatus() {
         val port = request.port
         val minecraftServer: MinecraftServerEntity? = MinecraftServers.getServer(host, port)
         if (minecraftServer != null) {
-            call.respondText(minecraftServer.status().message)
+            val mcServerResponse = minecraftServer.status()
+            when (mcServerResponse.statusCode) {
+                200 -> call.respondText(mcServerResponse.message)
+                else -> call.respondText("Unknown error! Status Code ${mcServerResponse.statusCode} - Message ${mcServerResponse.message}.",
+                    status = HttpStatusCode.InternalServerError)
+            }
         } else {
             call.respondText("Server not found", status = HttpStatusCode.NotFound)
         }
