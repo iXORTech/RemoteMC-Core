@@ -52,6 +52,10 @@ object QQBots {
         return qqBots
     }
 
+    fun getBot(host: String, port: Int, ssl: Boolean): QQBotEntity? {
+        return qqBots.find { it.host == host && it.port == port && it.ssl == ssl }
+    }
+
     fun getBot(groupCode: Long): QQBotEntity? {
         return qqBots.find { it.groupCode == groupCode }
     }
