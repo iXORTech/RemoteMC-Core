@@ -31,6 +31,7 @@ fun Route.mcServerMessaging() {
                 200 -> call.respondText("Message sent successfully!", status = HttpStatusCode.OK)
                 401 -> call.respondText("Auth key on RemoteMC-Core is not valid! Please check authKey settings and make sure" +
                         " they were the same everywhere!", status = HttpStatusCode.Unauthorized)
+                503 -> call.respondText("The Minecraft server that you are requesting might be offline!", status = HttpStatusCode.ServiceUnavailable)
                 else -> call.respondText("Unknown error! Status Code ${mcServerResponse.statusCode} - Message ${mcServerResponse.message}.",
                     status = HttpStatusCode.InternalServerError)
             }
@@ -57,6 +58,7 @@ fun Route.mcServerMessaging() {
                 200 -> call.respondText("Broadcast sent successfully!", status = HttpStatusCode.OK)
                 401 -> call.respondText("Auth key on RemoteMC-Core is not valid! Please check authKey settings and make sure" +
                         " they were the same everywhere!", status = HttpStatusCode.Unauthorized)
+                503 -> call.respondText("The Minecraft server that you are requesting might be offline!", status = HttpStatusCode.ServiceUnavailable)
                 else -> call.respondText("Unknown error! Status Code ${mcServerResponse.statusCode} - Message ${mcServerResponse.message}.",
                     status = HttpStatusCode.InternalServerError)
             }
