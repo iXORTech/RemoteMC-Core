@@ -6,73 +6,18 @@ import io.ktor.client.call.body
 import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import kotlinx.coroutines.runBlocking
 import java.net.ConnectException
 
 class MinecraftServerEntity constructor(
-    val serverName: String, val host: String, val port: Int,
-    val ssl: Boolean, val default: Boolean
-) {
-
-    private val authKey = ConfigEntity().loadConfig().authKey
-
-    var isOnline: Boolean = false
-
-    private fun getUrl(): String {
-        return if (ssl) {
-            "https://$host:$port"
-        } else {
-            "http://$host:$port"
-        }
-    }
-
-    fun updateOnlineStatus() {
-        val online = runBlocking { ping().statusCode == 200 }
-        if (online != isOnline) {
-            isOnline = online
-        }
-    }
-
-    private fun checkOnlineStatus(): Boolean {
-        updateOnlineStatus()
-        return isOnline
-    }
-
-    suspend fun ping(): HTTPResponse {
-        val url = getUrl() + "/ping"
-        val client = HttpClient(CIO)
-        val response = Klaxon().parse<HTTPResponse>(
-            try {
-                client.get(url) {
-                    method = HttpMethod.Get
-                }
-                    .body<String>().toString()
-            } catch (e: ConnectException) {
-                return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
-            }
-        )
-
-        return response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
-    }
-
+    val serverName: String, host: String, port: Int,
+    ssl: Boolean, val default: Boolean
+): ServerEntity(host, port, ssl) {
     suspend fun status(): HTTPResponse {
         if (!checkOnlineStatus()) {
             return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
         }
         val url = getUrl() + "/api/v1/mcserver/status"
-        val client = HttpClient(CIO)
-        val response = Klaxon().parse<HTTPResponse>(
-            try {
-                client.get(url) {
-                    method = HttpMethod.Get
-                }
-                    .body<String>().toString()
-            } catch (e: ConnectException) {
-                return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
-            }
-        )
-
-        return response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
+        return getResponse(url)
     }
 
     suspend fun executeCommand(command: String): HTTPResponse {
@@ -99,7 +44,6 @@ class MinecraftServerEntity constructor(
                 return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
             }
         )
-
         return response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
     }
 
@@ -129,7 +73,6 @@ class MinecraftServerEntity constructor(
                 return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
             }
         )
-
         return response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
     }
 
@@ -157,10 +100,8 @@ class MinecraftServerEntity constructor(
                 return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
             }
         )
-
         return response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
     }
-
 }
 
 object MinecraftServers {
@@ -201,5 +142,4 @@ object MinecraftServers {
     fun getOfflineServers(): List<MinecraftServerEntity> {
         return servers.filter { !it.isOnline }
     }
-
 }
