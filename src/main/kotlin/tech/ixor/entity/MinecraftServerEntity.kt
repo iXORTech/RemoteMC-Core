@@ -127,8 +127,8 @@ object MinecraftServers {
         return servers.find { it.serverName == serverName }
     }
 
-    fun getServer(host: String, port: Int): MinecraftServerEntity? {
-        return servers.find { it.host == host && it.port == port }
+    fun getServer(host: String, port: Int, ssl: Boolean): MinecraftServerEntity? {
+        return servers.find { it.host == host && it.port == port && it.ssl == ssl }
     }
 
     fun getDefaultServer(): MinecraftServerEntity? {
