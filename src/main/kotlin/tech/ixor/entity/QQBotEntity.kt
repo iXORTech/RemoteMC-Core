@@ -34,6 +34,11 @@ class QQBotEntity constructor(
         }
     }
 
+    private fun checkOnlineStatus(): Boolean {
+        updateOnlineStatus()
+        return isOnline
+    }
+
     suspend fun ping(): HTTPResponse {
         val url = getUrl() + "/ping"
         val client = HttpClient(CIO)
@@ -52,6 +57,9 @@ class QQBotEntity constructor(
     }
 
     suspend fun sendMessage(source: String, sender: String, message: String): HTTPResponse {
+        if (!checkOnlineStatus()) {
+            return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
+        }
         val url =
             getUrl() + "/groupMessage?authKey=$authKey&group=$groupCode&source=$source&sender=$sender&message=$message"
         val client = HttpClient(CIO)

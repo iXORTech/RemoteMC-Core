@@ -33,7 +33,7 @@ class MinecraftServerEntity constructor(
         }
     }
 
-    fun checkOnlineStatus(): Boolean {
+    private fun checkOnlineStatus(): Boolean {
         updateOnlineStatus()
         return isOnline
     }
