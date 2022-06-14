@@ -34,7 +34,7 @@ fun Route.mcServerExecuteCommand() {
             }
         } else {
             call.respondText("Server not found", status = HttpStatusCode.NotFound)
-            return@post
         }
+        return@post
     }
 }

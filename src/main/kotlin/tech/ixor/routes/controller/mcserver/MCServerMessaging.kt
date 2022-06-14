@@ -36,8 +36,8 @@ fun Route.mcServerMessaging() {
             }
         } else {
             call.respondText("Server not found", status = HttpStatusCode.NotFound)
-            return@post
         }
+        return@post
     }
 
     post("/mcserver/broadcast") {
@@ -62,8 +62,8 @@ fun Route.mcServerMessaging() {
             }
         } else {
             call.respondText("Server not found", status = HttpStatusCode.NotFound)
-            return@post
         }
+        return@post
     }
 
 }
