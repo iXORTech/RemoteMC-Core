@@ -35,27 +35,16 @@ fun Route.qqBotMessaging() {
             val sender = request.sender
             val message = request.message
             val qqBotResponse = qqBot.sendMessage(source, sender, message)
-            if (qqBotResponse.statusCode == 200) {
-                call.respondText("Message sent!", status = HttpStatusCode.OK)
-            } else if (qqBotResponse.statusCode == 401) {
-                call.respondText("Auth key (on RemoteMC-Core) is not valid", status = HttpStatusCode.Forbidden)
-            } else if (qqBotResponse.statusCode == 500) {
-                if (qqBotResponse.message == "The chat bot is offline") {
-                    call.respondText("Target QQ Bot offline", status = HttpStatusCode.InternalServerError)
-                } else if (qqBotResponse.message == "Error: Group Not Found!") {
-                    call.respondText("Target QQ Group could not be found", status = HttpStatusCode.InternalServerError)
-                } else {
-                    call.respondText("Unknown error", status = HttpStatusCode.InternalServerError)
-                }
-            } else {
-                call.respondText("Unknown error", status = HttpStatusCode.InternalServerError)
+            when (qqBotResponse.statusCode) {
+                200 -> call.respondText("Message sent successfully!", status = HttpStatusCode.OK)
+                401 -> call.respondText("Auth key on RemoteMC-Core is not valid! Please check authKey settings and make sure" +
+                        " they were the same everywhere!", status = HttpStatusCode.Unauthorized)
+                else -> call.respondText("Unknown error! Status Code ${qqBotResponse.statusCode} - Message ${qqBotResponse.message}.",
+                    status = HttpStatusCode.InternalServerError)
             }
-
         } else {
             call.respondText("QQBot not found", status = HttpStatusCode.NotFound)
-            return@post
         }
-
+        return@post
     }
-
 }
