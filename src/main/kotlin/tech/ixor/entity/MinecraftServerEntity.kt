@@ -33,6 +33,11 @@ class MinecraftServerEntity constructor(
         }
     }
 
+    fun checkOnlineStatus(): Boolean {
+        updateOnlineStatus()
+        return isOnline
+    }
+
     suspend fun ping(): HTTPResponse {
         val url = getUrl() + "/ping"
         val client = HttpClient(CIO)
@@ -51,6 +56,9 @@ class MinecraftServerEntity constructor(
     }
 
     suspend fun status(): HTTPResponse {
+        if (!checkOnlineStatus()) {
+            return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
+        }
         val url = getUrl() + "/api/v1/mcserver/status"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
@@ -68,6 +76,9 @@ class MinecraftServerEntity constructor(
     }
 
     suspend fun executeCommand(command: String): HTTPResponse {
+        if (!checkOnlineStatus()) {
+            return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
+        }
         val url = getUrl() + "/api/v1/mcserver/execute_command"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
@@ -93,6 +104,9 @@ class MinecraftServerEntity constructor(
     }
 
     suspend fun say(source: String, sender: String, message: String): HTTPResponse {
+        if (!checkOnlineStatus()) {
+            return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
+        }
         val url = getUrl() + "/api/v1/mcserver/say"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
@@ -120,6 +134,9 @@ class MinecraftServerEntity constructor(
     }
 
     suspend fun broadcast(message: String): HTTPResponse {
+        if (!checkOnlineStatus()) {
+            return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
+        }
         val url = getUrl() + "/api/v1/mcserver/broadcast"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
