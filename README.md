@@ -1,8 +1,8 @@
 **English** | [中文](README-zh.md)
 
-<h1 style="text-align: center">RemoteMC-Core</h1>
+<h1 align="center">RemoteMC-Core</h1>
 
-<p style="text-align: center"> 
+<p align="center"> 
   <b>[WIP] Processing and API Core of RemoteMC Series </b>
 </p>
 
