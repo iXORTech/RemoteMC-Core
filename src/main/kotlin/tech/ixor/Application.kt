@@ -12,6 +12,8 @@ import tech.ixor.entity.MinecraftServers
 import tech.ixor.entity.QQBots
 import tech.ixor.job.MinecraftServerAliveMonitor
 import tech.ixor.job.QQBotAliveMonitor
+import tech.ixor.plugins.configureRouting
+import tech.ixor.plugins.configureSerialization
 import tech.ixor.routes.controller.mcserver.registerMCServerRoutes
 import tech.ixor.routes.controller.qqbot.registerQQBotRoutes
 import tech.ixor.routes.web.registerWebRoutes
@@ -59,15 +61,7 @@ fun main() {
     loadQQBots(config)
 
     embeddedServer(Netty, port = config.ktor.port, host = config.ktor.host) {
-        install(ContentNegotiation) {
-            gson {
-                setPrettyPrinting()
-                disableHtmlEscaping()
-            }
-        }
-
-        registerWebRoutes()
-        registerMCServerRoutes()
-        registerQQBotRoutes()
+        configureRouting()
+        configureSerialization()
     }.start(wait = true)
 }
