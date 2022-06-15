@@ -3,6 +3,7 @@ package tech.ixor.entity
 import java.io.File
 
 import com.sksamuel.hoplite.ConfigLoader
+import tech.ixor.I18N
 import tech.ixor.utils.FileDownloader
 
 class ConfigEntity {
@@ -27,10 +28,12 @@ class ConfigEntity {
         val pwd = System.getProperty("user.dir")
         val confFile = "$pwd/conf/config.yaml"
         if (!File(confFile).exists()) {
+            println(I18N.configFileNotFound)
             val fileDownloader = FileDownloader()
             fileDownloader.downloadFile(
                 "https://cdn.jsdelivr.net/gh/iXORTech/RemoteMC-Core/src/main/resources/conf/config.yaml",
-                confFile
+                confFile,
+                I18N.configFileDownloadDescription()
             )
         }
         return ConfigLoader().loadConfigOrThrow(confFile)
