@@ -20,6 +20,7 @@ Special Thanks to [JetBrains](https://www.jetbrains.com/?from=RemoteMC-Core) for
 <sup>Copyright © 2022 JetBrains s.r.o. IntelliJ IDEA and the IntelliJ IDEA logo are registered trademarks of JetBrains s.r.o.</sup>
 
 ## 📜 License
+
 > **RemoteMC-Core uses [AGPL-3.0-or-later License](LICENSE) as software license.<br/>
 Users can modify and redistribute the source code and use it for commercial proposes, but you should respect the content of [AGPL-3.0-or-later License](LICENSE)**
 
