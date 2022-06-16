@@ -12,8 +12,8 @@
 
 Special Thanks to [JetBrains](https://www.jetbrains.com/?from=RemoteMC-Core) for providing us free Licenses for Open Source Development for IDEs such as [IntelliJ IDEA](https://www.jetbrains.com/idea/?from=RemoteMC-Core)
 
-[<img src="https://img.cubik65536.top/jetbrains.png" height="96"/>](https://www.jetbrains.com/?from=RemoteMC-Core)
-[<img src="https://img.cubik65536.top/IntelliJ_IDEA.png" height="96"/>](https://www.jetbrains.com/idea/?from=RemoteMC-Core)
+[<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" height="96"/>](https://www.jetbrains.com/?from=RemoteMC-Core)
+[<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/IntelliJ_IDEA.png" height="96"/>](https://www.jetbrains.com/idea/?from=RemoteMC-Core)
 
 <sup>Copyright © 2000-2022 JetBrains s.r.o. JetBrains and the JetBrains logo are registered trademarks of JetBrains s.r.o.</sup>
 <br/>
