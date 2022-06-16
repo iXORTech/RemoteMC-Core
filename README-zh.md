@@ -20,18 +20,24 @@
 <sup>Copyright © 2022 JetBrains s.r.o. IntelliJ IDEA and the IntelliJ IDEA logo are registered trademarks of JetBrains s.r.o.</sup>
 
 ## 📜 协议&许可证
-> **RemoteMC-Core 使用 [AGPL-3.0协议](license-translations/LICENSE-zh)（[原文](LICENSE)）作为软件分发许可证。<br/>
-用户可以更改，再分发本开源代码，进行商业使用，但必须遵守 [AGPL-3.0协议](license-translations/LICENSE-zh)（[原文](LICENSE)）内容**
+> **RemoteMC-Core 使用 [AGPL-3.0-or-later 协议](license-translations/LICENSE-zh)（[原文](LICENSE)）作为软件分发许可证。<br/>
+用户可以更改，再分发本开源代码，进行商业使用，但必须遵守 [AGPL-3.0-or-later 协议](license-translations/LICENSE-zh)（[原文](LICENSE)）内容**
 
 但同时，用户不得：
 - 将该项目用于违反**美国**，**加拿大**，**中华人民共和国**以及用户所处国家的法律的用途
 
-此外，对于 `RemoteMC-Core` 的衍生项目：
-- 若引用 RemoteMC-Core 发布的软件包而不修改 RemoteMC-Core，则衍生项目需在描述的任意部位提及使用 RemoteMC-Core。
-- 若修改 RemoteMC-Core 源代码再发布，**或参考 RemoteMC-Core 内部实现发布另一个项目**，
-  则衍生项目必须在**文章首部**或 `RemoteMC-Core` 相关内容**首次出现**的位置**明确声明**来源于本仓库。不得扭曲或隐藏免费且开源的事实。
-    - 仓库链接：
-        - https://github.com/iXORTech/RemoteMC-Core
+
+- 当您在部署本项目时：
+  - 您应当保留在网页底部或者命令行提示处的 `由 iXOR Technology 强力驱动。` 字样，并且 `iXOR Technology` 应当始终链接到我们的网站（https://ixor.tech）
+
+
+- 对于 `RemoteMC-Core` 的衍生项目：
+  - 不管您是在维护一个我们项目的分支抑或是直接使用了我们的代码，您的项目应当也使用 [AGPL-3.0-or-later 协议](license-translations/LICENSE-zh)（[原文](LICENSE)）作为软件分发许可证。
+  - 如果您在维护一个 `RemoteMC-Core` 的分支，您可以在网页底部或者命令行提示处使用 `由 iXOR Technology 强力驱动，由 [您的名字] 更改。` 字样。否则必须保留 `由 iXOR Technology 强力驱动。` 字样。
+  - 如果你在使用 `RemoteMC` 已发布的代码，不管您是否更改了代码，您都需要在您的程序描述中**明确**提及使用了本项目代码，并附上本项目的链接。您不得扭曲或隐藏本项目免费且开源的事实。
+    - 本项目链接
+      - https://github.com/iXORTech/RemoteMC-Core
+
 
 ``` text
 RemoteMC-Core - RemoteMC 系列处理与API核心
