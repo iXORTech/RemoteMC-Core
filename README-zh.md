@@ -12,8 +12,8 @@
 
 特别感谢 [JetBrains](https://www.jetbrains.com/?from=RemoteMC-Core) 为我们提供免费的，[IntelliJ IDEA](https://www.jetbrains.com/idea/?from=RemoteMC-Core) 等 IDE 的开源开发许可证
 
-[<img src="https://img.cubik65536.top/jetbrains.png" width="96"/>](https://www.jetbrains.com/?from=RemoteMC-Core)
-[<img src="https://img.cubik65536.top/icon-intellij-idea.png" width="96"/>](https://www.jetbrains.com/idea/?from=RemoteMC-Core)
+[<img src="https://img.cubik65536.top/jetbrains.png" height="96"/>](https://www.jetbrains.com/?from=RemoteMC-Core)
+[<img src="https://img.cubik65536.top/IntelliJ_IDEA.png" height="96"/>](https://www.jetbrains.com/idea/?from=RemoteMC-Core)
 
 <sup>Copyright © 2000-2022 JetBrains s.r.o. JetBrains and the JetBrains logo are registered trademarks of JetBrains s.r.o.</sup>
 <br/>
