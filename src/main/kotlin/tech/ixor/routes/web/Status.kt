@@ -40,8 +40,10 @@ fun Route.status() {
                             h3 {
                                 +"${I18N.minecraft_server}"
                             }
-                            h4 {
-                                +"${I18N.online} "
+                            if (MinecraftServers.getOnlineServers().isNotEmpty()) {
+                                h4 {
+                                    +"${I18N.online} "
+                                }
                             }
                             ol {
                                 val onlineServers = MinecraftServers.getOnlineServers()
@@ -61,8 +63,10 @@ fun Route.status() {
                                     }
                                 }
                             }
-                            h4 {
-                                +"${I18N.offline}"
+                            if (MinecraftServers.getOfflineServers().isNotEmpty()) {
+                                h4 {
+                                    +"${I18N.offline}"
+                                }
                             }
                             ol {
                                 val offlineServers = MinecraftServers.getOfflineServers()
@@ -79,8 +83,10 @@ fun Route.status() {
                             h3 {
                                 +"${I18N.qq_chat_bots}"
                             }
-                            h4 {
-                                +"${I18N.online} "
+                            if (QQBots.getOnlineBots().isNotEmpty()) {
+                                h4 {
+                                    +"${I18N.online} "
+                                }
                             }
                             ol {
                                 val onlineBots = QQBots.getOnlineBots()
@@ -93,8 +99,10 @@ fun Route.status() {
                                     }
                                 }
                             }
-                            h4 {
-                                +"${I18N.offline}"
+                            if (QQBots.getOfflineBots().isNotEmpty()) {
+                                h4 {
+                                    +"${I18N.offline}"
+                                }
                             }
                             ol {
                                 val offlineBots = QQBots.getOfflineBots()
