@@ -37,11 +37,18 @@ fun Route.qqBotMessaging() {
             val qqBotResponse = qqBot.sendMessage(source, sender, message)
             when (qqBotResponse.statusCode) {
                 200 -> call.respondText("Message sent successfully!", status = HttpStatusCode.OK)
-                401 -> call.respondText("Auth key on RemoteMC-Core is not valid! Please check authKey settings and make sure" +
-                        " they were the same everywhere!", status = HttpStatusCode.Unauthorized)
-                503 -> call.respondText("The QQ Bot that you are requesting might be offline!", status = HttpStatusCode.ServiceUnavailable)
-                else -> call.respondText("Unknown error! Status Code ${qqBotResponse.statusCode} - Message ${qqBotResponse.message}.",
-                    status = HttpStatusCode.InternalServerError)
+                401 -> call.respondText(
+                    "Auth key on RemoteMC-Core is not valid! Please check authKey settings and make sure" +
+                            " they were the same everywhere!", status = HttpStatusCode.Unauthorized
+                )
+                503 -> call.respondText(
+                    "The QQ Bot that you are requesting might be offline!",
+                    status = HttpStatusCode.ServiceUnavailable
+                )
+                else -> call.respondText(
+                    "Unknown error! Status Code ${qqBotResponse.statusCode} - Message ${qqBotResponse.message}.",
+                    status = HttpStatusCode.InternalServerError
+                )
             }
         } else {
             call.respondText("QQBot not found", status = HttpStatusCode.NotFound)

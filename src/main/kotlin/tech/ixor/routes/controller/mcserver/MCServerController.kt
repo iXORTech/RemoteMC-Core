@@ -27,11 +27,18 @@ fun Route.mcServerExecuteCommand() {
             val mcServerResponse = minecraftServer.executeCommand(command)
             when (mcServerResponse.statusCode) {
                 200 -> call.respondText(mcServerResponse.message, status = HttpStatusCode.OK)
-                401 -> call.respondText("Auth key on RemoteMC-Core is not valid! Please check authKey settings and make sure" +
-                        " they were the same everywhere!", status = HttpStatusCode.Unauthorized)
-                503 -> call.respondText("The Minecraft server that you are requesting might be offline!", status = HttpStatusCode.ServiceUnavailable)
-                else -> call.respondText("Unknown error! Status Code ${mcServerResponse.statusCode} - Message ${mcServerResponse.message}.",
-                    status = HttpStatusCode.InternalServerError)
+                401 -> call.respondText(
+                    "Auth key on RemoteMC-Core is not valid! Please check authKey settings and make sure" +
+                            " they were the same everywhere!", status = HttpStatusCode.Unauthorized
+                )
+                503 -> call.respondText(
+                    "The Minecraft server that you are requesting might be offline!",
+                    status = HttpStatusCode.ServiceUnavailable
+                )
+                else -> call.respondText(
+                    "Unknown error! Status Code ${mcServerResponse.statusCode} - Message ${mcServerResponse.message}.",
+                    status = HttpStatusCode.InternalServerError
+                )
             }
         } else {
             call.respondText("Server not found", status = HttpStatusCode.NotFound)

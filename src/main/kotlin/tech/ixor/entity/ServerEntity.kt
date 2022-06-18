@@ -2,7 +2,7 @@ package tech.ixor.entity
 
 import com.beust.klaxon.Klaxon
 import io.ktor.client.*
-import io.ktor.client.call.*
+import io.ktor.client.call.body
 import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
 import io.ktor.http.*
