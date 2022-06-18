@@ -78,13 +78,6 @@ fun Route.status() {
                                 +"${qqBot.host} : ${qqBot.port}"
                             }
                             +" - ${qqBot.groupName} (${qqBot.groupCode})"
-                            if (qqBot.default &&
-                                QQBots.getDefaultBot()?.equals(qqBot) == true
-                            ) {
-                                i {
-                                    +" ${I18N.default}"
-                                }
-                            }
                         }
                     }
                 }

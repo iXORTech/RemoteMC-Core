@@ -11,7 +11,7 @@ class ConfigEntity {
 
     data class QQBot(
         val host: String, val port: Int, val ssl: Boolean,
-        val groupName: String, val groupCode: Long, val default: Boolean
+        val groupName: String, val groupCode: Long
     )
 
     data class MinecraftServer(

@@ -13,13 +13,11 @@ qqBots:
     ssl: true
     groupName: "Group Name 0"
     groupCode: 3692432137
-    default: true
   - host: "127.0.0.1"
     port: 65361
     ssl: false
     groupName: "Group Name 1"
     groupCode: 3842465973
-    default: false
 
 minecraftServers:
   - serverName: "Server Name 0"

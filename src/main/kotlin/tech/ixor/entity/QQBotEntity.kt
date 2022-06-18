@@ -10,8 +10,8 @@ import java.net.ConnectException
 
 class QQBotEntity constructor(
     host: String, port: Int, ssl: Boolean,
-    val groupName: String, val groupCode: Long, val default: Boolean
-): ServerEntity(host, port, ssl) {
+    val groupName: String, val groupCode: Long
+) : ServerEntity(host, port, ssl) {
     suspend fun sendMessage(source: String, sender: String, message: String): HTTPResponse {
         if (!checkOnlineStatus()) {
             return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
@@ -41,11 +41,11 @@ object QQBots {
     }
 
     fun addBot(bot: ConfigEntity.QQBot) {
-        qqBots.add(QQBotEntity(bot.host, bot.port, bot.ssl, bot.groupName, bot.groupCode, bot.default))
+        qqBots.add(QQBotEntity(bot.host, bot.port, bot.ssl, bot.groupName, bot.groupCode))
     }
 
-    fun addBot(host: String, port: Int, ssl: Boolean, groupName: String, groupCode: Long, default: Boolean) {
-        qqBots.add(QQBotEntity(host, port, ssl, groupName, groupCode, default))
+    fun addBot(host: String, port: Int, ssl: Boolean, groupName: String, groupCode: Long) {
+        qqBots.add(QQBotEntity(host, port, ssl, groupName, groupCode))
     }
 
     fun getAllBots(): List<QQBotEntity> {
@@ -58,10 +58,6 @@ object QQBots {
 
     fun getBot(groupCode: Long): QQBotEntity? {
         return qqBots.find { it.groupCode == groupCode }
-    }
-
-    fun getDefaultBot(): QQBotEntity? {
-        return qqBots.find { it.default && it.isOnline }
     }
 
     fun getOnlineBots(): List<QQBotEntity> {
