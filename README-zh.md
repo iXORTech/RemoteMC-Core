@@ -6,6 +6,12 @@
   <b>[WIP] RemoteMC 系列处理与API核心</b>
 </p>
 
+<p align="center">
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-AGPL--3.0--or--later-important?style=for-the-badge" />
+  </a>
+</p>
+
 ## 🎊 鸣谢
 
 > <span style="font-size: 0.96em">**IntelliJ IDEA**</span><br/>功能强大，符合人体工程学的 JVM IDE
