@@ -59,6 +59,12 @@ fun Route.index() {
                                 +" | ${I18N.poweredBy} "
                                 a (href = "https://ixor.tech") { +"iXOR Technology" }
                                 +" ${I18N.withLove}"
+                                br {}
+                                + "${I18N.htmlThemeDesigned0}"
+                                a (href = "https://github.com/athul/archie") { +"Archie Theme" }
+                                + "${I18N.htmlThemeDesigned1}"
+                                a (href = "https://github.com/KevinZonda") { +"@KevinZonda" }
+                                + "${I18N.htmlThemeDesigned2}"
                             }
                         }
                     }
