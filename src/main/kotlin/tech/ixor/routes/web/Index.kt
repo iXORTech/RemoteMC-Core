@@ -15,45 +15,57 @@ fun Route.index() {
         call.respondHtml(HttpStatusCode.OK) {
             head {
                 title { +"${I18N.welcome}" }
+                meta { charset = "utf-8" }
+                link( rel = "stylesheet", href = "/assets/style.css", type = "text/css")
+                meta { name = "viewport"; content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" }
+                script { src = "https://unpkg.com/feather-icons" }
             }
             body {
-                h1 { +"${I18N.welcome}" }
+                div { id = "page-wrapper"
+                    div ("index-container") {
+                        div ("content") {
+                            h1 { +"${I18N.welcome}" }
 
-                hr {}
+                            hr {}
 
-                p {
-                    b { +"${I18N.version} " }
-                    +version
-                }
-                if (version.contains("dev") || version.contains("alpha") || version.contains("beta")) {
-                    p { b { +"${I18N.experimental}" } }
-                } else if (version.contains("rc")) {
-                    p { b { +"${I18N.releaseCandidate}" } }
-                }
+                            p {
+                                b { +"${I18N.version} " }
+                                +version
+                            }
+                            if (version.contains("dev") || version.contains("alpha") || version.contains("beta")) {
+                                p { b { +"${I18N.experimental}" } }
+                            } else if (version.contains("rc")) {
+                                p { b { +"${I18N.releaseCandidate}" } }
+                            }
 
-                hr {}
-                br {}
+                            hr {}
+                            br {}
 
-                p {
-                    +"${I18N.successfullyInstalled}"
-                }
+                            p {
+                                +"${I18N.successfullyInstalled}"
+                            }
 
-                br {}
-                hr {}
+                            br {}
 
-                p {
-                    a(href = "https://github.com/iXORTech/RemoteMC-Core/issues") {
-                        +"${I18N.reportBug}"
+                            footer {
+                                hr {}
+                                a (href = "https://github.com/iXORTech/RemoteMC-Core/issues") {
+                                    +"${I18N.reportBug}"
+                                }
+                                hr {}
+                                a (href = "https://github.com/iXORTech") {
+                                    i { attributes["data-feather"] = "github" }
+                                }
+                                +" | ${I18N.poweredBy} "
+                                a (href = "https://ixor.tech") { +"iXOR Technology" }
+                                +" ${I18N.withLove}"
+                            }
+                        }
                     }
                 }
 
-                hr {}
+                script { +"feather.replace()" }
 
-                p {
-                    +"${I18N.poweredBy} "
-                    a(href = "https://ixor.tech") { +"iXOR Technology" }
-                    +" ${I18N.withLove}"
-                }
             }
         }
     }
