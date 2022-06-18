@@ -111,7 +111,7 @@ object MinecraftServers {
         servers.add(server)
     }
 
-    fun addServer(server: ConfigEntity.MinecraftServer) {
+    fun addServer(server: ConfigEntity.MinecraftServerConfig) {
         servers.add(MinecraftServerEntity(server.serverName, server.host, server.port, server.ssl, server.default))
     }
 

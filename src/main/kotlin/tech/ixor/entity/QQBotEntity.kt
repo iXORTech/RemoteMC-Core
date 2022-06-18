@@ -9,10 +9,9 @@ import io.ktor.http.*
 import java.net.ConnectException
 
 class QQBotEntity constructor(
-    host: String, port: Int, ssl: Boolean,
-    val groupName: String, val groupCode: Long
+    host: String, port: Int, ssl: Boolean
 ) : ServerEntity(host, port, ssl) {
-    suspend fun sendMessage(source: String, sender: String, message: String): HTTPResponse {
+    suspend fun sendMessage(groupCode: Long, source: String, sender: String, message: String): HTTPResponse {
         if (!checkOnlineStatus()) {
             return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
         }
@@ -33,38 +32,22 @@ class QQBotEntity constructor(
     }
 }
 
-object QQBots {
-    private val qqBots = mutableListOf<QQBotEntity>()
+object QQBot {
+    private lateinit var qqBot: QQBotEntity
 
-    fun addBot(bot: QQBotEntity) {
-        qqBots.add(bot)
+    fun setBot(bot: QQBotEntity) {
+        qqBot = bot
     }
 
-    fun addBot(bot: ConfigEntity.QQBot) {
-        qqBots.add(QQBotEntity(bot.host, bot.port, bot.ssl, bot.groupName, bot.groupCode))
+    fun setBot(bot: ConfigEntity.QQBotConfig) {
+        qqBot = QQBotEntity(bot.host, bot.port, bot.ssl)
     }
 
-    fun addBot(host: String, port: Int, ssl: Boolean, groupName: String, groupCode: Long) {
-        qqBots.add(QQBotEntity(host, port, ssl, groupName, groupCode))
+    fun setBot(host: String, port: Int, ssl: Boolean) {
+        qqBot = QQBotEntity(host, port, ssl)
     }
 
-    fun getAllBots(): List<QQBotEntity> {
-        return qqBots
-    }
-
-    fun getBot(host: String, port: Int): QQBotEntity? {
-        return qqBots.find { it.host == host && it.port == port }
-    }
-
-    fun getBot(groupCode: Long): QQBotEntity? {
-        return qqBots.find { it.groupCode == groupCode }
-    }
-
-    fun getOnlineBots(): List<QQBotEntity> {
-        return qqBots.filter { it.isOnline }
-    }
-
-    fun getOfflineBots(): List<QQBotEntity> {
-        return qqBots.filter { !it.isOnline }
+    fun getBot(): QQBotEntity {
+        return qqBot
     }
 }

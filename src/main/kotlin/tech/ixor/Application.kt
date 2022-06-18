@@ -6,7 +6,7 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import tech.ixor.entity.ConfigEntity
 import tech.ixor.entity.MinecraftServers
-import tech.ixor.entity.QQBots
+import tech.ixor.entity.QQBot
 import tech.ixor.job.MinecraftServerAliveMonitor
 import tech.ixor.job.QQBotAliveMonitor
 import tech.ixor.plugins.configureRouting
@@ -24,10 +24,8 @@ fun loadMinecraftServers(config: ConfigEntity.Config) {
 }
 
 fun loadQQBots(config: ConfigEntity.Config) {
-    val qqBots = QQBots
-    config.qqBots.forEach {
-        qqBots.addBot(it)
-    }
+    val qqBot = QQBot
+    qqBot.setBot(config.qqBot)
     val qqBotAliveMonitor = QQBotAliveMonitor()
     qqBotAliveMonitor.start()
 }

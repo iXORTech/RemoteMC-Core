@@ -7,7 +7,7 @@ import io.ktor.server.routing.*
 import kotlinx.html.*
 import tech.ixor.I18N
 import tech.ixor.entity.MinecraftServers
-import tech.ixor.entity.QQBots
+import tech.ixor.entity.QQBot
 import tech.ixor.job.MinecraftServerAliveMonitor
 
 fun Route.status() {
@@ -83,35 +83,14 @@ fun Route.status() {
                             h3 {
                                 +"${I18N.qq_chat_bots}"
                             }
-                            if (QQBots.getOnlineBots().isNotEmpty()) {
-                                h4 {
-                                    +"${I18N.online} "
-                                }
-                            }
-                            ol {
-                                val onlineBots = QQBots.getOnlineBots()
-                                for (qqBot in onlineBots) {
-                                    li {
-                                        b {
-                                            +"${qqBot.host} : ${qqBot.port}"
-                                        }
-                                        +" - ${qqBot.groupName} (${qqBot.groupCode})"
-                                    }
-                                }
-                            }
-                            if (QQBots.getOfflineBots().isNotEmpty()) {
-                                h4 {
-                                    +"${I18N.offline}"
-                                }
-                            }
-                            ol {
-                                val offlineBots = QQBots.getOfflineBots()
-                                for (qqBot in offlineBots) {
-                                    li {
-                                        b {
-                                            +"${qqBot.host} : ${qqBot.port}"
-                                        }
-                                        +" - ${qqBot.groupName} (${qqBot.groupCode})"
+                            val qqBot = QQBot.getBot()
+                            p {
+                                +"${qqBot.host} : ${qqBot.port} - "
+                                b {
+                                    if (qqBot.isOnline == true) {
+                                        +"${I18N.isOnline}"
+                                    } else {
+                                        +"${I18N.isOffline}"
                                     }
                                 }
                             }
