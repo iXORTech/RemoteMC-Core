@@ -8,14 +8,14 @@ ktor:
   port: 65360
 
 qqBot:
-  - host: "127.0.0.1"
-    port: 65361
-    ssl: true
-    groups:
-      - groupName: "Group Name 0"
-        groupCode: 3692432137
-      - groupName: "Group Name 1"
-        groupCode: 3842465973
+  host: "127.0.0.1"
+  port: 65361
+  ssl: true
+  groups:
+    - groupName: "Group Name 0"
+      groupCode: 3692432137
+    - groupName: "Group Name 1"
+      groupCode: 3842465973
 
 minecraftServers:
   - serverName: "Server Name 0"

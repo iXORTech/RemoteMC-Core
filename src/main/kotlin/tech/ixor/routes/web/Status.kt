@@ -8,6 +8,7 @@ import kotlinx.html.*
 import tech.ixor.I18N
 import tech.ixor.entity.MinecraftServers
 import tech.ixor.entity.QQBot
+import tech.ixor.entity.QQGroups
 import tech.ixor.job.MinecraftServerAliveMonitor
 
 fun Route.status() {
@@ -81,7 +82,7 @@ fun Route.status() {
                             }
 
                             h3 {
-                                +"${I18N.qq_chat_bots}"
+                                +"${I18N.qq_chat_bot}"
                             }
                             val qqBot = QQBot.getBot()
                             p {
@@ -91,6 +92,20 @@ fun Route.status() {
                                         +"${I18N.isOnline}"
                                     } else {
                                         +"${I18N.isOffline}"
+                                    }
+                                }
+                            }
+                            h4 {
+                                +"${I18N.qq_groups}"
+                            }
+                            ol {
+                                val qqGroups = QQGroups.getQQGroups()
+                                for (qqGroup in qqGroups) {
+                                    li {
+                                        b {
+                                            +qqGroup.groupName
+                                        }
+                                        +" - ${qqGroup.groupCode}"
                                     }
                                 }
                             }
