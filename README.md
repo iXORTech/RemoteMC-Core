@@ -12,6 +12,23 @@
   </a>
 </p>
 
+## 🔉 Announcement
+
+This announcement is made due to the [disharmony event of Mirai](https://github.com/mamoe/mirai/issues/850).
+
+  - This project has been developed for the hobby of developers and contributors. So,
+    1. we might add/change some features or even remove some features just because we are interested in making these changes
+    2. and posting any offensive speech/content/behavior that expresses the opposition to the points above will result in a **BAN FOREVER**
+  - The fact that this project is open-sourced does not mean that the developer is obliged to provide you any services.
+  - Your speech should not be offensive.
+  - Read the [How To Ask Questions The Smart Way](http://www.catb.org/~esr/faqs/smart-questions.html) before you ask any questions.
+  - If necessary, the developer reserves the right to stop any technical support for you.
+  - If necessary, the developer reserves the right of **BANNING** you for any reason.
+  - We will try **our best** to notify in beforehand about the modification/removal of the internal implementation of the program, but we cannot guarantee anything.
+  - We will try **our best** to make updating the program easier (for example, no need to change anything other than executable binary) or clearly notify other changes needed. But this is not guaranteed either.
+
+If you feel discomfort about the announcement above, you should consider stopping using this project.
+
 ## 🎊 Thanks
 
 > <span style="font-size: 0.96em">**IntelliJ IDEA**</span><br/>Capable and Ergonomic IDE for JVM
