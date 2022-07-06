@@ -19,13 +19,25 @@ fun Route.mcServerMessaging() {
             return@post
         }
 
-        val host = request.host
-        val port = request.port
+        val host = request.host ?: MinecraftServers.getDefaultServer()?.host
+        val port = request.port ?: MinecraftServers.getDefaultServer()?.port
+
+        if (host == null || port == null) {
+            call.respondText("Target host or port is null, set a default Minecraft Server if necessary!", status = HttpStatusCode.BadRequest)
+            return@post
+        }
+
         val minecraftServer: MinecraftServerEntity? = MinecraftServers.getServer(host, port)
         if (minecraftServer != null) {
             val source = request.source
             val sender = request.sender
             val message = request.message
+
+            if (source == null || sender == null || message == null) {
+                call.respondText("Source, sender or message of the request is null!", status = HttpStatusCode.BadRequest)
+                return@post
+            }
+
             val mcServerResponse = minecraftServer.say(source, sender, message)
             when (mcServerResponse.statusCode) {
                 200 -> call.respondText("Message sent successfully!", status = HttpStatusCode.OK)
@@ -55,11 +67,23 @@ fun Route.mcServerMessaging() {
             return@post
         }
 
-        val host = request.host
-        val port = request.port
+        val host = request.host ?: MinecraftServers.getDefaultServer()?.host
+        val port = request.port ?: MinecraftServers.getDefaultServer()?.port
+
+        if (host == null || port == null) {
+            call.respondText("Target host or port is null, set a default Minecraft Server if necessary!", status = HttpStatusCode.BadRequest)
+            return@post
+        }
+
         val minecraftServer: MinecraftServerEntity? = MinecraftServers.getServer(host, port)
         if (minecraftServer != null) {
             val message = request.message
+
+            if (message == null) {
+                call.respondText("Message of the request is null!", status = HttpStatusCode.BadRequest)
+                return@post
+            }
+
             val mcServerResponse = minecraftServer.broadcast(message)
             when (mcServerResponse.statusCode) {
                 200 -> call.respondText("Broadcast sent successfully!", status = HttpStatusCode.OK)

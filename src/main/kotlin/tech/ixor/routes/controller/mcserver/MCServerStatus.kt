@@ -11,8 +11,14 @@ import tech.ixor.entity.MinecraftServers
 fun Route.mcServerStatus() {
     get("/mcserver/status") {
         val request = call.receive<MCServerStatusRequest>()
-        val host = request.host
-        val port = request.port
+        val host = request.host ?: MinecraftServers.getDefaultServer()?.host
+        val port = request.port ?: MinecraftServers.getDefaultServer()?.port
+
+        if (host == null || port == null) {
+            call.respondText("Target host or port is null, set a default Minecraft Server if necessary!", status = HttpStatusCode.BadRequest)
+            return@get
+        }
+
         val minecraftServer: MinecraftServerEntity? = MinecraftServers.getServer(host, port)
         if (minecraftServer != null) {
             val mcServerResponse = minecraftServer.status()

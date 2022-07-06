@@ -19,11 +19,23 @@ fun Route.mcServerExecuteCommand() {
             return@post
         }
 
-        val host = request.host
-        val port = request.port
+        val host = request.host ?: MinecraftServers.getDefaultServer()?.host
+        val port = request.port ?: MinecraftServers.getDefaultServer()?.port
+
+        if (host == null || port == null) {
+            call.respondText("Target host or port is null, set a default Minecraft Server if necessary!", status = HttpStatusCode.BadRequest)
+            return@post
+        }
+
         val minecraftServer: MinecraftServerEntity? = MinecraftServers.getServer(host, port)
         if (minecraftServer != null) {
             val command = request.command
+
+            if (command == null) {
+                call.respondText("Command of the request is null!", status = HttpStatusCode.BadRequest)
+                return@post
+            }
+
             val mcServerResponse = minecraftServer.executeCommand(command)
             when (mcServerResponse.statusCode) {
                 200 -> call.respondText(mcServerResponse.message, status = HttpStatusCode.OK)
