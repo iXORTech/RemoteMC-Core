@@ -20,18 +20,9 @@ fun Route.qqBotMessaging() {
             return@post
         }
 
-        val host = request.host
-        val port = request.port
-        val groupCode = request.groupCode
         val qqBot: QQBotEntity = QQBot.getBot()
-        if (qqBot.host != host || qqBot.port != port) {
-            call.respondText(
-                "The host and port of QQBot might be wrong! Verify your request!",
-                status = HttpStatusCode.NotFound
-            )
-            return@post
-        }
 
+        val groupCode = request.groupCode
         val qqGroup = QQGroups.getQQGroup(groupCode)
         if (qqGroup == null) {
             call.respondText(
