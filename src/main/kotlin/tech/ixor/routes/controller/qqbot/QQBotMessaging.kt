@@ -5,6 +5,7 @@ import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import tech.ixor.I18N
 import tech.ixor.entity.ConfigEntity
 import tech.ixor.entity.QQBotEntity
 import tech.ixor.entity.QQBot
@@ -16,7 +17,7 @@ fun Route.qqBotMessaging() {
     post("/qqbot/message") {
         val request = call.receive<QQBotSendMessageRequest>()
         if (authKey != request.authKey) {
-            call.respondText("Auth key (on your client) is not valid", status = HttpStatusCode.Forbidden)
+            call.respondText(I18N.client_authkey_invalid(), status = HttpStatusCode.Forbidden)
             return@post
         }
 
@@ -25,10 +26,7 @@ fun Route.qqBotMessaging() {
         val groupCode = request.groupCode
         val qqGroup = QQGroups.getQQGroup(groupCode)
         if (qqGroup == null) {
-            call.respondText(
-                "The group code ${groupCode} is not valid! Check your RemoteMC-Core config file!",
-                status = HttpStatusCode.NotFound
-            )
+            call.respondText(I18N.groupcode_invalid(groupCode), status = HttpStatusCode.NotFound)
             return@post
         }
 
@@ -37,17 +35,11 @@ fun Route.qqBotMessaging() {
         val message = request.message
         val qqBotResponse = qqBot.sendMessage(groupCode, source, sender, message)
         when (qqBotResponse.statusCode) {
-            200 -> call.respondText("Message sent successfully to ${qqGroup.groupName}!", status = HttpStatusCode.OK)
-            401 -> call.respondText(
-                "Auth key on RemoteMC-Core is not valid! Please check authKey settings and make sure" +
-                        " they were the same everywhere!", status = HttpStatusCode.Unauthorized
-            )
-            503 -> call.respondText(
-                "The QQ Bot that you are requesting might be offline!",
-                status = HttpStatusCode.ServiceUnavailable
-            )
+            200 -> call.respondText(I18N.message_sent_to_group(qqGroup.groupName), status = HttpStatusCode.OK)
+            401 -> call.respondText(I18N.core_authkey_invalid(), status = HttpStatusCode.Unauthorized)
+            503 -> call.respondText(I18N.qqbot_offline(), status = HttpStatusCode.ServiceUnavailable)
             else -> call.respondText(
-                "Unknown error! Status Code ${qqBotResponse.statusCode} - Message ${qqBotResponse.message}.",
+                I18N.unknown_error(qqBotResponse.statusCode, qqBotResponse.message),
                 status = HttpStatusCode.InternalServerError
             )
         }
