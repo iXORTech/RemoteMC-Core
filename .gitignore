@@ -33,6 +33,7 @@ build/
 !**/test/**/build
 *.iml
 !**/testData/**/*.iml
+.idea/conventionalCommit.xml
 .idea/remote-targets.xml
 .idea/libraries/Gradle*.xml
 .idea/libraries/Maven*.xml
