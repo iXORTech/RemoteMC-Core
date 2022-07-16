@@ -5,6 +5,7 @@ import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import tech.ixor.I18N
 import tech.ixor.entity.ConfigEntity
 import tech.ixor.entity.MinecraftServerEntity
 import tech.ixor.entity.MinecraftServers
@@ -15,7 +16,7 @@ fun Route.mcServerExecuteCommand() {
     post("/mcserver/execute_command") {
         val request = call.receive<MCServerExecuteCommandRequest>()
         if (authKey != request.authKey) {
-            call.respondText("Auth key (on your client) is not valid", status = HttpStatusCode.Forbidden)
+            call.respondText(I18N.client_authkey_invalid(), status = HttpStatusCode.Forbidden)
             return@post
         }
 
@@ -23,7 +24,7 @@ fun Route.mcServerExecuteCommand() {
         val port = request.port ?: MinecraftServers.getDefaultServer()?.port
 
         if (host == null || port == null) {
-            call.respondText("Target host or port is null, set a default Minecraft Server if necessary!", status = HttpStatusCode.BadRequest)
+            call.respondText(I18N.mcserver_null_host_port(), status = HttpStatusCode.BadRequest)
             return@post
         }
 
@@ -32,28 +33,22 @@ fun Route.mcServerExecuteCommand() {
             val command = request.command
 
             if (command == null) {
-                call.respondText("Command of the request is null!", status = HttpStatusCode.BadRequest)
+                call.respondText(I18N.command_of_request_is_null(), status = HttpStatusCode.BadRequest)
                 return@post
             }
 
             val mcServerResponse = minecraftServer.executeCommand(command)
             when (mcServerResponse.statusCode) {
                 200 -> call.respondText(mcServerResponse.message, status = HttpStatusCode.OK)
-                401 -> call.respondText(
-                    "Auth key on RemoteMC-Core is not valid! Please check authKey settings and make sure" +
-                            " they were the same everywhere!", status = HttpStatusCode.Unauthorized
-                )
-                503 -> call.respondText(
-                    "The Minecraft server that you are requesting might be offline!",
-                    status = HttpStatusCode.ServiceUnavailable
-                )
+                401 -> call.respondText(I18N.core_authkey_invalid(), status = HttpStatusCode.Unauthorized)
+                503 -> call.respondText(I18N.mcserver_offline(), status = HttpStatusCode.ServiceUnavailable)
                 else -> call.respondText(
-                    "Unknown error! Status Code ${mcServerResponse.statusCode} - Message ${mcServerResponse.message}.",
+                    I18N.unknown_error(mcServerResponse.statusCode, mcServerResponse.message),
                     status = HttpStatusCode.InternalServerError
                 )
             }
         } else {
-            call.respondText("Server not found", status = HttpStatusCode.NotFound)
+            call.respondText(I18N.mcserver_not_found(), status = HttpStatusCode.NotFound)
         }
         return@post
     }
