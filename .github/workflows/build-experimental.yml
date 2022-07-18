@@ -3,8 +3,8 @@ name: Build experimental version and release it
 on:
   push:
     tags:
-      - 'v*-alpha'
-      - 'v*-beta'
+      - 'v*-alpha*'
+      - 'v*-beta*'
 
 jobs:
   build:

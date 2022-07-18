@@ -3,7 +3,7 @@ name: Build release candidate version and release it
 on:
   push:
     tags:
-      - 'v*-rc'
+      - 'v*-rc*'
 
 jobs:
   build:
