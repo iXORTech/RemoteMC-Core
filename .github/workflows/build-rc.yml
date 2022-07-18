@@ -1,7 +1,7 @@
 name: Build release candidate version and release it
 
 on:
-  push:
+  create:
     tags:
       - 'v*-rc*'
 
