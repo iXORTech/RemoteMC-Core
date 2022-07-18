@@ -51,12 +51,17 @@ jobs:
           find: '-rc'
           replace: ' Release Candidate'
       - name: Get short SHA
-        run: echo "SHORT_SHA=${GITHUB_SHA::7^^}" >> $GITHUB_ENV
+        run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
+      - name: SHA to upper case
+        id: sha
+        uses: ASzc/change-string-case-action@v2
+        with:
+          string: ${{ env.SHORT_SHA }}
       - name: Release
         uses: ncipollo/release-action@v1.10.0
         with:
           token: ${{ secrets.GH_TOKEN }}
-          name: "Version ${{ steps.getversion-rc-no-numeric.outputs.value }} (${{ env.SHORT_SHA }})"
+          name: "Version ${{ steps.getversion.outputs.value }} (${{ step.sha.outputs.uppercase }})"
           artifacts: "build/libs"
           bodyFile: "RELEASE_NOTE.md"
           prerelease: true
