@@ -22,11 +22,18 @@ jobs:
         uses: gradle/gradle-build-action@v2.1.7
       - name: Build with Gradle
         run: ./gradlew shadowJar
+      - name: Get Tag
+        uses: mad9000/actions-find-and-replace-string@2
+        id: gettag
+        with:
+          source: ${{ github.ref }}
+          find: 'ref/heads/'
+          replace: ''
       - name: Get Version
         uses: mad9000/actions-find-and-replace-string@2
         id: getversion
         with:
-          source: ${{ github.ref##*/ }}
+          source: ${{ steps.gettag.outputs.value }}
           find: 'v'
           replace: ''
       - name: Get short SHA

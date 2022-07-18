@@ -25,14 +25,21 @@ jobs:
         uses: mad9000/actions-find-and-replace-string@2
         id: gettag
         with:
-          source: ${{ github.ref##*/ }}
+          source: ${{ github.ref }}
+          find: 'ref/heads/'
+          replace: ''
+      - name: Get Version Number
+        uses: mad9000/actions-find-and-replace-string@2
+        id: getversion
+        with:
+          source: ${{ steps.gettag.outputs.value }}
           find: 'v'
           replace: ''
       - name: Get Version (RC with numeric identifiers)
         uses: mad9000/actions-find-and-replace-string@2
         id: getversion-rc
         with:
-          source: ${{ steps.gettag.outputs.value }}
+          source: ${{ steps.getversion.outputs.value }}
           find: '-rc.'
           replace: ' Release Candidate '
       - name: Get Version (RC without numeric identifiers)
