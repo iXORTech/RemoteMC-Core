@@ -1,0 +1,41 @@
+name: Build experimental version and release it
+
+on:
+  push:
+    tags:
+      - 'v*-alpha'
+      - 'v*-beta'
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2.1.7
+      - name: Build with Gradle
+        run: ./gradlew shadowJar
+      - name: Get Version
+        uses: mad9000/actions-find-and-replace-string@2
+        id: getversion
+        with:
+          source: ${{ github.ref##*/ }}
+          find: 'v'
+          replace: ''
+      - name: Get short SHA
+        run: echo "SHORT_SHA=${GITHUB_SHA::7^^}" >> $GITHUB_ENV
+      - name: Release
+        uses: ncipollo/release-action@v1.10.0
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          name: "Version ${{ steps.getversion.outputs.value }} (${{ env.SHORT_SHA }})"
+          artifacts: "build/libs"
+          bodyFile: "RELEASE_NOTE.md"
+          prerelease: true
