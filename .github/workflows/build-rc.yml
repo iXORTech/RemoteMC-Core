@@ -27,7 +27,7 @@ jobs:
         id: gettag
         with:
           source: ${{ github.ref }}
-          find: 'ref/heads/'
+          find: 'ref/tags/'
           replace: ''
       - name: Get Version Number
         uses: mad9000/actions-find-and-replace-string@2
