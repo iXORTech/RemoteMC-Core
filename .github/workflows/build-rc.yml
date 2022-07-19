@@ -29,6 +29,8 @@ jobs:
           source: ${{ github.ref }}
           find: 'refs/tags/'
           replace: ''
+      - name: Get the above output
+        run: echo "The replaced value is ${{ steps.gettag.outputs.value }}"
       - name: Get Version Number
         uses: mad9000/actions-find-and-replace-string@2
         id: getversion
@@ -36,6 +38,8 @@ jobs:
           source: ${{ steps.gettag.outputs.value }}
           find: 'v'
           replace: ''
+      - name: Get the above output
+        run: echo "The replaced value is ${{ steps.getversion.outputs.value }}"
       - name: Get Version (RC with numeric identifiers)
         uses: mad9000/actions-find-and-replace-string@2
         id: getversion-rc
@@ -43,6 +47,8 @@ jobs:
           source: ${{ steps.getversion.outputs.value }}
           find: '-rc.'
           replace: ' Release Candidate '
+      - name: Get the above output
+        run: echo "The replaced value is ${{ steps.getversion-rc.outputs.value }}"
       - name: Get Version (RC without numeric identifiers)
         uses: mad9000/actions-find-and-replace-string@2
         id: getversion-rc-no-numeric
@@ -50,6 +56,8 @@ jobs:
           source: ${{ steps.getversion-rc.outputs.value }}
           find: '-rc'
           replace: ' Release Candidate'
+      - name: Get the above output
+        run: echo "The replaced value is ${{ steps.getversion-rc-no-numeric.outputs.value }}"
       - name: Get short SHA
         run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
       - name: SHA to upper case
