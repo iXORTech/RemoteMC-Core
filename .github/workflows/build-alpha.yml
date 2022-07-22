@@ -1,12 +1,10 @@
-name: Build experimental version and release it
+name: Build Alpha version and release it
 
 on:
   push:
     tags:
       - 'v[0-9]+\.[0-9]+\.[0-9]+-alpha'
       - 'v[0-9]+\.[0-9]+\.[0-9]+-alpha\.[0-9]+'
-      - 'v[0-9]+\.[0-9]+\.[0-9]+-beta'
-      - 'v[0-9]+\.[0-9]+\.[0-9]+-beta\.[0-9]+'
 
 jobs:
   build:
@@ -31,13 +29,27 @@ jobs:
           source: ${{ github.ref }}
           find: 'refs/tags/'
           replace: ''
-      - name: Get Version
+      - name: Get Version Number
         uses: mad9000/actions-find-and-replace-string@2
         id: getversion
         with:
           source: ${{ steps.gettag.outputs.value }}
           find: 'v'
           replace: ''
+      - name: Get Version (Alpha with numeric identifiers)
+        uses: frabert/replace-string-action@v2.1
+        id: getversion-alpha
+        with:
+          string: ${{ steps.getversion.outputs.value }}
+          pattern: '-alpha\.'
+          replace-with: ' Alpha '
+      - name: Get Version (Alpha without numeric identifiers)
+        uses: frabert/replace-string-action@v2.1
+        id: getversion-alpha-no-numeric
+        with:
+          string: ${{ steps.getversion-alpha.outputs.replaced }}
+          pattern: '-alpha'
+          replace-with: ' Alpha'
       - name: Get short SHA
         run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
       - name: SHA to upper case
@@ -49,7 +61,7 @@ jobs:
         uses: ncipollo/release-action@v1.10.0
         with:
           token: ${{ secrets.GH_TOKEN }}
-          name: "Version ${{ steps.getversion.outputs.value }} (${{ steps.sha.outputs.uppercase }})"
+          name: "Version ${{ steps.getversion-alpha-no-numeric.outputs.replaced }} (${{ steps.sha.outputs.uppercase }})"
           artifacts: "build/libs/*.jar"
           bodyFile: "RELEASE_NOTE.md"
           prerelease: true
