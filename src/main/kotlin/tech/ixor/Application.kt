@@ -49,11 +49,11 @@ fun main() {
     println("${I18N.starting}\n")
     println("${I18N.selectedLanguage} ${I18N.language}")
 
-    val version = VersionUtil.getVersion()
-    println("${I18N.version} $version")
-    if (version.contains("dev") || version.contains("alpha") || version.contains("beta")) {
+    println("${I18N.version} ${VersionUtil.getVersion()}")
+    val stage = VersionUtil.getProperty("stage")
+    if (stage.contains("dev") || stage.contains("alpha") || stage.contains("beta")) {
         println("${I18N.experimental}")
-    } else if (version.contains("rc")) {
+    } else if (stage.contains("rc")) {
         println("${I18N.releaseCandidate}")
     }
     println()
