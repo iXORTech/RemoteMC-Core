@@ -70,6 +70,12 @@ tasks {
         property("revision", getRevision())
     }
 
+    val shadowJarVersion = getVersion() + "-" + getStage()
+    shadowJar {
+        archiveVersion.set(shadowJarVersion)
+        archiveClassifier.set("")
+    }
+
     processResources {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         exclude("conf/config.yaml")
