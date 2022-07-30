@@ -6,10 +6,13 @@ import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import kotlinx.coroutines.runBlocking
+import org.slf4j.LoggerFactory
 import tech.ixor.I18N
 import java.io.File
 
 class FileDownloader {
+    private var logger = LoggerFactory.getLogger(javaClass)
+
     fun downloadFile(urlString: String, pathname: String, downloadDescription: String) {
         val client = HttpClient()
         val file = File(pathname)
@@ -17,19 +20,18 @@ class FileDownloader {
         runBlocking {
             val httpResponse: HttpResponse = client.get(urlString) {
                 onDownload { bytesSentTotal, contentLength ->
-                    println(I18N.configFileDownloading(downloadDescription))
-                    println(I18N.configFileDownloadingTo(pathname, bytesSentTotal, contentLength))
+                    logger.info(I18N.configFileDownloading(downloadDescription))
+                    logger.info(I18N.configFileDownloadingTo(pathname, bytesSentTotal, contentLength))
                 }
             }
             val responseBody: ByteArray = httpResponse.body()
             if (!file.parentFile.exists()) {
-                print(I18N.configFileDirNotExist)
+                logger.info(I18N.configFileDirNotExist())
                 file.parentFile.mkdirs()
-                println(I18N.configFileDirDone)
+                logger.info(I18N.configFileDirDone())
             }
             file.writeBytes(responseBody)
-            println(I18N.configFileSaved(downloadDescription, pathname))
-            println()
+            logger.info(I18N.configFileSaved(downloadDescription, pathname))
         }
     }
 }

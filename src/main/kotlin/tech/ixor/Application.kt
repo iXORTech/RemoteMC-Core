@@ -4,6 +4,7 @@ import de.comahe.i18n4k.i18n4k
 import de.comahe.i18n4k.config.I18n4kConfigDefault
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import org.slf4j.LoggerFactory
 import tech.ixor.entity.ConfigEntity
 import tech.ixor.entity.MinecraftServers
 import tech.ixor.entity.QQBot
@@ -14,6 +15,8 @@ import tech.ixor.plugins.configureRouting
 import tech.ixor.plugins.configureSerialization
 import tech.ixor.utils.*
 import java.util.*
+
+private var logger = LoggerFactory.getLogger("RemoteMC-Core")
 
 fun loadMinecraftServers(config: ConfigEntity.Config) {
     val minecraftServers = MinecraftServers
@@ -46,17 +49,16 @@ fun main() {
     i18n4k = i18n4kConfig
     i18n4kConfig.locale = Locale(config.language)
 
-    println("${I18N.starting}\n")
-    println("${I18N.selectedLanguage} ${I18N.language}")
+    logger.info(I18N.starting())
+    logger.info("${I18N.selectedLanguage} ${I18N.language}")
 
-    println("${I18N.version} ${VersionUtil.getVersion()}")
+    logger.info("${I18N.version} ${VersionUtil.getVersion()}")
     val stage = VersionUtil.getProperty("stage")
     if (stage.contains("dev") || stage.contains("alpha") || stage.contains("beta")) {
-        println("${I18N.experimental}")
+        logger.warn("${I18N.experimental}")
     } else if (stage.contains("rc")) {
-        println("${I18N.releaseCandidate}")
+        logger.warn("${I18N.releaseCandidate}")
     }
-    println()
 
     loadMinecraftServers(config)
     loadQQBots(config)

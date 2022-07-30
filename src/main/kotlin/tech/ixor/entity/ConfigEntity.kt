@@ -3,10 +3,13 @@ package tech.ixor.entity
 import java.io.File
 
 import com.sksamuel.hoplite.ConfigLoader
+import org.slf4j.LoggerFactory
 import tech.ixor.I18N
 import tech.ixor.utils.FileDownloader
 
 class ConfigEntity {
+    private var logger = LoggerFactory.getLogger(javaClass)
+
     data class Ktor(val host: String, val port: Int)
 
     data class QQGroupConfig(val groupName: String, val groupCode: Long)
@@ -29,7 +32,7 @@ class ConfigEntity {
         val pwd = System.getProperty("user.dir")
         val confFile = "$pwd/conf/config.yaml"
         if (!File(confFile).exists()) {
-            println(I18N.configFileNotFound)
+            logger.info(I18N.configFileNotFound())
             val fileDownloader = FileDownloader()
             fileDownloader.downloadFile(
                 "https://cdn.jsdelivr.net/gh/iXORTech/RemoteMC-Core/src/main/resources/conf/config.yaml",
