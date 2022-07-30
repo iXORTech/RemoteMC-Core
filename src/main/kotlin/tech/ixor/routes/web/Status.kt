@@ -10,12 +10,15 @@ import tech.ixor.entity.MinecraftServers
 import tech.ixor.entity.QQBot
 import tech.ixor.entity.QQGroups
 import tech.ixor.job.MinecraftServerAliveMonitor
+import tech.ixor.job.QQBotAliveMonitor
 
 fun Route.status() {
     get("/status") {
         call.respondHtml(HttpStatusCode.OK) {
             val minecraftServerAliveMonitor = MinecraftServerAliveMonitor()
             minecraftServerAliveMonitor.forceUpdate()
+            val qqBotAliveMonitor = QQBotAliveMonitor()
+            qqBotAliveMonitor.forceUpdate()
             head {
                 title { +"${I18N.website_status}" }
                 meta { charset = "utf-8" }
