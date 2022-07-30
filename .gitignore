@@ -1,6 +1,9 @@
 # Test Configuration:
 /conf
 
+# Local log files:
+*.log
+
 # Generate when building/running
 /src/main/resources/version.properties
 
