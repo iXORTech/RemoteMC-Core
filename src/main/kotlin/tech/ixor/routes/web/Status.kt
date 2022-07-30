@@ -20,7 +20,7 @@ fun Route.status() {
             val qqBotAliveMonitor = QQBotAliveMonitor()
             qqBotAliveMonitor.forceUpdate()
             head {
-                title { +"${I18N.website_status}" }
+                title { +"${I18N.websiteStatus}" }
                 meta { charset = "utf-8" }
                 link( rel = "stylesheet", href = "/assets/style.css", type = "text/css")
                 meta { name = "viewport"; content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" }
@@ -31,7 +31,7 @@ fun Route.status() {
                     id = "page-wrapper"
                     div("index-container") {
                         div("content") {
-                            h2 { +"${I18N.website_status}" }
+                            h2 { +"${I18N.websiteStatus}" }
 
                             br { }
 
@@ -42,7 +42,7 @@ fun Route.status() {
                             }
 
                             h3 {
-                                +"${I18N.minecraft_server}"
+                                +"${I18N.minecraftServer}"
                             }
                             if (MinecraftServers.getOnlineServers().isNotEmpty()) {
                                 h4 {
@@ -85,7 +85,7 @@ fun Route.status() {
                             }
 
                             h3 {
-                                +"${I18N.qq_chat_bot}"
+                                +"${I18N.qqChatBot}"
                             }
                             val qqBot = QQBot.getBot()
                             p {
@@ -99,7 +99,7 @@ fun Route.status() {
                                 }
                             }
                             h4 {
-                                +"${I18N.qq_groups}"
+                                +"${I18N.qqGroups}"
                             }
                             ol {
                                 val qqGroups = QQGroups.getQQGroups()

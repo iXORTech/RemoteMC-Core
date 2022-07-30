@@ -16,7 +16,7 @@ fun Route.mcServerExecuteCommand() {
     post("/mcserver/execute_command") {
         val request = call.receive<MCServerExecuteCommandRequest>()
         if (authKey != request.authKey) {
-            call.respondText(I18N.client_authkey_invalid(), status = HttpStatusCode.Forbidden)
+            call.respondText(I18N.clientAuthkeyInvalid(), status = HttpStatusCode.Forbidden)
             return@post
         }
 
@@ -24,7 +24,7 @@ fun Route.mcServerExecuteCommand() {
         val port = request.port ?: MinecraftServers.getDefaultServer()?.port
 
         if (host == null || port == null) {
-            call.respondText(I18N.mcserver_null_host_port(), status = HttpStatusCode.BadRequest)
+            call.respondText(I18N.mcserverNullHostPort(), status = HttpStatusCode.BadRequest)
             return@post
         }
 
@@ -33,22 +33,22 @@ fun Route.mcServerExecuteCommand() {
             val command = request.command
 
             if (command == null) {
-                call.respondText(I18N.command_of_request_is_null(), status = HttpStatusCode.BadRequest)
+                call.respondText(I18N.commandOfRequestIsNull(), status = HttpStatusCode.BadRequest)
                 return@post
             }
 
             val mcServerResponse = minecraftServer.executeCommand(command)
             when (mcServerResponse.statusCode) {
                 200 -> call.respondText(mcServerResponse.message, status = HttpStatusCode.OK)
-                401 -> call.respondText(I18N.core_authkey_invalid(), status = HttpStatusCode.Unauthorized)
-                503 -> call.respondText(I18N.mcserver_offline(), status = HttpStatusCode.ServiceUnavailable)
+                401 -> call.respondText(I18N.coreAuthkeyInvalid(), status = HttpStatusCode.Unauthorized)
+                503 -> call.respondText(I18N.mcserverOffline(), status = HttpStatusCode.ServiceUnavailable)
                 else -> call.respondText(
-                    I18N.unknown_error(mcServerResponse.statusCode, mcServerResponse.message),
+                    I18N.unknownError(mcServerResponse.statusCode, mcServerResponse.message),
                     status = HttpStatusCode.InternalServerError
                 )
             }
         } else {
-            call.respondText(I18N.mcserver_not_found(), status = HttpStatusCode.NotFound)
+            call.respondText(I18N.mcserverNotFound(), status = HttpStatusCode.NotFound)
         }
         return@post
     }
