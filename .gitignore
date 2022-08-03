@@ -3,6 +3,7 @@
 
 # Local log files:
 *.log
+*.log.gz
 
 # Generate when building/running
 /src/main/resources/version.properties
