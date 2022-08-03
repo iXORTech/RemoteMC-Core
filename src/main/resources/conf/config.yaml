@@ -4,7 +4,6 @@ language: "en"
 authKey: you_should_change_this
 
 ktor:
-  host: "127.0.0.1"
   port: 65360
 
 qqBot:

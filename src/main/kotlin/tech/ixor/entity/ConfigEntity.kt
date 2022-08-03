@@ -10,7 +10,7 @@ import tech.ixor.utils.FileDownloader
 class ConfigEntity {
     private var logger = LoggerFactory.getLogger(javaClass)
 
-    data class Ktor(val host: String, val port: Int)
+    data class Ktor(val port: Int)
 
     data class QQGroupConfig(val groupName: String, val groupCode: Long)
 

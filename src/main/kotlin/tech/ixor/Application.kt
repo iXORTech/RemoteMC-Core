@@ -63,7 +63,7 @@ fun main() {
     loadMinecraftServers(config)
     loadQQBots(config)
 
-    embeddedServer(Netty, port = config.ktor.port, host = config.ktor.host) {
+    embeddedServer(Netty, port = config.ktor.port, host = "127.0.0.1") {
         configureRouting()
         configureSerialization()
     }.start(wait = true)
