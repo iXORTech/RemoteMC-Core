@@ -29,7 +29,7 @@ open class ServerEntity constructor(val host: String, val port: Int, val ssl: Bo
         return response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
     }
 
-    protected fun getUrl(): String {
+    protected open fun getUrl(): String {
         return if (ssl) {
             "https://$host:$port"
         } else {
@@ -49,7 +49,7 @@ open class ServerEntity constructor(val host: String, val port: Int, val ssl: Bo
         }
     }
 
-    protected fun checkOnlineStatus(): Boolean {
+    protected open fun checkOnlineStatus(): Boolean {
         updateOnlineStatus()
         return isOnline
     }
