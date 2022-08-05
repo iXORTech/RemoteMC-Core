@@ -11,12 +11,12 @@ import java.net.ConnectException
 class QQBotEntity constructor(
     host: String, port: Int, ssl: Boolean
 ) : ServerEntity(host, port, ssl) {
-    suspend fun sendMessage(groupCode: Long, source: String, sender: String, message: String): HTTPResponse {
+    suspend fun sendMessage(groupCode: Long, senderID: String, source: String, sender: String, message: String): HTTPResponse {
         if (!checkOnlineStatus()) {
             return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
         }
         val url =
-            getUrl() + "/groupMessage?authKey=$authKey&group=$groupCode&source=$source&sender=$sender&message=$message"
+            getUrl() + "/groupMessage?authKey=$authKey&group=$groupCode&sender_id=$senderID&source=$source&sender=$sender&message=$message"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
             try {

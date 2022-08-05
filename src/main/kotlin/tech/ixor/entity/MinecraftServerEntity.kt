@@ -47,7 +47,7 @@ class MinecraftServerEntity constructor(
         return response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
     }
 
-    suspend fun say(source: String, sender: String, message: String): HTTPResponse {
+    suspend fun say(senderID: String, source: String, sender: String, message: String): HTTPResponse {
         if (!checkOnlineStatus()) {
             return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
         }
@@ -61,6 +61,7 @@ class MinecraftServerEntity constructor(
                         Klaxon().toJsonString(
                             mapOf(
                                 "auth_key" to authKey,
+                                "sender_id" to senderID,
                                 "source" to source,
                                 "sender" to sender,
                                 "message" to message
