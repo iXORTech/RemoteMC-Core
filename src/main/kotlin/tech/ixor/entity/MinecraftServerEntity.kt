@@ -137,10 +137,16 @@ object MinecraftServers {
     }
 
     fun getOnlineServers(): List<MinecraftServerEntity> {
+        for (server in servers) {
+            server.updateOnlineStatus()
+        }
         return servers.filter { it.isOnline }
     }
 
     fun getOfflineServers(): List<MinecraftServerEntity> {
+        for (server in servers) {
+            server.updateOnlineStatus()
+        }
         return servers.filter { !it.isOnline }
     }
 }
