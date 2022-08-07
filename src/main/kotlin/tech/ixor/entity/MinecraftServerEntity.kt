@@ -47,11 +47,11 @@ class MinecraftServerEntity constructor(
         return response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
     }
 
-    suspend fun say(senderID: String, source: String, sender: String, message: String): HTTPResponse {
+    suspend fun sendMessage(senderID: String, source: String, sender: String, message: String): HTTPResponse {
         if (!checkOnlineStatus()) {
             return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
         }
-        val url = getUrl() + "/api/v1/mcserver/say"
+        val url = getUrl() + "/api/v1/mcserver/send_message"
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
             try {
