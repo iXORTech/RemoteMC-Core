@@ -15,7 +15,6 @@ fun Route.universalMessaging() {
     val authKey = ConfigEntity().loadConfig().authKey
 
     post("/send_message") {
-        // TODO：Add messaging route that send message to all clients (Minecraft Servers, QQ ChatBots, etc.)
         val request = call.receive<UniversalSendMessageRequest>()
         if (authKey != request.authKey) {
             call.respondText(I18N.clientAuthkeyInvalid(), status = HttpStatusCode.Forbidden)
