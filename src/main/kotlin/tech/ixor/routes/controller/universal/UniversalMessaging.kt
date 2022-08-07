@@ -14,7 +14,7 @@ import tech.ixor.entity.QQGroups
 fun Route.universalMessaging() {
     val authKey = ConfigEntity().loadConfig().authKey
 
-    post("/send-message") {
+    post("/send_message") {
         // TODO：Add messaging route that send message to all clients (Minecraft Servers, QQ ChatBots, etc.)
         val request = call.receive<UniversalSendMessageRequest>()
         if (authKey != request.authKey) {
