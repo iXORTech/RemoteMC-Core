@@ -70,8 +70,11 @@ tasks {
         property("revision", getRevision())
     }
 
-    val shadowJarVersion = getVersion() + "-" + getStage()
+    var shadowJarVersion = getVersion() + "-" + getStage()
     shadowJar {
+        if (getStage() == "dev" || getStage() == "alpha" || getStage() == "beta" || getStage() == "rc") {
+            shadowJarVersion = shadowJarVersion + "+" + getRevision()
+        }
         archiveVersion.set(shadowJarVersion)
         archiveClassifier.set("")
     }
