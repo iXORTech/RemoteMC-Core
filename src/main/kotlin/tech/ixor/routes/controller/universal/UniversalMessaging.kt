@@ -72,7 +72,55 @@ fun Route.universalMessaging() {
     }
 
     post("/broadcast") {
-        // TODO：Add broadcast route that broadcast message to all clients (Minecraft Servers, QQ ChatBots, etc.)
+        val request = call.receive<UniversalBroadcastRequest>()
+        if (authKey != request.authKey) {
+            call.respondText(I18N.clientAuthkeyInvalid(), status = HttpStatusCode.Forbidden)
+            return@post
+        }
+
+        val message = request.message
+        if (message == null) {
+            call.respondText(I18N.messageIsNull(), status = HttpStatusCode.BadRequest)
+            return@post
+        }
+
+        val minecraftServers = MinecraftServers.getOnlineServers()
+        for (minecraftServer in minecraftServers) {
+            val mcServerResponse = minecraftServer.broadcast(message)
+            when (mcServerResponse.statusCode) {
+                200 -> call.respondText(I18N.broadcastSentToMCServer(minecraftServer.serverName), status = HttpStatusCode.OK)
+                401 -> call.respondText(I18N.coreAuthkeyInvalid(), status = HttpStatusCode.Unauthorized)
+                503 -> call.respondText(I18N.mcserverOfflineCannotSend(minecraftServer.serverName),
+                    status = HttpStatusCode.ServiceUnavailable)
+                else -> call.respondText(
+                    I18N.unknownError(mcServerResponse.statusCode, mcServerResponse.message),
+                    status = HttpStatusCode.InternalServerError
+                )
+            }
+        }
+
+        val qqBot = QQBot.getBot()
+        if (qqBot.checkOnlineStatus()) {
+            val qqGroups = QQGroups.getQQGroups()
+            for (qqGroup in qqGroups) {
+                val qqBotResponse = qqGroup.broadcast(qqBot, message)
+                when (qqBotResponse.statusCode) {
+                    200 -> call.respondText(I18N.broadcastSentToGroup(qqGroup.groupName, qqGroup.groupCode),
+                        status = HttpStatusCode.OK)
+                    401 -> call.respondText(I18N.coreAuthkeyInvalid(), status = HttpStatusCode.Unauthorized)
+                    503 -> call.respondText(I18N.qqBotOfflineCannotSendGroup(qqGroup.groupName, qqGroup.groupCode),
+                        status = HttpStatusCode.ServiceUnavailable)
+                    else -> call.respondText(
+                        I18N.unknownError(qqBotResponse.statusCode, qqBotResponse.message),
+                        status = HttpStatusCode.InternalServerError
+                    )
+                }
+            }
+        } else {
+            call.respondText(I18N.qqBotOffline(), status = HttpStatusCode.ServiceUnavailable)
+        }
+
+        return@post
 
     }
 }
