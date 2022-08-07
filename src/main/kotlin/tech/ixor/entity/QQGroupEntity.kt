@@ -13,12 +13,7 @@ class QQGroupEntity constructor(
 ) {
     private val authKey = ConfigEntity().loadConfig().authKey
 
-    suspend fun sendMessage(qqBot: QQBotEntity, senderID: String, source: String, sender: String, message: String): HTTPResponse {
-        if (!qqBot.checkOnlineStatus()) {
-            return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
-        }
-        val url = qqBot.getUrl() +
-                "/groupMessage?authKey=$authKey&group=$groupCode&sender_id=$senderID&source=$source&sender=$sender&message=$message"
+    private suspend fun sendRequest(url: String): HTTPResponse {
         val client = HttpClient(CIO)
         val response = Klaxon().parse<HTTPResponse>(
             try {
@@ -33,24 +28,22 @@ class QQGroupEntity constructor(
         return response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
     }
 
+    suspend fun sendMessage(qqBot: QQBotEntity, senderID: String, source: String, sender: String, message: String): HTTPResponse {
+        if (!qqBot.checkOnlineStatus()) {
+            return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
+        }
+        val url = qqBot.getUrl() +
+                "/groupMessage?authKey=$authKey&group=$groupCode&sender_id=$senderID&source=$source&sender=$sender&message=$message"
+        return sendRequest(url)
+    }
+
     suspend fun broadcast(qqBot: QQBotEntity, message: String): HTTPResponse {
         if (!qqBot.checkOnlineStatus()) {
             return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
         }
         val url = qqBot.getUrl() +
                 "/groupBroadcast?authKey=$authKey&group=$groupCode&message=$message"
-        val client = HttpClient(CIO)
-        val response = Klaxon().parse<HTTPResponse>(
-            try {
-                client.post(url) {
-                    method = HttpMethod.Post
-                }
-                    .body<String>().toString()
-            } catch (e: ConnectException) {
-                return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
-            }
-        )
-        return response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
+        return sendRequest(url)
     }
 }
 
