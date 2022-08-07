@@ -16,14 +16,18 @@ fun Route.index() {
             head {
                 title { +"${I18N.welcome}" }
                 meta { charset = "utf-8" }
-                link( rel = "stylesheet", href = "/assets/style.css", type = "text/css")
-                meta { name = "viewport"; content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" }
+                link(rel = "stylesheet", href = "/assets/style.css", type = "text/css")
+                meta {
+                    name = "viewport";
+                    content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+                }
                 script { src = "https://unpkg.com/feather-icons" }
             }
             body {
-                div { id = "page-wrapper"
-                    div ("index-container") {
-                        div ("content") {
+                div {
+                    id = "page-wrapper"
+                    div("index-container") {
+                        div("content") {
                             h1 { +"${I18N.welcome}" }
 
                             hr {}
@@ -49,22 +53,22 @@ fun Route.index() {
 
                             footer {
                                 hr {}
-                                a (href = "https://github.com/iXORTech/RemoteMC-Core/issues") {
+                                a(href = "https://github.com/iXORTech/RemoteMC-Core/issues") {
                                     +"${I18N.reportBug}"
                                 }
                                 hr {}
-                                a (href = "https://github.com/iXORTech") {
+                                a(href = "https://github.com/iXORTech") {
                                     i { attributes["data-feather"] = "github" }
                                 }
                                 +" | ${I18N.poweredBy} "
-                                a (href = "https://ixor.tech") { +"iXOR Technology" }
+                                a(href = "https://ixor.tech") { +"iXOR Technology" }
                                 +" ${I18N.withLove}"
                                 br {}
-                                + "${I18N.htmlThemeDesigned0}"
-                                a (href = "https://github.com/athul/archie") { +"Archie Theme" }
-                                + "${I18N.htmlThemeDesigned1}"
-                                a (href = "https://github.com/KevinZonda") { +"@KevinZonda" }
-                                + "${I18N.htmlThemeDesigned2}"
+                                +"${I18N.htmlThemeDesigned0}"
+                                a(href = "https://github.com/athul/archie") { +"Archie Theme" }
+                                +"${I18N.htmlThemeDesigned1}"
+                                a(href = "https://github.com/KevinZonda") { +"@KevinZonda" }
+                                +"${I18N.htmlThemeDesigned2}"
                             }
                         }
                     }
