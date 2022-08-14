@@ -3,7 +3,7 @@
 <h1 align="center">RemoteMC-Core</h1>
 
 <p align="center"> 
-  <b>[WIP] Processing and API Core of RemoteMC Series </b>
+  <b>Processing and API Core of RemoteMC Series </b>
 </p>
 
 <p align="center">
@@ -15,6 +15,8 @@
 RemoteMC Series Software allows the users to use a RemoteMC-Core to connect multiple MC servers (RemoteMC-MCDR client), a QQ Client
 (RemoteMC-QQ client), and eventually other chatbot modules. You can combine the modules you need to form the chat message
 synchronization and MC server remote control network you need. The following picture shows a simple network configuration.
+
+> **NOTE:** The features related to the MCDR component are done right now. But other parts related to other components (e.g. chatbots) are still in WIP.
 
 <p align="center">
   <img src="https://img.cubik65536.top/file/Cubik-Image-Hosting-Storage/RemoteMC-Core-Architecture-Design-en.png" 
