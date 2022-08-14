@@ -1,4 +1,4 @@
-# Changelog of RemoteMC-Core
+# RemoteMC-Core 的更新日志
 
 ## Version 0.2.0-beta (590AA40) "通用聊天和广播 API" - 2022年8月7日
 
