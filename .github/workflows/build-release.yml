@@ -48,6 +48,6 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
           name: "Version ${{ steps.getversion.outputs.value }} (${{ steps.sha.outputs.uppercase }})"
-          artifacts: "build/libs/*.jar"
+          artifacts: "build/distributions/*.jar"
           bodyFile: "RELEASE_NOTE.md"
           prerelease: false
