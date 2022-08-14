@@ -12,7 +12,7 @@
   </a>
 </p>
 
-RemoteMC 系列允许用户使用一个 RemoteMC-Core 连接多个 MC 服务器（RemoteMC-MCDR 客户端），一个 QQ 群（RemoteMC-QQ 客户端），以及以后可能出现的其他聊天机器人模块。
+RemoteMC 系列软件允许用户使用一个 RemoteMC-Core 连接多个 MC 服务器（RemoteMC-MCDR 客户端），一个 QQ 群（RemoteMC-QQ 客户端），以及以后可能出现的其他聊天机器人模块。
 您可以按需要组合这些模块，组成您需要的信息同步与 MC 服务器远程控制网络。下方的图片展示了一个简单的网路配置。
 
 <p align="center">

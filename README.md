@@ -12,7 +12,7 @@
   </a>
 </p>
 
-RemoteMC Series allows the users to use a RemoteMC-Core to connect multiple MC servers (RemoteMC-MCDR client), a QQ Client
+RemoteMC Series Software allows the users to use a RemoteMC-Core to connect multiple MC servers (RemoteMC-MCDR client), a QQ Client
 (RemoteMC-QQ client), and eventually other chatbot modules. You can combine the modules you need to form the chat message
 synchronization and MC server remote control network you need. The following picture shows a simple network configuration.
 
