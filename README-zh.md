@@ -62,7 +62,7 @@ RemoteMC 系列软件允许用户使用一个 RemoteMC-Core 连接多个 MC 服�
 
 
 - 当您在部署本项目时：
-  - 您应当保留在网页底部或者命令行提示处的 `由 iXOR Technology 强力驱动。` 字样，并且 `iXOR Technology` 应当始终链接到我们的网站（https://ixor.tech）
+  - 您应当保留在网页底部或者命令行提示处的 `由 iXOR Technology 强力驱动。` 字样，并且 `iXOR Technology` 应当始终链接到我们的网站（<https://ixor.tech>）
 
 
 - 对于 `RemoteMC-Core` 的衍生项目：
