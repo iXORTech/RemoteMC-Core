@@ -1,5 +1,29 @@
 # Changelog of RemoteMC-Core
 
+## Version 0.2.1-beta (BD259A6) "Universal Chat and Broadcast API - Response Improvements" - Aug. 23 2022
+
+**Full Changelog**: https://github.com/iXORTech/RemoteMC-Core/compare/v0.2.0-beta...v0.2.1-beta
+
+### :warning: BREAKING CHANGES :warning:
+
+- Response handler for Universal Chat and Broadcast APIs need to be refactored. See the first element in the `Improvements` section.
+
+### New features
+
+`There is nothing to display yet.`
+
+### Improvements
+
+- The response of the Universal Chat and Broadcast APIs now contains response from **EVERY** client that RemoteMC-Core is requesting instead of just the first one.
+
+### Bug fixes
+
+`There is nothing to display yet.`
+
+### Known Bugs
+
+`There is nothing to display yet.`
+
 ## Version 0.2.0-beta (590AA40) "Universal Chat and Broadcast API" - Aug. 7 2022
 
 **Full Changelog**: https://github.com/iXORTech/RemoteMC-Core/compare/v0.1.1-beta...v0.2.0-beta

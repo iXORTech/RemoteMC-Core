@@ -1,5 +1,29 @@
 # RemoteMC-Core 的更新日志
 
+## Version 0.2.1-beta (BD259A6) "通用聊天和广播 API - 响应改进" - 2022年8月23日
+
+**完整的更新日志**: https://github.com/iXORTech/RemoteMC-Core/compare/v0.2.0-beta...v0.2.1-beta
+
+### :warning: 破坏性变更 :warning:
+
+- 通用聊天和广播 API 的响应处理器需要进行重构。请参考 `优化与改进` 部分的第一项内容。
+
+### 新增功能
+
+`暂时没有可以显示的内容`
+
+### 优化与改进
+
+- 通用聊天和广播 API 的响应现在包含了**每个** RemoteMC-Core 请求的客户端的响应而不是仅第一个。
+
+### 错误修复
+
+`暂时没有可以显示的内容`
+
+### 已知错误
+
+`暂时没有可以显示的内容`
+
 ## Version 0.2.0-beta (590AA40) "通用聊天和广播 API" - 2022年8月7日
 
 **完整的更新日志**: https://github.com/iXORTech/RemoteMC-Core/compare/v0.1.1-beta...v0.2.0-beta
