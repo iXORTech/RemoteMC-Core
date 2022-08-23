@@ -6,18 +6,21 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import tech.ixor.I18N
-import tech.ixor.entity.ConfigEntity
-import tech.ixor.entity.MinecraftServers
-import tech.ixor.entity.QQBot
-import tech.ixor.entity.QQGroups
+import tech.ixor.entity.*
 
 fun Route.universalMessaging() {
     val authKey = ConfigEntity().loadConfig().authKey
 
     post("/send_message") {
         val request = call.receive<UniversalSendMessageRequest>()
+        val response = UniversalMessagingResponse(0, mutableListOf<HTTPResponse>())
+
         if (authKey != request.authKey) {
-            call.respondText(I18N.clientAuthkeyInvalid(), status = HttpStatusCode.Forbidden)
+            response.responseCount = 1
+            response.responseList.add(
+                HTTPResponse(HttpStatusCode.Forbidden.value, I18N.clientAuthkeyInvalid())
+            )
+            call.respond(response)
             return@post
         }
 
@@ -27,7 +30,11 @@ fun Route.universalMessaging() {
         val message = request.message
 
         if (senderID == null || source == null || sender == null || message == null) {
-            call.respondText(I18N.senderIDSourceSenderOrMessageIsNull(), status = HttpStatusCode.BadRequest)
+            response.responseCount = 1
+            response.responseList.add(
+                HTTPResponse(HttpStatusCode.BadRequest.value, I18N.senderIDSourceSenderOrMessageIsNull())
+            )
+            call.respond(response)
             return@post
         }
 
@@ -35,14 +42,42 @@ fun Route.universalMessaging() {
         for (minecraftServer in minecraftServers) {
             val mcServerResponse = minecraftServer.sendMessage(senderID, source, sender, message)
             when (mcServerResponse.statusCode) {
-                200 -> call.respondText(I18N.messageSentToMCServer(minecraftServer.serverName), status = HttpStatusCode.OK)
-                401 -> call.respondText(I18N.coreAuthkeyInvalid(), status = HttpStatusCode.Unauthorized)
-                503 -> call.respondText(I18N.mcserverOfflineCannotSend(minecraftServer.serverName),
-                    status = HttpStatusCode.ServiceUnavailable)
-                else -> call.respondText(
-                    I18N.unknownError(mcServerResponse.statusCode, mcServerResponse.message),
-                    status = HttpStatusCode.InternalServerError
-                )
+                200 -> {
+                    response.responseCount++
+                    response.responseList.add(
+                        HTTPResponse(
+                            statusCode = HttpStatusCode.OK.value,
+                            message = I18N.messageSentToMCServer(minecraftServer.serverName)
+                        )
+                    )
+                }
+                401 -> {
+                    response.responseCount++
+                    response.responseList.add(
+                        HTTPResponse(
+                            statusCode = HttpStatusCode.Unauthorized.value,
+                            message = I18N.coreAuthkeyInvalid()
+                        )
+                    )
+                }
+                503 -> {
+                    response.responseCount++
+                    response.responseList.add(
+                        HTTPResponse(
+                            statusCode = HttpStatusCode.ServiceUnavailable.value,
+                            message = I18N.mcserverOfflineCannotSend(minecraftServer.serverName)
+                        )
+                    )
+                }
+                else -> {
+                    response.responseCount++
+                    response.responseList.add(
+                        HTTPResponse(
+                            statusCode = HttpStatusCode.InternalServerError.value,
+                            message = I18N.unknownError(mcServerResponse.statusCode, mcServerResponse.message)
+                        )
+                    )
+                }
             }
         }
 
@@ -52,20 +87,55 @@ fun Route.universalMessaging() {
             for (qqGroup in qqGroups) {
                 val qqBotResponse = qqGroup.sendMessage(qqBot, senderID, source, sender, message)
                 when (qqBotResponse.statusCode) {
-                    200 -> call.respondText(I18N.messageSentToGroup(qqGroup.groupName, qqGroup.groupCode),
-                        status = HttpStatusCode.OK)
-                    401 -> call.respondText(I18N.coreAuthkeyInvalid(), status = HttpStatusCode.Unauthorized)
-                    503 -> call.respondText(I18N.qqBotOfflineCannotSendGroup(qqGroup.groupName, qqGroup.groupCode),
-                        status = HttpStatusCode.ServiceUnavailable)
-                    else -> call.respondText(
-                        I18N.unknownError(qqBotResponse.statusCode, qqBotResponse.message),
-                        status = HttpStatusCode.InternalServerError
-                    )
+                    200 -> {
+                        response.responseCount++
+                        response.responseList.add(
+                            HTTPResponse(
+                                statusCode = HttpStatusCode.OK.value,
+                                message = I18N.messageSentToGroup(qqGroup.groupName, qqGroup.groupCode)
+                            )
+                        )
+                    }
+                    401 -> {
+                        response.responseCount++
+                        response.responseList.add(
+                            HTTPResponse(
+                                statusCode = HttpStatusCode.Unauthorized.value,
+                                message = I18N.coreAuthkeyInvalid()
+                            )
+                        )
+                    }
+                    503 -> {
+                        response.responseCount++
+                        response.responseList.add(
+                            HTTPResponse(
+                                statusCode = HttpStatusCode.ServiceUnavailable.value,
+                                message = I18N.qqBotOfflineCannotSendGroup(qqGroup.groupName, qqGroup.groupCode)
+                            )
+                        )
+                    }
+                    else -> {
+                        response.responseCount++
+                        response.responseList.add(
+                            HTTPResponse(
+                                statusCode = HttpStatusCode.InternalServerError.value,
+                                message = I18N.unknownError(qqBotResponse.statusCode, qqBotResponse.message)
+                            )
+                        )
+                    }
                 }
             }
         } else {
-            call.respondText(I18N.qqBotOffline(), status = HttpStatusCode.ServiceUnavailable)
+            response.responseCount++
+            response.responseList.add(
+                HTTPResponse(
+                    statusCode = HttpStatusCode.ServiceUnavailable.value,
+                    message = I18N.qqBotOffline()
+                )
+            )
         }
+
+        call.respond(response)
 
         return@post
 
@@ -73,14 +143,24 @@ fun Route.universalMessaging() {
 
     post("/broadcast") {
         val request = call.receive<UniversalBroadcastRequest>()
+        val response = UniversalMessagingResponse(0, mutableListOf<HTTPResponse>())
+
         if (authKey != request.authKey) {
-            call.respondText(I18N.clientAuthkeyInvalid(), status = HttpStatusCode.Forbidden)
+            response.responseCount = 1
+            response.responseList.add(
+                HTTPResponse(HttpStatusCode.Forbidden.value, I18N.clientAuthkeyInvalid())
+            )
+            call.respond(response)
             return@post
         }
 
         val message = request.message
         if (message == null) {
-            call.respondText(I18N.messageIsNull(), status = HttpStatusCode.BadRequest)
+            response.responseCount = 1
+            response.responseList.add(
+                HTTPResponse(HttpStatusCode.BadRequest.value, I18N.messageIsNull())
+            )
+            call.respond(response)
             return@post
         }
 
@@ -88,14 +168,42 @@ fun Route.universalMessaging() {
         for (minecraftServer in minecraftServers) {
             val mcServerResponse = minecraftServer.broadcast(message)
             when (mcServerResponse.statusCode) {
-                200 -> call.respondText(I18N.broadcastSentToMCServer(minecraftServer.serverName), status = HttpStatusCode.OK)
-                401 -> call.respondText(I18N.coreAuthkeyInvalid(), status = HttpStatusCode.Unauthorized)
-                503 -> call.respondText(I18N.mcserverOfflineCannotSend(minecraftServer.serverName),
-                    status = HttpStatusCode.ServiceUnavailable)
-                else -> call.respondText(
-                    I18N.unknownError(mcServerResponse.statusCode, mcServerResponse.message),
-                    status = HttpStatusCode.InternalServerError
-                )
+                200 -> {
+                    response.responseCount++
+                    response.responseList.add(
+                        HTTPResponse(
+                            statusCode = HttpStatusCode.OK.value,
+                            message = I18N.broadcastSentToMCServer(minecraftServer.serverName)
+                        )
+                    )
+                }
+                401 -> {
+                    response.responseCount++
+                    response.responseList.add(
+                        HTTPResponse(
+                            statusCode = HttpStatusCode.Unauthorized.value,
+                            message = I18N.coreAuthkeyInvalid()
+                        )
+                    )
+                }
+                503 -> {
+                    response.responseCount++
+                    response.responseList.add(
+                        HTTPResponse(
+                            statusCode = HttpStatusCode.ServiceUnavailable.value,
+                            message = I18N.mcserverOfflineCannotSend(minecraftServer.serverName)
+                        )
+                    )
+                }
+                else -> {
+                    response.responseCount++
+                    response.responseList.add(
+                        HTTPResponse(
+                            statusCode = HttpStatusCode.InternalServerError.value,
+                            message = I18N.unknownError(mcServerResponse.statusCode, mcServerResponse.message)
+                        )
+                    )
+                }
             }
         }
 
@@ -105,20 +213,55 @@ fun Route.universalMessaging() {
             for (qqGroup in qqGroups) {
                 val qqBotResponse = qqGroup.broadcast(qqBot, message)
                 when (qqBotResponse.statusCode) {
-                    200 -> call.respondText(I18N.broadcastSentToGroup(qqGroup.groupName, qqGroup.groupCode),
-                        status = HttpStatusCode.OK)
-                    401 -> call.respondText(I18N.coreAuthkeyInvalid(), status = HttpStatusCode.Unauthorized)
-                    503 -> call.respondText(I18N.qqBotOfflineCannotSendGroup(qqGroup.groupName, qqGroup.groupCode),
-                        status = HttpStatusCode.ServiceUnavailable)
-                    else -> call.respondText(
-                        I18N.unknownError(qqBotResponse.statusCode, qqBotResponse.message),
-                        status = HttpStatusCode.InternalServerError
-                    )
+                    200 -> {
+                        response.responseCount++
+                        response.responseList.add(
+                            HTTPResponse(
+                                statusCode = HttpStatusCode.OK.value,
+                                message = I18N.broadcastSentToGroup(qqGroup.groupName, qqGroup.groupCode)
+                            )
+                        )
+                    }
+                    401 -> {
+                        response.responseCount++
+                        response.responseList.add(
+                            HTTPResponse(
+                                statusCode = HttpStatusCode.Unauthorized.value,
+                                message = I18N.coreAuthkeyInvalid()
+                            )
+                        )
+                    }
+                    503 -> {
+                        response.responseCount++
+                        response.responseList.add(
+                            HTTPResponse(
+                                statusCode = HttpStatusCode.ServiceUnavailable.value,
+                                message = I18N.qqBotOfflineCannotSendGroup(qqGroup.groupName, qqGroup.groupCode)
+                            )
+                        )
+                    }
+                    else -> {
+                        response.responseCount++
+                        response.responseList.add(
+                            HTTPResponse(
+                                statusCode = HttpStatusCode.InternalServerError.value,
+                                message = I18N.unknownError(qqBotResponse.statusCode, qqBotResponse.message)
+                            )
+                        )
+                    }
                 }
             }
         } else {
-            call.respondText(I18N.qqBotOffline(), status = HttpStatusCode.ServiceUnavailable)
+            response.responseCount++
+            response.responseList.add(
+                HTTPResponse(
+                    statusCode = HttpStatusCode.ServiceUnavailable.value,
+                    message = I18N.qqBotOffline()
+                )
+            )
         }
+
+        call.respond(response)
 
         return@post
 
