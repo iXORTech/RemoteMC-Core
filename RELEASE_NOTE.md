@@ -8,26 +8,21 @@ Template for changes, <mandatory> [optional]
 
 ------
 
-# Universal Chat and Broadcast API
+# Universal Chat and Broadcast API - Response Improvements
 
 :bangbang: This version **MIGHT NOT** represent all the features in the final production/official version! :bangbang:
 
 ## :warning: BREAKING CHANGES :warning:
 
-- The dedicated messaging APIs for QQ Bots were removed
-- The dedicated messaging/broadcasting APIs for Minecraft Servers were removed
-- The `say` function of Minecraft Servers was replaced by `sendMessage`
+- Response handler for Universal Chat and Broadcast APIs need to be refactored. See the first element in the `Improvements` section.
 
 ## New features
 
-- LOGs will be written to a file named `RemoteMC-Core.log`
-- LOGs of every day will be archived in a file named `RemoteMC-Core.YYYY-MM-DD.log.gz`. An archive of more than 30 days or 3GB will be deleted
-- Function for sending broadcast to QQ Groups was added
+`There is nothing to display yet.`
 
 ## Improvements
 
-- LOGs outputting to `STDOUT` will shown in a simplified format
-- Functions for sending messages to QQ Groups were moved from `QQBotEntity` to `QQGroupEntity`
+- The response of the Universal Chat and Broadcast APIs now contains response from **EVERY** client that RemoteMC-Core is requesting instead of just the first one. 
 
 ## Bug fixes
 
@@ -39,26 +34,21 @@ Template for changes, <mandatory> [optional]
 
 ------
 
-# 通用聊天和广播 API
+# 通用聊天和广播 API - 响应改进
 
 :bangbang: 该版本 **可能不会** 代表在生产/正式版本中的所有功能！ :bangbang:
 
 ## :warning: 破坏性变更 :warning:
 
-- QQ 机器人专有的消息发送 API 已被移除
-- Minecraft 服务器专有的消息/广播发送 API 已被移除
-- Minecraft 服务器的 `say` 函数已被替换为 `sendMessage`
+- 通用聊天和广播 API 的响应处理器需要进行重构。请参考 `优化与改进` 部分的第一项内容。
 
 ## 新增功能
 
-- 日志将会被写入文件 `RemoteMC-Core.log`
-- 每日日志将会被存档为文件 `RemoteMC-Core.YYYY-MM-DD.log.gz`。超过 30 天或 3GB 的存档将会被删除
-- 向 QQ 群聊发送广播的函数已被添加
+`暂时没有可以显示的内容`
 
 ## 优化与改进
 
-- 输出到 `STDOUT` 的日志内容将会以简化格式显示
-- 将向 QQ 群聊发送消息的函数从 `QQBotEntity` 移动到 `QQGroupEntity` 中
+- 通用聊天和广播 API 的响应现在包含了**每个** RemoteMC-Core 请求的客户端的响应而不是仅第一个。
 
 ## 错误修复
 
@@ -70,5 +60,5 @@ Template for changes, <mandatory> [optional]
 
 ------
 
-**Full Changelog**: https://github.com/iXORTech/RemoteMC-Core/compare/v0.1.1-beta...v0.2.0-beta
-**完整的更新日志**: https://github.com/iXORTech/RemoteMC-Core/compare/v0.1.1-beta...v0.2.0-beta
+**Full Changelog**: https://github.com/iXORTech/RemoteMC-Core/compare/v0.2.0-beta...v0.2.1-beta
+**完整的更新日志**: https://github.com/iXORTech/RemoteMC-Core/compare/v0.2.0-beta...v0.2.1-beta
