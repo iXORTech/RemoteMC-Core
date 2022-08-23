@@ -83,11 +83,13 @@ body:
         examples:
           - **Operating System**: macOS Monterey 12.3
           - **Java Version**: Temurin-17.0.1+12
-          - **RemoteMC-Core Version (or Commit)**: 0.1.2 (or 5da64db)
+          - **RemoteMC-Core Version (or Commit)**: 0.2.1 Beta (or bd259a6)
+          - **RemoteMC-MCDR Version (or Commit)**: 0.1.0 Beta (or 20081cd)
       value: |
         - **Operating System**:
         - **Java Version**:
         - **RemoteMC-Core Version (or Commit)**:
+        - **RemoteMC-MCDR Version (or Commit)**:
       render: Markdown
 
   - type: markdown

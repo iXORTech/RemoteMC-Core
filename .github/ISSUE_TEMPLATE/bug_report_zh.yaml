@@ -82,11 +82,13 @@ body:
         示例：
           - **操作系统**：macOS Monterey 12.3
           - **Java 版本**：Temurin-17.0.1+12
-          - **RemoteMC-Core 版本 (或 commit 号)**：0.1.2 (或 5da64db)
+          - **RemoteMC-Core 版本 (或 commit 号)**：0.2.1 Beta (或 bd259a6)
+          - **RemoteMC-MCDR 版本 (或 commit 号)**：0.1.0 Beta (或 20081cd)
       value: |
         - **操作系统**：
         - **Java 版本：**：
         - **RemoteMC-Core 版本 (或 commit 号)：**：
+        - **RemoteMC-MCDR 版本 (或 commit 号)：**：
       render: Markdown
 
   - type: markdown
