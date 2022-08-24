@@ -9,9 +9,9 @@ import io.ktor.http.*
 import java.net.ConnectException
 
 class MinecraftServerEntity constructor(
-    val serverName: String, host: String, port: Int,
+    serverName: String, host: String, port: Int,
     ssl: Boolean, val default: Boolean
-) : ServerEntity(host, port, ssl) {
+) : ServerEntity(serverName, host, port, ssl) {
     suspend fun status(): HTTPResponse {
         if (!checkOnlineStatus()) {
             return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
