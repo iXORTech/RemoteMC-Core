@@ -53,7 +53,8 @@ open class ServerEntity constructor(val serverName: String, val host: String, va
             } else {
                 I18N.serverOfflineBroadcast(serverName)
             }
-            runBlocking { UniversalMessagingUtil.broadcast(message) }
+            val excludeServers: List<ServerEntity> = listOf(this)
+            runBlocking { UniversalMessagingUtil.broadcast(message, excludeServers) }
         }
     }
 
