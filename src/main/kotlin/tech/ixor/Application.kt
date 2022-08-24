@@ -23,8 +23,22 @@ fun loadMinecraftServers(config: ConfigEntity.Config) {
     config.minecraftServers.forEach {
         minecraftServers.addServer(it)
     }
+}
+
+fun startMinecraftServerAliveMonitor() {
     val minecraftServerAliveMonitor = MinecraftServerAliveMonitor()
     minecraftServerAliveMonitor.start()
+}
+
+fun loadQQBots(config: ConfigEntity.Config) {
+    val qqBot = QQBot
+    qqBot.setBot(config.qqBot)
+    loadQQGroups(config.qqBot)
+}
+
+fun startQQBotAliveMonitor() {
+    val qqBotAliveMonitor = QQBotAliveMonitor()
+    qqBotAliveMonitor.start()
 }
 
 fun loadQQGroups(config: ConfigEntity.QQBotConfig) {
@@ -32,14 +46,6 @@ fun loadQQGroups(config: ConfigEntity.QQBotConfig) {
     config.groups.forEach {
         qqGroups.addQQGroup(it)
     }
-}
-
-fun loadQQBots(config: ConfigEntity.Config) {
-    val qqBot = QQBot
-    qqBot.setBot(config.qqBot)
-    loadQQGroups(config.qqBot)
-    val qqBotAliveMonitor = QQBotAliveMonitor()
-    qqBotAliveMonitor.start()
 }
 
 fun main() {
@@ -62,6 +68,8 @@ fun main() {
 
     loadMinecraftServers(config)
     loadQQBots(config)
+    startMinecraftServerAliveMonitor()
+    startQQBotAliveMonitor()
 
     embeddedServer(Netty, port = config.ktor.port, host = "127.0.0.1") {
         configureRouting()
