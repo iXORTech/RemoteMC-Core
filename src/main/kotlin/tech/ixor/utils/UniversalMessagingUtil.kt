@@ -11,12 +11,16 @@ class UniversalMessagingUtil {
     companion object {
         suspend fun sendMessage(
             senderID: String, source: String,
-            sender: String, message: String
+            sender: String, message: String,
+            excludeServers: List<ServerEntity>
         ): UniversalMessagingResponse {
             val response = UniversalMessagingResponse(0, mutableListOf<HTTPResponse>())
 
             val minecraftServers = MinecraftServers.getOnlineServers()
             for (minecraftServer in minecraftServers) {
+                if (excludeServers.contains(minecraftServer)) {
+                    continue
+                }
                 val mcServerResponse = minecraftServer.sendMessage(senderID, source, sender, message)
                 when (mcServerResponse.statusCode) {
                     200 -> {
@@ -62,6 +66,9 @@ class UniversalMessagingUtil {
             }
 
             val qqBot = QQBot.getBot()
+            if (excludeServers.contains(qqBot)) {
+                return response
+            }
             if (qqBot.checkOnlineStatus()) {
                 val qqGroups = QQGroups.getQQGroups()
                 for (qqGroup in qqGroups) {
@@ -121,11 +128,16 @@ class UniversalMessagingUtil {
             return response
         }
 
-        suspend fun broadcast (message: String): UniversalMessagingResponse {
+        suspend fun broadcast (message: String,
+                               excludeServers: List<ServerEntity>
+        ): UniversalMessagingResponse {
             val response = UniversalMessagingResponse(0, mutableListOf<HTTPResponse>())
 
             val minecraftServers = MinecraftServers.getOnlineServers()
             for (minecraftServer in minecraftServers) {
+                if (excludeServers.contains(minecraftServer)) {
+                    continue
+                }
                 val mcServerResponse = minecraftServer.broadcast(message)
                 when (mcServerResponse.statusCode) {
                     200 -> {
@@ -168,6 +180,9 @@ class UniversalMessagingUtil {
             }
 
             val qqBot = QQBot.getBot()
+            if (excludeServers.contains(qqBot)) {
+                return response
+            }
             if (qqBot.checkOnlineStatus()) {
                 val qqGroups = QQGroups.getQQGroups()
                 for (qqGroup in qqGroups) {

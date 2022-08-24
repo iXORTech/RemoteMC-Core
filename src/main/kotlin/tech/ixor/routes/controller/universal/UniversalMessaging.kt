@@ -38,7 +38,7 @@ fun Route.universalMessaging() {
             return@post
         }
 
-        call.respond(UniversalMessagingUtil.sendMessage(senderID, source, sender, message))
+        call.respond(UniversalMessagingUtil.sendMessage(senderID, source, sender, message, emptyList()))
 
         return@post
 
@@ -67,7 +67,7 @@ fun Route.universalMessaging() {
             return@post
         }
 
-        call.respond(UniversalMessagingUtil.broadcast(message))
+        call.respond(UniversalMessagingUtil.broadcast(message, emptyList()))
 
         return@post
 
