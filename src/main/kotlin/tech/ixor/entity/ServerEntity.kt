@@ -7,6 +7,8 @@ import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.coroutines.runBlocking
+import tech.ixor.I18N
+import tech.ixor.utils.UniversalMessagingUtil
 import java.net.ConnectException
 
 open class ServerEntity constructor(val serverName: String, val host: String, val port: Int, val ssl: Boolean) {
@@ -46,6 +48,12 @@ open class ServerEntity constructor(val serverName: String, val host: String, va
         val online = runBlocking { ping().statusCode == 200 }
         if (online != isOnline) {
             isOnline = online
+            val message = if (isOnline) {
+                I18N.serverOnlineBroadcast(serverName)
+            } else {
+                I18N.serverOfflineBroadcast(serverName)
+            }
+            runBlocking { UniversalMessagingUtil.broadcast(message) }
         }
     }
 
