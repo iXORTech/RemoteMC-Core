@@ -9,7 +9,7 @@ import io.ktor.http.*
 import kotlinx.coroutines.runBlocking
 import java.net.ConnectException
 
-open class ServerEntity constructor(val host: String, val port: Int, val ssl: Boolean) {
+open class ServerEntity constructor(val serverName: String, val host: String, val port: Int, val ssl: Boolean) {
     var isOnline: Boolean = false
 
     protected val authKey = ConfigEntity().loadConfig().authKey

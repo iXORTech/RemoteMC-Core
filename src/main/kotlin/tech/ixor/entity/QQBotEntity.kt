@@ -1,8 +1,10 @@
 package tech.ixor.entity
 
+import tech.ixor.I18N
+
 class QQBotEntity constructor(
     host: String, port: Int, ssl: Boolean
-) : ServerEntity(host, port, ssl) {
+) : ServerEntity(I18N.qqBotServerName(), host, port, ssl) {
     public override fun getUrl(): String {
         return if (ssl) {
             "https://$host:$port"
