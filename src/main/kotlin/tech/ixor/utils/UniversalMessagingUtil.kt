@@ -128,8 +128,9 @@ class UniversalMessagingUtil {
             return response
         }
 
-        suspend fun broadcast (message: String,
-                               excludeServers: List<ServerEntity>
+        suspend fun broadcast(
+            message: String,
+            excludeServers: List<ServerEntity>
         ): UniversalMessagingResponse {
             val response = UniversalMessagingResponse(0, mutableListOf<HTTPResponse>())
 
@@ -149,6 +150,7 @@ class UniversalMessagingUtil {
                             )
                         )
                     }
+
                     401 -> {
                         response.responseCount++
                         response.responseList.add(
@@ -158,6 +160,7 @@ class UniversalMessagingUtil {
                             )
                         )
                     }
+
                     503 -> {
                         response.responseCount++
                         response.responseList.add(
@@ -167,6 +170,7 @@ class UniversalMessagingUtil {
                             )
                         )
                     }
+
                     else -> {
                         response.responseCount++
                         response.responseList.add(
@@ -197,6 +201,7 @@ class UniversalMessagingUtil {
                                 )
                             )
                         }
+
                         401 -> {
                             response.responseCount++
                             response.responseList.add(
@@ -206,6 +211,7 @@ class UniversalMessagingUtil {
                                 )
                             )
                         }
+
                         503 -> {
                             response.responseCount++
                             response.responseList.add(
@@ -215,6 +221,7 @@ class UniversalMessagingUtil {
                                 )
                             )
                         }
+
                         else -> {
                             response.responseCount++
                             response.responseList.add(
