@@ -94,6 +94,16 @@ class UniversalMessagingUtil {
                             )
                         }
 
+                        404 -> {
+                            response.responseCount++
+                            response.responseList.add(
+                                HTTPResponse(
+                                    statusCode = HttpStatusCode.NotFound.value,
+                                    message = I18N.qqBotGroupNotFound(qqGroup.groupName, qqGroup.groupCode)
+                                )
+                            )
+                        }
+
                         503 -> {
                             response.responseCount++
                             response.responseList.add(
@@ -208,6 +218,16 @@ class UniversalMessagingUtil {
                                 HTTPResponse(
                                     statusCode = HttpStatusCode.Unauthorized.value,
                                     message = I18N.coreAuthkeyInvalid()
+                                )
+                            )
+                        }
+
+                        404 -> {
+                            response.responseCount++
+                            response.responseList.add(
+                                HTTPResponse(
+                                    statusCode = HttpStatusCode.NotFound.value,
+                                    message = I18N.qqBotGroupNotFound(qqGroup.groupName, qqGroup.groupCode)
                                 )
                             )
                         }
