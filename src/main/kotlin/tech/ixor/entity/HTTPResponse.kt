@@ -6,4 +6,8 @@ class HTTPResponse(
     @Json(name = "status_code")
     val statusCode: Int,
     val message: String
-)
+) {
+    override fun toString(): String {
+        return "HTTPResponse(statusCode=$statusCode, message='$message')"
+    }
+}
