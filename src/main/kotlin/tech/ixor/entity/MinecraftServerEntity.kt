@@ -6,27 +6,43 @@ import io.ktor.client.call.body
 import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
 import io.ktor.http.*
+import org.slf4j.LoggerFactory
+import tech.ixor.I18N
 import java.net.ConnectException
 
 class MinecraftServerEntity constructor(
     serverName: String, host: String, port: Int,
     ssl: Boolean, val default: Boolean
 ) : ServerEntity(serverName, host, port, ssl) {
+    private var logger = LoggerFactory.getLogger(javaClass)
+
     suspend fun status(): HTTPResponse {
+        logger.info(I18N.logging_statusRequestReceived(serverName))
         if (!checkOnlineStatus()) {
-            return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
+            logger.info(I18N.logging_mcServerOffline(serverName))
+            val response = HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
+            logger.info(I18N.logging_sendingResponse(response.toString()))
+            return response
         }
         val url = getUrl() + "/api/v1/mcserver/status"
-        return getResponse(url)
+        logger.info(I18N.logging_sendingRequestToUrl(url))
+        val response = getResponse(url)
+        logger.info(I18N.logging_responseFromUrl(url, response.toString()))
+        logger.info(I18N.logging_sendingResponse(response.toString()))
+        return response
     }
 
     suspend fun executeCommand(command: String): HTTPResponse {
         if (!checkOnlineStatus()) {
-            return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
+            logger.info(I18N.logging_mcServerOffline(serverName))
+            val response = HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
+            logger.info(I18N.logging_sendingResponse(response.toString()))
+            return response
         }
         val url = getUrl() + "/api/v1/mcserver/execute_command"
+        logger.info(I18N.logging_sendingRequestToUrl(url))
         val client = HttpClient(CIO)
-        val response = Klaxon().parse<HTTPResponse>(
+        var response = Klaxon().parse<HTTPResponse>(
             try {
                 client.post(url) {
                     contentType(ContentType.Application.Json)
@@ -41,10 +57,16 @@ class MinecraftServerEntity constructor(
                 }
                     .body<String>().toString()
             } catch (e: ConnectException) {
-                return HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
+                logger.info(I18N.logging_mcServerOffline(serverName))
+                val response = HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
+                logger.info(I18N.logging_sendingResponse(response.toString()))
+                return response
             }
         )
-        return response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
+        response = response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
+        logger.info(I18N.logging_responseFromUrl(url, response.toString()))
+        logger.info(I18N.logging_sendingResponse(response.toString()))
+        return response
     }
 
     suspend fun sendMessage(senderID: String, source: String, sender: String, message: String): HTTPResponse {
