@@ -33,6 +33,7 @@ class MinecraftServerEntity constructor(
     }
 
     suspend fun executeCommand(command: String): HTTPResponse {
+        logger.info(I18N.logging_executeCommandRequestReceived(serverName, command))
         if (!checkOnlineStatus()) {
             logger.info(I18N.logging_mcServerOffline(serverName))
             val response = HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
