@@ -16,6 +16,10 @@ class MinecraftServerEntity constructor(
 ) : ServerEntity(serverName, host, port, ssl) {
     private var logger = LoggerFactory.getLogger(javaClass)
 
+    override fun toString(): String {
+        return "MinecraftServerEntity(serverName='$serverName', host='$host', port=$port, ssl=$ssl, default=$default)"
+    }
+
     suspend fun status(): HTTPResponse {
         logger.info(I18N.logging_statusRequestReceived(serverName))
         if (!checkOnlineStatus()) {
@@ -144,36 +148,59 @@ class MinecraftServerEntity constructor(
 
 object MinecraftServers {
     private val servers = mutableListOf<MinecraftServerEntity>()
+    private var logger = LoggerFactory.getLogger(javaClass)
 
     fun addServer(server: MinecraftServerEntity) {
+        logger.info(I18N.logging_addingMinecraftServer(server.toString()))
         servers.add(server)
     }
 
-    fun addServer(server: ConfigEntity.MinecraftServerConfig) {
-        servers.add(MinecraftServerEntity(server.serverName, server.host, server.port, server.ssl, server.default))
+    fun addServer(serverConfig: ConfigEntity.MinecraftServerConfig) {
+        val server = MinecraftServerEntity(
+            serverConfig.serverName,
+            serverConfig.host,
+            serverConfig.port,
+            serverConfig.ssl,
+            serverConfig.default
+        )
+        logger.info(I18N.logging_addingMinecraftServer(server.toString()))
+        servers.add(server)
     }
 
     fun addServer(serverName: String, host: String, port: Int, ssl: Boolean, default: Boolean) {
-        servers.add(MinecraftServerEntity(serverName, host, port, ssl, default))
+        val server = MinecraftServerEntity(
+            serverName,
+            host,
+            port,
+            ssl,
+            default
+        )
+        logger.info(I18N.logging_addingMinecraftServer(server.toString()))
+        servers.add(server)
     }
 
     fun getAllServers(): List<MinecraftServerEntity> {
+        logger.info(I18N.logging_gettingAllMinecraftServers())
         return servers
     }
 
     fun getServer(serverName: String): MinecraftServerEntity? {
+        logger.info(I18N.logging_gettingMinecraftServerAccordingToName(serverName))
         return servers.find { it.serverName == serverName }
     }
 
     fun getServer(host: String, port: Int): MinecraftServerEntity? {
+        logger.info(I18N.logging_gettingMinecraftServerAccordingToHostAndPort(host, port))
         return servers.find { it.host == host && it.port == port }
     }
 
     fun getDefaultServer(): MinecraftServerEntity? {
+        logger.info(I18N.logging_gettingDefaultMinecraftServer())
         return servers.find { it.default }
     }
 
     fun getOnlineServers(): List<MinecraftServerEntity> {
+        logger.info(I18N.logging_gettingOnlineMinecraftServers())
         for (server in servers) {
             server.updateOnlineStatus()
         }
@@ -181,6 +208,7 @@ object MinecraftServers {
     }
 
     fun getOfflineServers(): List<MinecraftServerEntity> {
+        logger.info(I18N.logging_gettingOfflineMinecraftServers())
         for (server in servers) {
             server.updateOnlineStatus()
         }
