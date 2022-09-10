@@ -18,10 +18,14 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+      - name: Show Java version
+        run: java -version
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2.3.0
         with:
           cache-disabled: true
+      - name: Show Gradle version
+        run: ./gradlew --version
       - name: Build with Gradle
         run: ./gradlew shadowJar
       - name: Get Tag
