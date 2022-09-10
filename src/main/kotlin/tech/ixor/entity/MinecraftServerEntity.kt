@@ -19,10 +19,7 @@ class MinecraftServerEntity constructor(
     suspend fun status(): HTTPResponse {
         logger.info(I18N.logging_statusRequestReceived(serverName))
         if (!checkOnlineStatus()) {
-            logger.info(I18N.logging_mcServerOffline(serverName))
-            val response = HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
-            logger.info(I18N.logging_sendingResponse(response.toString()))
-            return response
+            return HTTPResponse.get503(logger, serverName)
         }
         val url = getUrl() + "/api/v1/mcserver/status"
         logger.info(I18N.logging_sendingRequestToUrl(url))
@@ -35,15 +32,12 @@ class MinecraftServerEntity constructor(
     suspend fun executeCommand(command: String): HTTPResponse {
         logger.info(I18N.logging_executeCommandRequestReceived(serverName, command))
         if (!checkOnlineStatus()) {
-            logger.info(I18N.logging_mcServerOffline(serverName))
-            val response = HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
-            logger.info(I18N.logging_sendingResponse(response.toString()))
-            return response
+            return HTTPResponse.get503(logger, serverName)
         }
         val url = getUrl() + "/api/v1/mcserver/execute_command"
         logger.info(I18N.logging_sendingRequestToUrl(url))
         val client = HttpClient(CIO)
-        var response = Klaxon().parse<HTTPResponse>(
+        val response = Klaxon().parse<HTTPResponse>(
             try {
                 client.post(url) {
                     contentType(ContentType.Application.Json)
@@ -58,26 +52,24 @@ class MinecraftServerEntity constructor(
                 }
                     .body<String>().toString()
             } catch (e: ConnectException) {
-                logger.info(I18N.logging_mcServerOffline(serverName))
-                val response = HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
-                logger.info(I18N.logging_sendingResponse(response.toString()))
-                return response
+                return HTTPResponse.get503(logger, serverName)
             }
         )
-        response = response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
-        logger.info(I18N.logging_responseFromUrl(url, response.toString()))
-        logger.info(I18N.logging_sendingResponse(response.toString()))
-        return response
+
+        return if (response != null) {
+            logger.info(I18N.logging_responseFromUrl(url, response.toString()))
+            logger.info(I18N.logging_sendingResponse(response.toString()))
+            response
+        } else {
+            HTTPResponse.get503(logger, serverName)
+        }
     }
 
     suspend fun sendMessage(senderID: String, source: String, sender: String, message: String): HTTPResponse {
         logger.info(I18N.logging_sendMessageRequestReceived(serverName))
         logger.info(I18N.logging_sendMessageRequestParams(senderID, source, sender, message))
         if (!checkOnlineStatus()) {
-            logger.info(I18N.logging_mcServerOffline(serverName))
-            val response = HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
-            logger.info(I18N.logging_sendingResponse(response.toString()))
-            return response
+            return HTTPResponse.get503(logger, serverName)
         }
         val url = getUrl() + "/api/v1/mcserver/send_message"
         logger.info(I18N.logging_sendingRequestToUrl(url))
@@ -100,25 +92,23 @@ class MinecraftServerEntity constructor(
                 }
                     .body<String>().toString()
             } catch (e: ConnectException) {
-                logger.info(I18N.logging_mcServerOffline(serverName))
-                val response = HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
-                logger.info(I18N.logging_sendingResponse(response.toString()))
-                return response
+                return HTTPResponse.get503(logger, serverName)
             }
         )
-        response = response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
-        logger.info(I18N.logging_responseFromUrl(url, response.toString()))
-        logger.info(I18N.logging_sendingResponse(response.toString()))
-        return response
+
+        return if (response != null) {
+            logger.info(I18N.logging_responseFromUrl(url, response.toString()))
+            logger.info(I18N.logging_sendingResponse(response.toString()))
+            response
+        } else {
+            HTTPResponse.get503(logger, serverName)
+        }
     }
 
     suspend fun broadcast(message: String): HTTPResponse {
         logger.info(I18N.logging_broadcastRequestReceived(serverName, message))
         if (!checkOnlineStatus()) {
-            logger.info(I18N.logging_mcServerOffline(serverName))
-            val response = HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
-            logger.info(I18N.logging_sendingResponse(response.toString()))
-            return response
+            return HTTPResponse.get503(logger, serverName)
         }
         val url = getUrl() + "/api/v1/mcserver/broadcast"
         logger.info(I18N.logging_sendingRequestToUrl(url))
@@ -138,16 +128,17 @@ class MinecraftServerEntity constructor(
                 }
                     .body<String>().toString()
             } catch (e: ConnectException) {
-                logger.info(I18N.logging_mcServerOffline(serverName))
-                val response = HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
-                logger.info(I18N.logging_sendingResponse(response.toString()))
-                return response
+                return HTTPResponse.get503(logger, serverName)
             }
         )
-        response = response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
-        logger.info(I18N.logging_responseFromUrl(url, response.toString()))
-        logger.info(I18N.logging_sendingResponse(response.toString()))
-        return response
+
+        return if (response != null) {
+            logger.info(I18N.logging_responseFromUrl(url, response.toString()))
+            logger.info(I18N.logging_sendingResponse(response.toString()))
+            response
+        } else {
+            HTTPResponse.get503(logger, serverName)
+        }
     }
 }
 
