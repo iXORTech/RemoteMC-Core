@@ -23,7 +23,7 @@ fun Route.status() {
                 meta { charset = "utf-8" }
                 link(rel = "stylesheet", href = "/assets/style.css", type = "text/css")
                 meta {
-                    name = "viewport";
+                    name = "viewport"
                     content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
                 }
                 script { src = "https://unpkg.com/feather-icons" }
@@ -93,7 +93,7 @@ fun Route.status() {
                             p {
                                 +"${qqBot.host} : ${qqBot.port} - "
                                 b {
-                                    if (qqBot.isOnline == true) {
+                                    if (qqBot.checkOnlineStatus() == true) {
                                         +"${I18N.isOnline}"
                                     } else {
                                         +"${I18N.isOffline}"
