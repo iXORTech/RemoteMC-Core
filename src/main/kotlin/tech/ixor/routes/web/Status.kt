@@ -8,7 +8,6 @@ import kotlinx.html.*
 import tech.ixor.I18N
 import tech.ixor.entity.MinecraftServers
 import tech.ixor.entity.QQBot
-import tech.ixor.entity.QQGroups
 import tech.ixor.job.MinecraftServerAliveMonitor
 import tech.ixor.job.QQBotAliveMonitor
 
@@ -105,7 +104,7 @@ fun Route.status() {
                                 +"${I18N.qqGroups}"
                             }
                             ol {
-                                val qqGroups = QQGroups.getQQGroups()
+                                val qqGroups = qqBot.getQQGroups()
                                 for (qqGroup in qqGroups) {
                                     li {
                                         b {

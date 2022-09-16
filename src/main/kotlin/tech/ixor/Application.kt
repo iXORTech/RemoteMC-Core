@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory
 import tech.ixor.entity.ConfigEntity
 import tech.ixor.entity.MinecraftServers
 import tech.ixor.entity.QQBot
-import tech.ixor.entity.QQGroups
+import tech.ixor.entity.QQBotEntity
 import tech.ixor.job.MinecraftServerAliveMonitor
 import tech.ixor.job.QQBotAliveMonitor
 import tech.ixor.plugins.configureRouting
@@ -33,7 +33,7 @@ fun startMinecraftServerAliveMonitor() {
 fun loadQQBots(config: ConfigEntity.Config) {
     val qqBot = QQBot
     qqBot.setBot(config.qqBot)
-    loadQQGroups(config.qqBot)
+    loadQQGroups(qqBot.getBot(), config.qqBot)
 }
 
 fun startQQBotAliveMonitor() {
@@ -41,10 +41,9 @@ fun startQQBotAliveMonitor() {
     qqBotAliveMonitor.start()
 }
 
-fun loadQQGroups(config: ConfigEntity.QQBotConfig) {
-    val qqGroups = QQGroups
+fun loadQQGroups(qqBot: QQBotEntity, config: ConfigEntity.QQBotConfig) {
     config.groups.forEach {
-        qqGroups.addQQGroup(it)
+        qqBot.addQQGroup(it)
     }
 }
 

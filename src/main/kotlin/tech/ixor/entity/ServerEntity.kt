@@ -31,7 +31,7 @@ open class ServerEntity constructor(val serverName: String, val host: String, va
         return response ?: HTTPResponse(statusCode = 503, message = "SERVICE_UNAVAILABLE")
     }
 
-    protected open fun getUrl(): String {
+    protected fun getUrl(): String {
         return if (ssl) {
             "https://$host:$port"
         } else {
@@ -58,7 +58,7 @@ open class ServerEntity constructor(val serverName: String, val host: String, va
         }
     }
 
-    protected open fun checkOnlineStatus(): Boolean {
+    fun checkOnlineStatus(): Boolean {
         updateOnlineStatus()
         return isOnline
     }
