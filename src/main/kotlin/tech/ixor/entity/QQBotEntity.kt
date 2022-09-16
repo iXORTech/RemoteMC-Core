@@ -4,20 +4,7 @@ import tech.ixor.I18N
 
 class QQBotEntity constructor(
     host: String, port: Int, ssl: Boolean
-) : ServerEntity(I18N.qqBotServerName(), host, port, ssl) {
-    public override fun getUrl(): String {
-        return if (ssl) {
-            "https://$host:$port"
-        } else {
-            "http://$host:$port"
-        }
-    }
-
-    public override fun checkOnlineStatus(): Boolean {
-        updateOnlineStatus()
-        return isOnline
-    }
-}
+) : ServerEntity(I18N.qqBotServerName(), host, port, ssl)
 
 object QQBot {
     private lateinit var qqBot: QQBotEntity
