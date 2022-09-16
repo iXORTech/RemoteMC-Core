@@ -70,7 +70,7 @@ class UniversalMessagingUtil {
                 return response
             }
             if (qqBot.checkOnlineStatus()) {
-                val qqGroups = QQGroups.getQQGroups()
+                val qqGroups = qqBot.getQQGroups()
                 for (qqGroup in qqGroups) {
                     val qqBotResponse = qqGroup.sendMessage(qqBot, senderID, source, sender, message)
                     when (qqBotResponse.statusCode) {
@@ -198,7 +198,7 @@ class UniversalMessagingUtil {
                 return response
             }
             if (qqBot.checkOnlineStatus()) {
-                val qqGroups = QQGroups.getQQGroups()
+                val qqGroups = qqBot.getQQGroups()
                 for (qqGroup in qqGroups) {
                     val qqBotResponse = qqGroup.broadcast(qqBot, message)
                     when (qqBotResponse.statusCode) {
