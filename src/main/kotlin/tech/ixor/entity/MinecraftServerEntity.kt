@@ -78,7 +78,7 @@ class MinecraftServerEntity constructor(
         val url = getUrl() + "/api/v1/mcserver/send_message"
         logger.info(I18N.logging_sendingRequestToUrl(url))
         val client = HttpClient(CIO)
-        var response = Klaxon().parse<HTTPResponse>(
+        val response = Klaxon().parse<HTTPResponse>(
             try {
                 client.post(url) {
                     contentType(ContentType.Application.Json)
@@ -117,7 +117,7 @@ class MinecraftServerEntity constructor(
         val url = getUrl() + "/api/v1/mcserver/broadcast"
         logger.info(I18N.logging_sendingRequestToUrl(url))
         val client = HttpClient(CIO)
-        var response = Klaxon().parse<HTTPResponse>(
+        val response = Klaxon().parse<HTTPResponse>(
             try {
                 client.post(url) {
                     contentType(ContentType.Application.Json)
@@ -204,7 +204,7 @@ object MinecraftServers {
         for (server in servers) {
             server.updateOnlineStatus()
         }
-        return servers.filter { it.isOnline }
+        return servers.filter { it.checkOnlineStatus() }
     }
 
     fun getOfflineServers(): List<MinecraftServerEntity> {
@@ -212,6 +212,6 @@ object MinecraftServers {
         for (server in servers) {
             server.updateOnlineStatus()
         }
-        return servers.filter { !it.isOnline }
+        return servers.filter { !it.checkOnlineStatus() }
     }
 }
