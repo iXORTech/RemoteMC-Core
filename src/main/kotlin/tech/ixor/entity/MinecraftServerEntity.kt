@@ -21,7 +21,7 @@ class MinecraftServerEntity constructor(
     }
 
     suspend fun status(): HTTPResponse {
-        logger.info(I18N.logging_statusRequestReceived(serverName))
+        logger.info(I18N.logging_mcServerStatusRequestReceived(serverName))
         if (!checkOnlineStatus()) {
             return HTTPResponse.get503(logger, serverName)
         }
@@ -34,7 +34,7 @@ class MinecraftServerEntity constructor(
     }
 
     suspend fun executeCommand(command: String): HTTPResponse {
-        logger.info(I18N.logging_executeCommandRequestReceived(serverName, command))
+        logger.info(I18N.logging_mcServerExecuteCommandRequestReceived(serverName, command))
         if (!checkOnlineStatus()) {
             return HTTPResponse.get503(logger, serverName)
         }
@@ -70,8 +70,8 @@ class MinecraftServerEntity constructor(
     }
 
     suspend fun sendMessage(senderID: String, source: String, sender: String, message: String): HTTPResponse {
-        logger.info(I18N.logging_sendMessageRequestReceived(serverName))
-        logger.info(I18N.logging_sendMessageRequestParams(senderID, source, sender, message))
+        logger.info(I18N.logging_mcServerSendMessageRequestReceived(serverName))
+        logger.info(I18N.logging_mcServerSendMessageRequestParams(senderID, source, sender, message))
         if (!checkOnlineStatus()) {
             return HTTPResponse.get503(logger, serverName)
         }
@@ -110,7 +110,7 @@ class MinecraftServerEntity constructor(
     }
 
     suspend fun broadcast(message: String): HTTPResponse {
-        logger.info(I18N.logging_broadcastRequestReceived(serverName, message))
+        logger.info(I18N.logging_mcServerBroadcastRequestReceived(serverName, message))
         if (!checkOnlineStatus()) {
             return HTTPResponse.get503(logger, serverName)
         }
