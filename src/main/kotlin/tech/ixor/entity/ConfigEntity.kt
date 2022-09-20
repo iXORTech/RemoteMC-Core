@@ -8,7 +8,7 @@ import tech.ixor.I18N
 import tech.ixor.utils.FileDownloader
 
 class ConfigEntity {
-    private var logger = LoggerFactory.getLogger(javaClass)
+    private val logger = LoggerFactory.getLogger(javaClass)
 
     data class Ktor(val port: Int)
 

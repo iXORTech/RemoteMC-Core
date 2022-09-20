@@ -15,7 +15,7 @@ import java.net.ConnectException
 open class ServerEntity constructor(val serverName: String, val host: String, val port: Int, val ssl: Boolean) {
     private var isOnline: Boolean = false
     protected val authKey = ConfigEntity().loadConfig().authKey
-    private var logger = LoggerFactory.getLogger(javaClass)
+    private val logger = LoggerFactory.getLogger(javaClass)
 
     protected suspend fun getResponse(url: String): HTTPResponse {
         logger.info(I18N.logging_sendingGetRequest(url))

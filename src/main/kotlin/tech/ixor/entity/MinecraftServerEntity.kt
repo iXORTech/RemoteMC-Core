@@ -14,7 +14,7 @@ class MinecraftServerEntity constructor(
     serverName: String, host: String, port: Int,
     ssl: Boolean, val default: Boolean
 ) : ServerEntity(serverName, host, port, ssl) {
-    private var logger = LoggerFactory.getLogger(javaClass)
+    private val logger = LoggerFactory.getLogger(javaClass)
 
     override fun toString(): String {
         return "MinecraftServerEntity(serverName='$serverName', host='$host', port=$port, ssl=$ssl, default=$default)"
@@ -148,7 +148,7 @@ class MinecraftServerEntity constructor(
 
 object MinecraftServers {
     private val servers = mutableListOf<MinecraftServerEntity>()
-    private var logger = LoggerFactory.getLogger(javaClass)
+    private val logger = LoggerFactory.getLogger(javaClass)
 
     fun addServer(server: MinecraftServerEntity) {
         logger.info(I18N.logging_addingMinecraftServer(server.toString()))
