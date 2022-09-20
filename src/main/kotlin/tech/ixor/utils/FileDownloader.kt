@@ -11,7 +11,7 @@ import tech.ixor.I18N
 import java.io.File
 
 class FileDownloader {
-    private var logger = LoggerFactory.getLogger(javaClass)
+    private val logger = LoggerFactory.getLogger(javaClass)
 
     fun downloadFile(urlString: String, pathname: String, downloadDescription: String) {
         val client = HttpClient()

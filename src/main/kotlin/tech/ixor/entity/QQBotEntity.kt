@@ -13,7 +13,7 @@ import java.net.ConnectException
 class QQBotEntity constructor(
     host: String, port: Int, ssl: Boolean
 ) : ServerEntity(I18N.qqBotServerName(), host, port, ssl) {
-    private var logger = LoggerFactory.getLogger(javaClass)
+    private val logger = LoggerFactory.getLogger(javaClass)
 
     inner class QQGroupEntity constructor(
         val groupName: String, val groupCode: Long
@@ -101,7 +101,7 @@ class QQBotEntity constructor(
 
 object QQBot {
     private lateinit var qqBot: QQBotEntity
-    private var logger = LoggerFactory.getLogger(javaClass)
+    private val logger = LoggerFactory.getLogger(javaClass)
 
     fun setBot(bot: QQBotEntity) {
         if (bot.ssl) {

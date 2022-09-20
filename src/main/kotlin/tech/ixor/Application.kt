@@ -16,7 +16,7 @@ import tech.ixor.plugins.configureSerialization
 import tech.ixor.utils.*
 import java.util.*
 
-private var logger = LoggerFactory.getLogger("RemoteMC-Core")
+private val logger = LoggerFactory.getLogger("RemoteMC-Core")
 
 fun loadMinecraftServers(config: ConfigEntity.Config) {
     val minecraftServers = MinecraftServers
