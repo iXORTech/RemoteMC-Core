@@ -1,5 +1,31 @@
 # RemoteMC-Core 的更新日志
 
+## Version 0.3.0-beta (908F084) "上下线通知 & 日志改进" - 2022年9月22日
+
+**完整的更新日志**: https://github.com/iXORTech/RemoteMC-Core/compare/v0.2.1-beta...v0.3.0-beta
+
+### :warning: 破坏性变更 :warning:
+
+`暂时没有可以显示的内容`
+
+### 新增功能
+
+- 当服务器上线/下线时，向所有服务器广播
+- 允许在向所有服务器发送消息/广播时忽略某些服务器
+- 增加 LOG 中的信息量
+
+### 优化与改进
+
+`暂时没有可以显示的内容`
+
+### 错误修复
+
+`暂时没有可以显示的内容`
+
+### 已知错误
+
+`暂时没有可以显示的内容`
+
 ## Version 0.2.1-beta (BD259A6) "通用聊天和广播 API - 响应改进" - 2022年8月23日
 
 **完整的更新日志**: https://github.com/iXORTech/RemoteMC-Core/compare/v0.2.0-beta...v0.2.1-beta

@@ -8,7 +8,7 @@ Template for changes, <mandatory> [optional]
 
 ------
 
-# Universal Chat and Broadcast API - Response Improvements
+# On/Offline notification & Logging Improvements
 
 :bangbang: This version **MIGHT NOT** represent all the features in the final production/official version! :bangbang:
 
@@ -36,7 +36,7 @@ Template for changes, <mandatory> [optional]
 
 ------
 
-# 通用聊天和广播 API - 响应改进
+# 上下线通知 & 日志改进
 
 :bangbang: 该版本 **可能不会** 代表在生产/正式版本中的所有功能！ :bangbang:
 

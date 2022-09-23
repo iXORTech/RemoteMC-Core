@@ -1,5 +1,31 @@
 # Changelog of RemoteMC-Core
 
+## Version 0.3.0-beta (908F084) "On/Offline notification & Logging Improvements" - Sep. 22 2022
+
+**Full Changelog**: https://github.com/iXORTech/RemoteMC-Core/compare/v0.2.1-beta...v0.3.0-beta
+
+### :warning: BREAKING CHANGES :warning:
+
+`There is nothing to display yet.`
+
+### New features
+
+- Broadcast to all servers when a sever becomes online/offline
+- Allow to ignore some servers when messaging/broadcasting to all servers
+- Improve the amount of information in the LOGs
+
+### Improvements
+
+`There is nothing to display yet.`
+
+### Bug fixes
+
+`There is nothing to display yet.`
+
+### Known Bugs
+
+`There is nothing to display yet.`
+
 ## Version 0.2.1-beta (BD259A6) "Universal Chat and Broadcast API - Response Improvements" - Aug. 23 2022
 
 **Full Changelog**: https://github.com/iXORTech/RemoteMC-Core/compare/v0.2.0-beta...v0.2.1-beta
