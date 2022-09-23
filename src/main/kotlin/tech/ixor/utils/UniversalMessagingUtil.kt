@@ -23,62 +23,71 @@ class UniversalMessagingUtil {
             val response = UniversalMessagingResponse(0, mutableListOf<HTTPResponse>())
 
             val minecraftServers = MinecraftServers.getOnlineServers()
-            for (minecraftServer in minecraftServers) {
-                logger.info(I18N.logging_universalMessagingUtil_sendMessageToMcServer(minecraftServer.serverName))
+            if (minecraftServers.isEmpty()) {
+                logger.warn(I18N.logging_universalMessagingUtil_noOnlineMcServer())
+            } else {
+                for (minecraftServer in minecraftServers) {
+                    logger.info(I18N.logging_universalMessagingUtil_sendMessageToMcServer(minecraftServer.serverName))
 
-                if (excludeServers.contains(minecraftServer)) {
-                    logger.info(I18N.logging_universalMessagingUtil_sendMessageMcServerExcluded(minecraftServer.serverName))
-                    continue
+                    if (excludeServers.contains(minecraftServer)) {
+                        logger.info(I18N.logging_universalMessagingUtil_sendMessageMcServerExcluded(minecraftServer.serverName))
+                        continue
+                    }
+
+                    val mcServerResponse = minecraftServer.sendMessage(senderID, source, sender, message)
+                    when (mcServerResponse.statusCode) {
+                        200 -> {
+                            logger.info(I18N.messageSentToMCServer(minecraftServer.serverName))
+                            response.responseCount++
+                            response.responseList.add(
+                                HTTPResponse(
+                                    statusCode = HttpStatusCode.OK.value,
+                                    message = I18N.messageSentToMCServer(minecraftServer.serverName)
+                                )
+                            )
+                        }
+
+                        401 -> {
+                            logger.warn(I18N.coreAuthkeyInvalid())
+                            response.responseCount++
+                            response.responseList.add(
+                                HTTPResponse(
+                                    statusCode = HttpStatusCode.Unauthorized.value,
+                                    message = I18N.coreAuthkeyInvalid()
+                                )
+                            )
+                        }
+
+                        503 -> {
+                            logger.warn(I18N.mcserverOfflineCannotSend(minecraftServer.serverName))
+                            response.responseCount++
+                            response.responseList.add(
+                                HTTPResponse(
+                                    statusCode = HttpStatusCode.ServiceUnavailable.value,
+                                    message = I18N.mcserverOfflineCannotSend(minecraftServer.serverName)
+                                )
+                            )
+                        }
+
+                        else -> {
+                            logger.warn(
+                                I18N.logging_universalMessagingUtil_mcServerUnknownError(
+                                    mcServerResponse.statusCode,
+                                    mcServerResponse.message
+                                )
+                            )
+                            response.responseCount++
+                            response.responseList.add(
+                                HTTPResponse(
+                                    statusCode = HttpStatusCode.InternalServerError.value,
+                                    message = I18N.unknownError(mcServerResponse.statusCode, mcServerResponse.message)
+                                )
+                            )
+                        }
+                    }
+
+                    logger.info(I18N.logging_universalMessagingUtil_sendMessageToMcServerProcessed(minecraftServer.serverName))
                 }
-
-                val mcServerResponse = minecraftServer.sendMessage(senderID, source, sender, message)
-                when (mcServerResponse.statusCode) {
-                    200 -> {
-                        logger.info(I18N.messageSentToMCServer(minecraftServer.serverName))
-                        response.responseCount++
-                        response.responseList.add(
-                            HTTPResponse(
-                                statusCode = HttpStatusCode.OK.value,
-                                message = I18N.messageSentToMCServer(minecraftServer.serverName)
-                            )
-                        )
-                    }
-
-                    401 -> {
-                        logger.warn(I18N.coreAuthkeyInvalid())
-                        response.responseCount++
-                        response.responseList.add(
-                            HTTPResponse(
-                                statusCode = HttpStatusCode.Unauthorized.value,
-                                message = I18N.coreAuthkeyInvalid()
-                            )
-                        )
-                    }
-
-                    503 -> {
-                        logger.warn(I18N.mcserverOfflineCannotSend(minecraftServer.serverName))
-                        response.responseCount++
-                        response.responseList.add(
-                            HTTPResponse(
-                                statusCode = HttpStatusCode.ServiceUnavailable.value,
-                                message = I18N.mcserverOfflineCannotSend(minecraftServer.serverName)
-                            )
-                        )
-                    }
-
-                    else -> {
-                        logger.warn(I18N.logging_universalMessagingUtil_mcServerUnknownError(mcServerResponse.statusCode, mcServerResponse.message))
-                        response.responseCount++
-                        response.responseList.add(
-                            HTTPResponse(
-                                statusCode = HttpStatusCode.InternalServerError.value,
-                                message = I18N.unknownError(mcServerResponse.statusCode, mcServerResponse.message)
-                            )
-                        )
-                    }
-                }
-
-                logger.info(I18N.logging_universalMessagingUtil_sendMessageToMcServerProcessed(minecraftServer.serverName))
             }
 
             val qqBot = QQBot.getBot()
@@ -178,62 +187,71 @@ class UniversalMessagingUtil {
             val response = UniversalMessagingResponse(0, mutableListOf<HTTPResponse>())
 
             val minecraftServers = MinecraftServers.getOnlineServers()
-            for (minecraftServer in minecraftServers) {
-                logger.info(I18N.logging_universalMessagingUtil_broadcastToMcServer(minecraftServer.serverName))
+            if (minecraftServers.isEmpty()) {
+                logger.warn(I18N.logging_universalMessagingUtil_noOnlineMcServer())
+            } else {
+                for (minecraftServer in minecraftServers) {
+                    logger.info(I18N.logging_universalMessagingUtil_broadcastToMcServer(minecraftServer.serverName))
 
-                if (excludeServers.contains(minecraftServer)) {
-                    logger.info(I18N.logging_universalMessagingUtil_broadcastMcServerExcluded(minecraftServer.serverName))
-                    continue
+                    if (excludeServers.contains(minecraftServer)) {
+                        logger.info(I18N.logging_universalMessagingUtil_broadcastMcServerExcluded(minecraftServer.serverName))
+                        continue
+                    }
+
+                    val mcServerResponse = minecraftServer.broadcast(message)
+                    when (mcServerResponse.statusCode) {
+                        200 -> {
+                            logger.info(I18N.broadcastSentToMCServer(minecraftServer.serverName))
+                            response.responseCount++
+                            response.responseList.add(
+                                HTTPResponse(
+                                    statusCode = HttpStatusCode.OK.value,
+                                    message = I18N.broadcastSentToMCServer(minecraftServer.serverName)
+                                )
+                            )
+                        }
+
+                        401 -> {
+                            logger.warn(I18N.coreAuthkeyInvalid())
+                            response.responseCount++
+                            response.responseList.add(
+                                HTTPResponse(
+                                    statusCode = HttpStatusCode.Unauthorized.value,
+                                    message = I18N.coreAuthkeyInvalid()
+                                )
+                            )
+                        }
+
+                        503 -> {
+                            logger.warn(I18N.mcserverOfflineCannotSend(minecraftServer.serverName))
+                            response.responseCount++
+                            response.responseList.add(
+                                HTTPResponse(
+                                    statusCode = HttpStatusCode.ServiceUnavailable.value,
+                                    message = I18N.mcserverOfflineCannotSend(minecraftServer.serverName)
+                                )
+                            )
+                        }
+
+                        else -> {
+                            logger.warn(
+                                I18N.logging_universalMessagingUtil_mcServerUnknownError(
+                                    mcServerResponse.statusCode,
+                                    mcServerResponse.message
+                                )
+                            )
+                            response.responseCount++
+                            response.responseList.add(
+                                HTTPResponse(
+                                    statusCode = HttpStatusCode.InternalServerError.value,
+                                    message = I18N.unknownError(mcServerResponse.statusCode, mcServerResponse.message)
+                                )
+                            )
+                        }
+                    }
+
+                    logger.info(I18N.logging_universalMessagingUtil_broadcastToMcServerProcessed(minecraftServer.serverName))
                 }
-
-                val mcServerResponse = minecraftServer.broadcast(message)
-                when (mcServerResponse.statusCode) {
-                    200 -> {
-                        logger.info(I18N.broadcastSentToMCServer(minecraftServer.serverName))
-                        response.responseCount++
-                        response.responseList.add(
-                            HTTPResponse(
-                                statusCode = HttpStatusCode.OK.value,
-                                message = I18N.broadcastSentToMCServer(minecraftServer.serverName)
-                            )
-                        )
-                    }
-
-                    401 -> {
-                        logger.warn(I18N.coreAuthkeyInvalid())
-                        response.responseCount++
-                        response.responseList.add(
-                            HTTPResponse(
-                                statusCode = HttpStatusCode.Unauthorized.value,
-                                message = I18N.coreAuthkeyInvalid()
-                            )
-                        )
-                    }
-
-                    503 -> {
-                        logger.warn(I18N.mcserverOfflineCannotSend(minecraftServer.serverName))
-                        response.responseCount++
-                        response.responseList.add(
-                            HTTPResponse(
-                                statusCode = HttpStatusCode.ServiceUnavailable.value,
-                                message = I18N.mcserverOfflineCannotSend(minecraftServer.serverName)
-                            )
-                        )
-                    }
-
-                    else -> {
-                        logger.warn(I18N.logging_universalMessagingUtil_mcServerUnknownError(mcServerResponse.statusCode, mcServerResponse.message))
-                        response.responseCount++
-                        response.responseList.add(
-                            HTTPResponse(
-                                statusCode = HttpStatusCode.InternalServerError.value,
-                                message = I18N.unknownError(mcServerResponse.statusCode, mcServerResponse.message)
-                            )
-                        )
-                    }
-                }
-
-                logger.info(I18N.logging_universalMessagingUtil_broadcastToMcServerProcessed(minecraftServer.serverName))
             }
 
             val qqBot = QQBot.getBot()
