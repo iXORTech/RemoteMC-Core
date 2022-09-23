@@ -17,7 +17,7 @@ class HTTPResponse(
         fun get503(logger: Logger, serverName: String): HTTPResponse {
             val response = HTTPResponse(503, "Service Unavailable")
             logger.info(I18N.logging_mcServerOffline(serverName))
-            logger.info(I18N.logging_sendingResponse(response.toString()))
+            logger.info(I18N.logging_returningResponse(response.toString()))
             return response
         }
     }
