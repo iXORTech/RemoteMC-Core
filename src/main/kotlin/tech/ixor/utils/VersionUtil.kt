@@ -11,17 +11,16 @@ class VersionUtil {
 
     companion object {
         private val logger: Logger = VersionUtil().logger
+        private val properties = Properties()
 
-        private fun getVersionProperties(): Properties {
+        fun loadVersionProperties() {
             val inputStream: InputStream? = this::class.java.getResourceAsStream("/version.properties")
-            val properties = Properties()
             properties.load(inputStream)
-            logger.info(I18N.logging_versionUtil_gettingVersionProperties(properties.toString()))
-            return properties
+            logger.info(I18N.logging_versionUtil_loadingVersionProperties(properties.toString()))
         }
 
         fun getProperty(key: String): String {
-            val property = getVersionProperties().getProperty(key)
+            val property = properties.getProperty(key)
             logger.info(I18N.logging_versionUtil_gettingProperty(key, property))
             return property
         }

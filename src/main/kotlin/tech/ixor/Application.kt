@@ -49,6 +49,7 @@ fun loadQQGroups(qqBot: QQBotEntity, config: ConfigEntity.QQBotConfig) {
 
 fun main() {
     val config = ConfigEntity().loadConfig()
+    VersionUtil.loadVersionProperties()
 
     val i18n4kConfig = I18n4kConfigDefault()
     i18n4k = i18n4kConfig

@@ -29,6 +29,7 @@ class ConfigEntity {
     )
 
     fun loadConfig(): Config {
+        logger.info(I18N.loadingConfig())
         val pwd = System.getProperty("user.dir")
         val confFile = "$pwd/conf/config.yaml"
         if (!File(confFile).exists()) {
