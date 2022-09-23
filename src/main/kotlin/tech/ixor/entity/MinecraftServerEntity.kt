@@ -29,7 +29,7 @@ class MinecraftServerEntity constructor(
         logger.info(I18N.logging_sendingRequestToUrl(url))
         val response = getResponse(url)
         logger.info(I18N.logging_responseFromUrl(url, response.toString()))
-        logger.info(I18N.logging_sendingResponse(response.toString()))
+        logger.info(I18N.logging_returningResponse(response.toString()))
         return response
     }
 
@@ -62,7 +62,7 @@ class MinecraftServerEntity constructor(
 
         return if (response != null) {
             logger.info(I18N.logging_responseFromUrl(url, response.toString()))
-            logger.info(I18N.logging_sendingResponse(response.toString()))
+            logger.info(I18N.logging_returningResponse(response.toString()))
             response
         } else {
             HTTPResponse.get503(logger, serverName)
@@ -102,7 +102,7 @@ class MinecraftServerEntity constructor(
 
         return if (response != null) {
             logger.info(I18N.logging_responseFromUrl(url, response.toString()))
-            logger.info(I18N.logging_sendingResponse(response.toString()))
+            logger.info(I18N.logging_returningResponse(response.toString()))
             response
         } else {
             HTTPResponse.get503(logger, serverName)
@@ -138,7 +138,7 @@ class MinecraftServerEntity constructor(
 
         return if (response != null) {
             logger.info(I18N.logging_responseFromUrl(url, response.toString()))
-            logger.info(I18N.logging_sendingResponse(response.toString()))
+            logger.info(I18N.logging_returningResponse(response.toString()))
             response
         } else {
             HTTPResponse.get503(logger, serverName)

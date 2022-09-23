@@ -32,7 +32,7 @@ open class ServerEntity constructor(val serverName: String, val host: String, va
         )
         return if (response != null) {
             logger.info(I18N.logging_responseFromUrl(url, response.toString()))
-            logger.info(I18N.logging_sendingResponse(response.toString()))
+            logger.info(I18N.logging_returningResponse(response.toString()))
             response
         } else {
             HTTPResponse.get503(logger, serverName)

@@ -15,7 +15,7 @@ fun Route.mcServerExecuteCommand() {
     val authKey = ConfigEntity().loadConfig().authKey
     val logger = LoggerFactory.getLogger(javaClass)
 
-    post("/mcserver/execute_command") {
+    post("/mcserverw/execute_command") {
         logger.info(I18N.logging_mcserver_executeCommandRequestReceived())
 
         val request = call.receive<MCServerExecuteCommandRequest>()
