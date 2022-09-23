@@ -24,7 +24,14 @@ class UniversalMessagingUtil {
 
             val minecraftServers = MinecraftServers.getOnlineServers()
             if (minecraftServers.isEmpty()) {
-                logger.warn(I18N.logging_universalMessagingUtil_noOnlineMcServer())
+                logger.warn(I18N.noOnlineMcServer())
+                response.responseCount++
+                response.responseList.add(
+                    HTTPResponse(
+                        statusCode = HttpStatusCode.ServiceUnavailable.value,
+                        message = I18N.noOnlineMcServer()
+                    )
+                )
             } else {
                 for (minecraftServer in minecraftServers) {
                     logger.info(I18N.logging_universalMessagingUtil_sendMessageToMcServer(minecraftServer.serverName))
@@ -188,7 +195,14 @@ class UniversalMessagingUtil {
 
             val minecraftServers = MinecraftServers.getOnlineServers()
             if (minecraftServers.isEmpty()) {
-                logger.warn(I18N.logging_universalMessagingUtil_noOnlineMcServer())
+                logger.warn(I18N.noOnlineMcServer())
+                response.responseCount++
+                response.responseList.add(
+                    HTTPResponse(
+                        statusCode = HttpStatusCode.ServiceUnavailable.value,
+                        message = I18N.noOnlineMcServer()
+                    )
+                )
             } else {
                 for (minecraftServer in minecraftServers) {
                     logger.info(I18N.logging_universalMessagingUtil_broadcastToMcServer(minecraftServer.serverName))
