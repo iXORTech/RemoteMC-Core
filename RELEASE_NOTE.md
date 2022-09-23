@@ -14,15 +14,17 @@ Template for changes, <mandatory> [optional]
 
 ## :warning: BREAKING CHANGES :warning:
 
-- Response handler for Universal Chat and Broadcast APIs need to be refactored. See the first element in the `Improvements` section.
+`There is nothing to display yet.`
 
 ## New features
 
-`There is nothing to display yet.`
+- Broadcast to all servers when a sever becomes online/offline
+- Allow to ignore some servers when messaging/broadcasting to all servers
+- Improve the amount of information in the LOGs
 
 ## Improvements
 
-- The response of the Universal Chat and Broadcast APIs now contains response from **EVERY** client that RemoteMC-Core is requesting instead of just the first one. 
+`There is nothing to display yet.`
 
 ## Bug fixes
 
@@ -40,15 +42,17 @@ Template for changes, <mandatory> [optional]
 
 ## :warning: 破坏性变更 :warning:
 
-- 通用聊天和广播 API 的响应处理器需要进行重构。请参考 `优化与改进` 部分的第一项内容。
+`暂时没有可以显示的内容`
 
 ## 新增功能
 
-`暂时没有可以显示的内容`
+- 当服务器上线/下线时，向所有服务器广播
+- 允许在向所有服务器发送消息/广播时忽略某些服务器
+- 增加 LOG 中的信息量
 
 ## 优化与改进
 
-- 通用聊天和广播 API 的响应现在包含了**每个** RemoteMC-Core 请求的客户端的响应而不是仅第一个。
+`暂时没有可以显示的内容`
 
 ## 错误修复
 
@@ -60,5 +64,5 @@ Template for changes, <mandatory> [optional]
 
 ------
 
-**Full Changelog**: https://github.com/iXORTech/RemoteMC-Core/compare/v0.2.0-beta...v0.2.1-beta
-**完整的更新日志**: https://github.com/iXORTech/RemoteMC-Core/compare/v0.2.0-beta...v0.2.1-beta
+**Full Changelog**: https://github.com/iXORTech/RemoteMC-Core/compare/v0.2.1-beta...v0.3.0-beta
+**完整的更新日志**: https://github.com/iXORTech/RemoteMC-Core/compare/v0.2.1-beta...v0.3.0-beta
