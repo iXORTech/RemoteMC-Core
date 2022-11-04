@@ -54,8 +54,8 @@ RemoteMC 系列软件允许用户使用一个 RemoteMC-Core 连接多个 MC 服�
 
 ## 📜 协议&许可证
 
-> **RemoteMC-Core 使用 [AGPL-3.0-or-later 协议](license-translations/LICENSE-zh)（[原文](LICENSE)）作为软件分发许可证。<br/>
-用户可以更改，再分发本开源代码，进行商业使用，但必须遵守 [AGPL-3.0-or-later 协议](license-translations/LICENSE-zh)（[原文](LICENSE)）内容**
+> **RemoteMC-Core 使用 [AGPL-3.0-or-later 协议](license-translations/LICENSE-zh.md)（[原文](LICENSE)）作为软件分发许可证。<br/>
+用户可以更改，再分发本开源代码，进行商业使用，但必须遵守 [AGPL-3.0-or-later 协议](license-translations/LICENSE-zh.md)（[原文](LICENSE)）内容**
 
 但同时，用户不得：
 - 将该项目用于违反**美国**，**加拿大**，**中华人民共和国**以及用户所处国家的法律的用途
@@ -66,7 +66,7 @@ RemoteMC 系列软件允许用户使用一个 RemoteMC-Core 连接多个 MC 服�
 
 
 - 对于 `RemoteMC-Core` 的衍生项目：
-  - 不管您是在维护一个我们项目的分支抑或是直接使用了我们的代码，您的项目应当也使用 [AGPL-3.0-or-later 协议](license-translations/LICENSE-zh)（[原文](LICENSE)）作为软件分发许可证。
+  - 不管您是在维护一个我们项目的分支抑或是直接使用了我们的代码，您的项目应当也使用 [AGPL-3.0-or-later 协议](license-translations/LICENSE-zh.md)（[原文](LICENSE)）作为软件分发许可证。
   - 如果您在维护一个 `RemoteMC-Core` 的分支，您可以在网页底部或者命令行提示处使用 `由 iXOR Technology 强力驱动，由 [您的名字] 更改。` 字样。否则必须保留 `由 iXOR Technology 强力驱动。` 字样。
   - 如果你在使用 `RemoteMC` 已发布的代码，不管您是否更改了代码，您都需要在您的程序描述中**明确**提及使用了本项目代码，并附上本项目的链接。您不得扭曲或隐藏本项目免费且开源的事实。
     - 本项目链接
@@ -75,14 +75,14 @@ RemoteMC 系列软件允许用户使用一个 RemoteMC-Core 连接多个 MC 服�
 
 ``` text
 RemoteMC-Core - RemoteMC 系列处理与API核心
-Copyright (C) 2022 iXOR Technology, Cubik65536 以及 所有贡献者 版权所有。
+版权所有 (C) 2022 iXOR Technology, Cubik65536 以及 所有贡献者。
 
-本程序是自由软件：你可以根据自由软件基金会发布的 GNU Affero 通用公共许可证的条款，
-即许可证的第3版或（您选择的）任何后来的版本重新发布它和/或修改它。
+本程序为自由软件：在自由软件基金会发布的 GNU Affero 通用公共许可证的约束下，
+你可以对其进行再分发及修改。许可证版本为第三版或（你可选的）后续版本。
 
-本程序的发布是希望它能起到作用。但没有任何保证；甚至没有隐含的保证。本程序的分发
-是希望它是有用的，但没有任何保证，甚至没有隐含的适销对路或适合某一特定目的的保证。
-参见 GNU Affero 通用公共许可证了解更多细节。
+我们希望发布的这款程序有用，但其不带任何担保；甚至不默认保证它有经济价值和适
+合特定用途。详情参见 GNU Affero 通用公共许可证。
 
-您应该已经收到了一份 GNU Affero 通用公共许可证的副本。如果没有，请参见 <https://www.gnu.org/licenses/>。
+你理当已收到一份 GNU Affero 通用公共许可证的副本。如果你没有收到它，请查阅
+<http://www.gnu.org/licenses/>。
 ```
