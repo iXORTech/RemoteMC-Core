@@ -13,16 +13,16 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up JDK 17
-        uses: actions/setup-java@v3.5.0
+        uses: actions/setup-java@v3.6.0
         with:
           java-version: '17'
           distribution: 'temurin'
       - name: Show Java version
         run: java -version
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2.3.0
+        uses: gradle/gradle-build-action@v2.3.3
         with:
           cache-disabled: true
       - name: Show Gradle version
@@ -30,28 +30,28 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew shadowJar
       - name: Get Tag
-        uses: mad9000/actions-find-and-replace-string@2
+        uses: mad9000/actions-find-and-replace-string@3
         id: gettag
         with:
           source: ${{ github.ref }}
           find: 'refs/tags/'
           replace: ''
       - name: Get Version Number
-        uses: mad9000/actions-find-and-replace-string@2
+        uses: mad9000/actions-find-and-replace-string@3
         id: getversion
         with:
           source: ${{ steps.gettag.outputs.value }}
           find: 'v'
           replace: ''
       - name: Get Version (RC with numeric identifiers)
-        uses: frabert/replace-string-action@v2.1
+        uses: frabert/replace-string-action@v2.3
         id: getversion-rc
         with:
           string: ${{ steps.getversion.outputs.value }}
           pattern: '-rc\.'
           replace-with: ' Release Candidate '
       - name: Get Version (RC without numeric identifiers)
-        uses: frabert/replace-string-action@v2.1
+        uses: frabert/replace-string-action@v2.3
         id: getversion-rc-no-numeric
         with:
           string: ${{ steps.getversion-rc.outputs.replaced }}
@@ -61,11 +61,11 @@ jobs:
         run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
       - name: SHA to upper case
         id: sha
-        uses: ASzc/change-string-case-action@v2
+        uses: ASzc/change-string-case-action@v5
         with:
           string: ${{ env.SHORT_SHA }}
       - name: Release
-        uses: ncipollo/release-action@v1.10.0
+        uses: ncipollo/release-action@v1.11.2
         with:
           token: ${{ secrets.GH_TOKEN }}
           name: "Version ${{ steps.getversion-rc-no-numeric.outputs.replaced }} (${{ steps.sha.outputs.uppercase }})"

@@ -14,16 +14,16 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up JDK 17
-        uses: actions/setup-java@v3.5.0
+        uses: actions/setup-java@v3.6.0
         with:
           java-version: '17'
           distribution: 'temurin'
       - name: Show Java version
         run: java -version
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2.3.0
+        uses: gradle/gradle-build-action@v2.3.3
         with:
           cache-disabled: true
       - name: Show Gradle version
@@ -33,7 +33,7 @@ jobs:
       - name: Get short SHA
         run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: RemoteMC-Core-${{ env.SHORT_SHA }}
           path: build/distributions
