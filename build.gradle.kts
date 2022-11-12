@@ -43,9 +43,9 @@ fun getStage(): String {
 
 plugins {
     application
-    kotlin("jvm") version "1.6.10"
+    kotlin("jvm") version "1.7.21"
     id("com.github.johnrengelman.shadow") version "7.1.2"
-    id("de.comahe.i18n4k") version "0.4.0"
+    id("de.comahe.i18n4k") version "0.5.0"
 }
 
 group = "tech.ixor"
