@@ -1,7 +1,7 @@
 name: Feature request
 description: Suggest an idea for RemoteMC-Core
 title: "[Feature Request]: "
-labels: ["enhancement"]
+labels: ["type:feature"]
 assignees: Cubik65536
 
 body:

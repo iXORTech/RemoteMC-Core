@@ -8,4 +8,4 @@ from_author:
   - Cubik65536
 
 apply_labels:
-  - "can-be-merged/可以被合并"
+  - "status:can-be-merged"

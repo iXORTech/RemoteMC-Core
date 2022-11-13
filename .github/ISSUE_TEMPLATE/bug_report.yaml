@@ -1,7 +1,7 @@
 name: Bug report
 description: Create a report to help us improve RemoteMC-Core
 title: "[Bug]: "
-labels: ["bug"]
+labels: ["type:bug"]
 assignees: Cubik65536
 
 body:
