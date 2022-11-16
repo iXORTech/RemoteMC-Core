@@ -23,7 +23,7 @@ body:
     attributes:
       label: "Please choose if applies:"
       options:
-        - label: I'm currently working on a adding this feature.
+        - label: I'm currently working on adding this feature.
           required: false
 
   - type: textarea
