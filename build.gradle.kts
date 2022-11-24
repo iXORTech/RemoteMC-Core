@@ -70,11 +70,12 @@ tasks {
         property("revision", getRevision())
     }
 
-    var shadowJarVersion = getVersion() + "-" + getStage()
+    var shadowJarVersion = getVersion()
     shadowJar {
         if (getStage() == "dev" || getStage() == "alpha" || getStage() == "beta" || getStage() == "rc") {
-            shadowJarVersion = shadowJarVersion + "+" + getRevision()
+            shadowJarVersion = shadowJarVersion + "-" + getStage()
         }
+        shadowJarVersion = shadowJarVersion + "+" + getRevision()
         destinationDirectory.set(file("${projectDir}/build/distributions"))
         archiveVersion.set(shadowJarVersion)
         archiveClassifier.set("")
