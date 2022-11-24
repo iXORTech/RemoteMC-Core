@@ -28,8 +28,14 @@ class VersionUtil {
         fun getVersion(): String {
             val versionProperty = getProperty("version")
             logger.info(I18N.logging_versionUtil_versionProperty(versionProperty))
+            var revisionProperty = getProperty("revision")
+            revisionProperty = revisionProperty.uppercase()
+            logger.info(I18N.logging_versionUtil_revisionProperty(revisionProperty))
             var stageProperty = getProperty("stage")
             logger.info(I18N.logging_versionUtil_stageProperty(stageProperty))
+            if (stageProperty == "stable") {
+                return "$versionProperty ($revisionProperty)"
+            }
             stageProperty = stageProperty.replace(regex = Regex("dev"), replacement = "DEV")
             stageProperty = stageProperty.replace(regex = Regex("alpha\\."), replacement = "Alpha ")
             stageProperty = stageProperty.replace(regex = Regex("alpha"), replacement = "Alpha")
@@ -38,9 +44,6 @@ class VersionUtil {
             stageProperty = stageProperty.replace(regex = Regex("rc\\."), replacement = "Release Candidate ")
             stageProperty = stageProperty.replace(regex = Regex("rc"), replacement = "Release Candidate")
             logger.info(I18N.logging_versionUtil_readableStageProperty(stageProperty))
-            var revisionProperty = getProperty("revision")
-            revisionProperty = revisionProperty.uppercase()
-            logger.info(I18N.logging_versionUtil_revisionProperty(revisionProperty))
             val version = "$versionProperty $stageProperty ($revisionProperty)"
             logger.info(I18N.logging_versionUtil_version(version))
             return version
