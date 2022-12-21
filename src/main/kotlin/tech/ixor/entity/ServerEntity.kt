@@ -1,5 +1,6 @@
 package tech.ixor.entity
 
+import com.beust.klaxon.Klaxon
 import io.ktor.client.*
 import io.ktor.client.call.body
 import io.ktor.client.engine.cio.*
@@ -28,13 +29,9 @@ open class ServerEntity constructor(val serverName: String, val host: String, va
             httpResponse.status.value,
             httpResponse.body<String>().toString()
         )
-        return if (responseContent != null) {
-            logger.info(I18N.logging_responseFromUrl(url, responseContent.toString()))
-            logger.info(I18N.logging_returningResponse(responseContent.toString()))
-            responseContent
-        } else {
-            HTTPResponse.get503(logger, serverName)
-        }
+        logger.info(I18N.logging_responseFromUrl(url, responseContent.toString()))
+        logger.info(I18N.logging_returningResponse(responseContent.toString()))
+        return responseContent
     }
 
     protected fun getUrl(): String {
@@ -46,15 +43,17 @@ open class ServerEntity constructor(val serverName: String, val host: String, va
         }
     }
 
-    private suspend fun ping(): HTTPResponse {
+    private suspend fun ping(): Int {
         logger.info(I18N.logging_pingingServer(serverName))
         val url = getUrl() + "/ping"
-        return getResponse(url)
+        val response = getResponse(url)
+        val responseContent = Klaxon().parse<PingResponse>(response.body)
+        return response.statusCode
     }
 
     fun updateOnlineStatus() {
         logger.info(I18N.logging_updatingOnlineStatus(serverName))
-        val online = runBlocking { ping().statusCode == 200 }
+        val online = runBlocking { ping() == 200 }
         if (online != isOnline) {
             logger.info(I18N.logging_onlineStatusChanged(serverName))
             isOnline = online

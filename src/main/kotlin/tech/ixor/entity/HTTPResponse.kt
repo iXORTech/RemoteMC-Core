@@ -1,16 +1,14 @@
 package tech.ixor.entity
 
-import com.beust.klaxon.Json
 import org.slf4j.Logger
 import tech.ixor.I18N
 
 class HTTPResponse(
-    @Json(name = "status_code")
     val statusCode: Int,
-    val message: String
+    val body: String
 ) {
     override fun toString(): String {
-        return "HTTPResponse(statusCode=$statusCode, message='$message')"
+        return "HTTPResponse(statusCode=$statusCode, body='$body')"
     }
 
     companion object {
@@ -20,5 +18,16 @@ class HTTPResponse(
             logger.info(I18N.logging_returningResponse(response.toString()))
             return response
         }
+    }
+}
+
+class PingResponse(
+    val module: String = "invalid",
+    val version: String = "0.0.0",
+    val stage: String = "invalid",
+    val revision: String = "0000000"
+) {
+    override fun toString(): String {
+        return "PingResponse(module='$module', version='$version', stage='$stage', revision='$revision')"
     }
 }
