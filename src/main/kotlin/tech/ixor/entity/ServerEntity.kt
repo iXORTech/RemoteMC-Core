@@ -1,11 +1,9 @@
 package tech.ixor.entity
 
-import com.beust.klaxon.Klaxon
 import io.ktor.client.*
 import io.ktor.client.call.body
 import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
-import io.ktor.http.*
 import kotlinx.coroutines.runBlocking
 import org.slf4j.LoggerFactory
 import tech.ixor.I18N
@@ -20,20 +18,20 @@ open class ServerEntity constructor(val serverName: String, val host: String, va
     protected suspend fun getResponse(url: String): HTTPResponse {
         logger.info(I18N.logging_sendingGetRequest(url))
         val client = HttpClient(CIO)
-        val response = Klaxon().parse<HTTPResponse>(
-            try {
-                client.get(url) {
-                    method = HttpMethod.Get
-                }
-                    .body<String>().toString()
-            } catch (e: ConnectException) {
-                return HTTPResponse.get503(logger, serverName)
-            }
+        val httpResponse: io.ktor.client.statement.HttpResponse = try {
+            client.get(url)
+        } catch (e: ConnectException) {
+            return HTTPResponse.get503(logger, serverName)
+        }
+        println("Response: ${httpResponse.status.description}")
+        val responseContent = HTTPResponse(
+            httpResponse.status.value,
+            httpResponse.body<String>().toString()
         )
-        return if (response != null) {
-            logger.info(I18N.logging_responseFromUrl(url, response.toString()))
-            logger.info(I18N.logging_returningResponse(response.toString()))
-            response
+        return if (responseContent != null) {
+            logger.info(I18N.logging_responseFromUrl(url, responseContent.toString()))
+            logger.info(I18N.logging_returningResponse(responseContent.toString()))
+            responseContent
         } else {
             HTTPResponse.get503(logger, serverName)
         }
