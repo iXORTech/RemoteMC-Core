@@ -14,7 +14,7 @@ import java.net.ConnectException
 
 open class ServerEntity constructor(val serverName: String, val host: String, val port: Int, val ssl: Boolean) {
     private var isOnline: Boolean = false
-    private var ifCompatible: Boolean = false
+    private var isCompatible: Boolean = false
     protected val authKey = ConfigEntity().loadConfig().authKey
     private val logger = LoggerFactory.getLogger(javaClass)
 
@@ -51,7 +51,7 @@ open class ServerEntity constructor(val serverName: String, val host: String, va
         val response = getResponse(url)
         if (response.statusCode == 200) {
             val responseContent = Klaxon().parse<PingResponse>(response.body)
-            ifCompatible = CompatibilityUtil().checkComaptibility(
+            isCompatible = CompatibilityUtil().checkComaptibility(
                 responseContent?.module ?: "undefined",
                 responseContent?.version ?: "undefined",
                 responseContent?.stage ?: "undefined"
