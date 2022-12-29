@@ -83,4 +83,14 @@ open class ServerEntity constructor(val serverName: String, val host: String, va
         updateOnlineStatus()
         return isOnline
     }
+
+    fun updateCompatibilityStatus() {
+        runBlocking { ping() == 200 }
+    }
+
+    fun getCompatibilityStatus(): Boolean {
+        updateCompatibilityStatus()
+        return isCompatible
+    }
+
 }
