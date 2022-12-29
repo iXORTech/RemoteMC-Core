@@ -25,12 +25,11 @@ class MinecraftServerEntity constructor(
         if (!checkOnlineStatus()) {
             return HTTPResponse.get503(logger, serverName)
         }
+
         val url = getUrl() + "/api/v1/mcserver/status"
+
         logger.info(I18N.logging_sendingRequestToUrl(url))
-        val response = getResponse(url)
-        logger.info(I18N.logging_responseFromUrl(url, response.toString()))
-        logger.info(I18N.logging_returningResponse(response.toString()))
-        return response
+        return getResponse(url)
     }
 
     suspend fun executeCommand(command: String): HTTPResponse {
@@ -38,35 +37,35 @@ class MinecraftServerEntity constructor(
         if (!checkOnlineStatus()) {
             return HTTPResponse.get503(logger, serverName)
         }
+
         val url = getUrl() + "/api/v1/mcserver/execute_command"
         logger.info(I18N.logging_sendingRequestToUrl(url))
+
         val client = HttpClient(CIO)
-        val response = Klaxon().parse<HTTPResponse>(
-            try {
-                client.post(url) {
-                    contentType(ContentType.Application.Json)
-                    setBody(
-                        Klaxon().toJsonString(
-                            mapOf(
-                                "auth_key" to authKey,
-                                "command" to command
-                            )
+        val httpResponse: io.ktor.client.statement.HttpResponse = try {
+            client.post(url) {
+                contentType(ContentType.Application.Json)
+                setBody(
+                    Klaxon().toJsonString(
+                        mapOf(
+                            "auth_key" to authKey,
+                            "command" to command
                         )
                     )
-                }
-                    .body<String>().toString()
-            } catch (e: ConnectException) {
-                return HTTPResponse.get503(logger, serverName)
+                )
             }
+        } catch (e: ConnectException) {
+            return HTTPResponse.get503(logger, serverName)
+        }
+
+        val responseContent = HTTPResponse(
+            httpResponse.status.value,
+            httpResponse.body<String>().toString()
         )
 
-        return if (response != null) {
-            logger.info(I18N.logging_responseFromUrl(url, response.toString()))
-            logger.info(I18N.logging_returningResponse(response.toString()))
-            response
-        } else {
-            HTTPResponse.get503(logger, serverName)
-        }
+        logger.info(I18N.logging_responseFromUrl(url, responseContent.toString()))
+        logger.info(I18N.logging_returningResponse(responseContent.toString()))
+        return responseContent
     }
 
     suspend fun sendMessage(senderID: String, source: String, sender: String, message: String): HTTPResponse {
@@ -75,38 +74,38 @@ class MinecraftServerEntity constructor(
         if (!checkOnlineStatus()) {
             return HTTPResponse.get503(logger, serverName)
         }
+
         val url = getUrl() + "/api/v1/mcserver/send_message"
         logger.info(I18N.logging_sendingRequestToUrl(url))
+
         val client = HttpClient(CIO)
-        val response = Klaxon().parse<HTTPResponse>(
-            try {
-                client.post(url) {
-                    contentType(ContentType.Application.Json)
-                    setBody(
-                        Klaxon().toJsonString(
-                            mapOf(
-                                "auth_key" to authKey,
-                                "sender_id" to senderID,
-                                "source" to source,
-                                "sender" to sender,
-                                "message" to message
-                            )
+        val httpResponse: io.ktor.client.statement.HttpResponse = try {
+            client.post(url) {
+                contentType(ContentType.Application.Json)
+                setBody(
+                    Klaxon().toJsonString(
+                        mapOf(
+                            "auth_key" to authKey,
+                            "sender_id" to senderID,
+                            "source" to source,
+                            "sender" to sender,
+                            "message" to message
                         )
                     )
-                }
-                    .body<String>().toString()
-            } catch (e: ConnectException) {
-                return HTTPResponse.get503(logger, serverName)
+                )
             }
+        } catch (e: ConnectException) {
+            return HTTPResponse.get503(logger, serverName)
+        }
+
+        val responseContent = HTTPResponse(
+            httpResponse.status.value,
+            httpResponse.body<String>().toString()
         )
 
-        return if (response != null) {
-            logger.info(I18N.logging_responseFromUrl(url, response.toString()))
-            logger.info(I18N.logging_returningResponse(response.toString()))
-            response
-        } else {
-            HTTPResponse.get503(logger, serverName)
-        }
+        logger.info(I18N.logging_responseFromUrl(url, responseContent.toString()))
+        logger.info(I18N.logging_returningResponse(responseContent.toString()))
+        return responseContent
     }
 
     suspend fun broadcast(message: String): HTTPResponse {
@@ -114,35 +113,35 @@ class MinecraftServerEntity constructor(
         if (!checkOnlineStatus()) {
             return HTTPResponse.get503(logger, serverName)
         }
+
         val url = getUrl() + "/api/v1/mcserver/broadcast"
         logger.info(I18N.logging_sendingRequestToUrl(url))
+
         val client = HttpClient(CIO)
-        val response = Klaxon().parse<HTTPResponse>(
-            try {
-                client.post(url) {
-                    contentType(ContentType.Application.Json)
-                    setBody(
-                        Klaxon().toJsonString(
-                            mapOf(
-                                "auth_key" to authKey,
-                                "message" to message
-                            )
+        val httpResponse: io.ktor.client.statement.HttpResponse = try {
+            client.post(url) {
+                contentType(ContentType.Application.Json)
+                setBody(
+                    Klaxon().toJsonString(
+                        mapOf(
+                            "auth_key" to authKey,
+                            "message" to message
                         )
                     )
-                }
-                    .body<String>().toString()
-            } catch (e: ConnectException) {
-                return HTTPResponse.get503(logger, serverName)
+                )
             }
+        } catch (e: ConnectException) {
+            return HTTPResponse.get503(logger, serverName)
+        }
+
+        val responseContent = HTTPResponse(
+            httpResponse.status.value,
+            httpResponse.body<String>().toString()
         )
 
-        return if (response != null) {
-            logger.info(I18N.logging_responseFromUrl(url, response.toString()))
-            logger.info(I18N.logging_returningResponse(response.toString()))
-            response
-        } else {
-            HTTPResponse.get503(logger, serverName)
-        }
+        logger.info(I18N.logging_responseFromUrl(url, responseContent.toString()))
+        logger.info(I18N.logging_returningResponse(responseContent.toString()))
+        return responseContent
     }
 }
 

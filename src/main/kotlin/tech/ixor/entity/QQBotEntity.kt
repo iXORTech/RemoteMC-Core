@@ -1,6 +1,5 @@
 package tech.ixor.entity
 
-import com.beust.klaxon.Klaxon
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
@@ -26,25 +25,24 @@ class QQBotEntity constructor(
 
         private suspend fun sendRequest(url: String): HTTPResponse {
             logger.info(I18N.logging_sendingRequestToUrl(url))
+
             val client = HttpClient(CIO)
-            val response = Klaxon().parse<HTTPResponse>(
-                try {
-                    client.post(url) {
-                        method = HttpMethod.Post
-                    }
-                        .body<String>().toString()
-                } catch (e: ConnectException) {
-                    return HTTPResponse.get503(logger, serverName)
+            val httpResponse: io.ktor.client.statement.HttpResponse = try {
+                client.post(url) {
+                    method = HttpMethod.Post
                 }
+            } catch (e: ConnectException) {
+                return HTTPResponse.get503(logger, serverName)
+            }
+
+            val responseContent = HTTPResponse(
+                httpResponse.status.value,
+                httpResponse.body<String>().toString()
             )
 
-            return if (response != null) {
-                logger.info(I18N.logging_responseFromUrl(url, response.toString()))
-                logger.info(I18N.logging_returningResponse(response.toString()))
-                response
-            } else {
-                HTTPResponse.get503(logger, serverName)
-            }
+            logger.info(I18N.logging_responseFromUrl(url, responseContent.toString()))
+            logger.info(I18N.logging_returningResponse(responseContent.toString()))
+            return responseContent
         }
 
         suspend fun sendMessage(senderID: String, source: String, sender: String, message: String): HTTPResponse {
