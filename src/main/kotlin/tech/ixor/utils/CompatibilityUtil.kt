@@ -11,9 +11,11 @@ class CompatibilityUtil {
 
     private fun loadCompatibilityList(module: String): String {
         logger.info(I18N.logging_compatibilityUtil_loadingCompatibilityList(module))
+
         val inputStream: InputStream? = this::class.java.getResourceAsStream(
             "/compatibility-list/$module.json"
         )
+
         return if (inputStream != null) {
             val compatibilityList = inputStream.bufferedReader().use { it.readText() }
             logger.info(I18N.logging_compatibilityUtil_compatibilityListLoaded(module))
@@ -30,22 +32,26 @@ class CompatibilityUtil {
 
         var stageList: List<String> = arrayListOf<String>()
 
-        JsonReader(StringReader(loadCompatibilityList(module))).use { reader ->
-            reader.beginObject() {
-                while (reader.hasNext()) {
-                    stageList = when (reader.nextName()) {
-                        version -> reader.nextArray() as List<String>
-                        else -> emptyList()
+        try {
+            JsonReader(StringReader(loadCompatibilityList(module))).use { reader ->
+                reader.beginObject() {
+                    while (reader.hasNext()) {
+                        stageList = when (reader.nextName()) {
+                            version -> reader.nextArray() as List<String>
+                            else -> emptyList()
+                        }
                     }
                 }
             }
+        } catch (klaxonException: com.beust.klaxon.KlaxonException) {
+            logger.error(klaxonException.message?.let { I18N.logging_compatibilityUtil_klaxonException(it) })
         }
 
         return if (stageList.isEmpty()) {
-            logger.error(I18N.logging_compatibilityUtil_versionNotFound(module, version))
+            logger.error(I18N.logging_compatibilityUtil_versionNotFound(version, module))
             false
         } else {
-            logger.info(I18N.logging_compatibilityUtil_versionFound(module, version))
+            logger.info(I18N.logging_compatibilityUtil_versionFound(version, module))
             if (stageList.contains(stage)) {
                 logger.info(I18N.logging_compatibilityUtil_stageFound(stage, module, version))
                 true
