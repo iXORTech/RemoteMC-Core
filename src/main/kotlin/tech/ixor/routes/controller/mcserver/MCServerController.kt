@@ -15,7 +15,7 @@ fun Route.mcServerExecuteCommand() {
     val authKey = ConfigEntity().loadConfig().authKey
     val logger = LoggerFactory.getLogger(javaClass)
 
-    post("/mcserverw/execute_command") {
+    post("/mcserver/execute_command") {
         logger.info(I18N.logging_mcserver_executeCommandRequestReceived())
 
         val request = call.receive<MCServerExecuteCommandRequest>()
@@ -54,8 +54,8 @@ fun Route.mcServerExecuteCommand() {
             val mcServerResponse = minecraftServer.executeCommand(command)
             when (mcServerResponse.statusCode) {
                 200 -> {
-                    logger.info(I18N.logging_mcserver_commandSuccessfullyExecuted(mcServerResponse.message))
-                    call.respondText(mcServerResponse.message, status = HttpStatusCode.OK)
+                    logger.info(I18N.logging_mcserver_commandSuccessfullyExecuted(mcServerResponse.body))
+                    call.respondText(mcServerResponse.body, status = HttpStatusCode.OK)
                 }
                 401 -> {
                     logger.warn(I18N.coreAuthkeyInvalid())
@@ -66,9 +66,9 @@ fun Route.mcServerExecuteCommand() {
                     call.respondText(I18N.mcserverOffline(), status = HttpStatusCode.ServiceUnavailable)
                 }
                 else ->  {
-                    logger.warn(I18N.logging_mcserver_unknownError(mcServerResponse.statusCode, mcServerResponse.message))
+                    logger.warn(I18N.logging_mcserver_unknownError(mcServerResponse.statusCode, mcServerResponse.body))
                     call.respondText(
-                        I18N.unknownError(mcServerResponse.statusCode, mcServerResponse.message),
+                        I18N.unknownError(mcServerResponse.statusCode, mcServerResponse.body),
                         status = HttpStatusCode.InternalServerError
                     )
                 }

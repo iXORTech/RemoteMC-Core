@@ -47,7 +47,9 @@ open class ServerEntity constructor(val serverName: String, val host: String, va
         logger.info(I18N.logging_pingingServer(serverName))
         val url = getUrl() + "/ping"
         val response = getResponse(url)
-        val responseContent = Klaxon().parse<PingResponse>(response.body)
+        if (response.statusCode == 200) {
+            val responseContent = Klaxon().parse<PingResponse>(response.body)
+        }
         return response.statusCode
     }
 

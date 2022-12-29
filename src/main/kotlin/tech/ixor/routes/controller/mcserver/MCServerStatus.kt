@@ -37,17 +37,17 @@ fun Route.mcServerStatus() {
             val mcServerResponse = minecraftServer.status()
             when (mcServerResponse.statusCode) {
                 200 ->  {
-                    logger.info(I18N.logging_mcserver_statusReceived() + " \n${mcServerResponse.message}")
-                    call.respondText(mcServerResponse.message)
+                    logger.info(I18N.logging_mcserver_statusReceived() + " \n${mcServerResponse.body}")
+                    call.respondText(mcServerResponse.body)
                 }
                 503 -> {
                     logger.warn(I18N.mcserverOffline())
                     call.respondText(I18N.mcserverOffline(), status = HttpStatusCode.ServiceUnavailable)
                 }
                 else ->  {
-                    logger.warn(I18N.logging_mcserver_unknownError(mcServerResponse.statusCode, mcServerResponse.message))
+                    logger.warn(I18N.logging_mcserver_unknownError(mcServerResponse.statusCode, mcServerResponse.body))
                     call.respondText(
-                        I18N.unknownError(mcServerResponse.statusCode, mcServerResponse.message),
+                        I18N.unknownError(mcServerResponse.statusCode, mcServerResponse.body),
                         status = HttpStatusCode.InternalServerError
                     )
                 }

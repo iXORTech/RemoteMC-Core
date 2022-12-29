@@ -29,7 +29,7 @@ class UniversalMessagingUtil {
                 response.responseList.add(
                     HTTPResponse(
                         statusCode = HttpStatusCode.ServiceUnavailable.value,
-                        message = I18N.noOnlineMcServer()
+                        body = I18N.noOnlineMcServer()
                     )
                 )
             } else {
@@ -49,7 +49,7 @@ class UniversalMessagingUtil {
                             response.responseList.add(
                                 HTTPResponse(
                                     statusCode = HttpStatusCode.OK.value,
-                                    message = I18N.messageSentToMCServer(minecraftServer.serverName)
+                                    body = I18N.messageSentToMCServer(minecraftServer.serverName)
                                 )
                             )
                         }
@@ -60,7 +60,7 @@ class UniversalMessagingUtil {
                             response.responseList.add(
                                 HTTPResponse(
                                     statusCode = HttpStatusCode.Unauthorized.value,
-                                    message = I18N.coreAuthkeyInvalid()
+                                    body = I18N.coreAuthkeyInvalid()
                                 )
                             )
                         }
@@ -71,7 +71,7 @@ class UniversalMessagingUtil {
                             response.responseList.add(
                                 HTTPResponse(
                                     statusCode = HttpStatusCode.ServiceUnavailable.value,
-                                    message = I18N.mcserverOfflineCannotSend(minecraftServer.serverName)
+                                    body = I18N.mcserverOfflineCannotSend(minecraftServer.serverName)
                                 )
                             )
                         }
@@ -80,14 +80,14 @@ class UniversalMessagingUtil {
                             logger.warn(
                                 I18N.logging_universalMessagingUtil_mcServerUnknownError(
                                     mcServerResponse.statusCode,
-                                    mcServerResponse.message
+                                    mcServerResponse.body
                                 )
                             )
                             response.responseCount++
                             response.responseList.add(
                                 HTTPResponse(
                                     statusCode = HttpStatusCode.InternalServerError.value,
-                                    message = I18N.unknownError(mcServerResponse.statusCode, mcServerResponse.message)
+                                    body = I18N.unknownError(mcServerResponse.statusCode, mcServerResponse.body)
                                 )
                             )
                         }
@@ -119,7 +119,7 @@ class UniversalMessagingUtil {
                             response.responseList.add(
                                 HTTPResponse(
                                     statusCode = HttpStatusCode.OK.value,
-                                    message = I18N.messageSentToGroup(qqGroup.groupName, qqGroup.groupCode)
+                                    body = I18N.messageSentToGroup(qqGroup.groupName, qqGroup.groupCode)
                                 )
                             )
                         }
@@ -130,7 +130,7 @@ class UniversalMessagingUtil {
                             response.responseList.add(
                                 HTTPResponse(
                                     statusCode = HttpStatusCode.Unauthorized.value,
-                                    message = I18N.coreAuthkeyInvalid()
+                                    body = I18N.coreAuthkeyInvalid()
                                 )
                             )
                         }
@@ -141,7 +141,7 @@ class UniversalMessagingUtil {
                             response.responseList.add(
                                 HTTPResponse(
                                     statusCode = HttpStatusCode.NotFound.value,
-                                    message = I18N.qqBotGroupNotFound(qqGroup.groupName, qqGroup.groupCode)
+                                    body = I18N.qqBotGroupNotFound(qqGroup.groupName, qqGroup.groupCode)
                                 )
                             )
                         }
@@ -152,18 +152,18 @@ class UniversalMessagingUtil {
                             response.responseList.add(
                                 HTTPResponse(
                                     statusCode = HttpStatusCode.ServiceUnavailable.value,
-                                    message = I18N.qqBotOfflineCannotSendGroup(qqGroup.groupName, qqGroup.groupCode)
+                                    body = I18N.qqBotOfflineCannotSendGroup(qqGroup.groupName, qqGroup.groupCode)
                                 )
                             )
                         }
 
                         else -> {
-                            logger.warn(I18N.logging_universalMessagingUtil_qqBotUnknownError(qqBotResponse.statusCode, qqBotResponse.message))
+                            logger.warn(I18N.logging_universalMessagingUtil_qqBotUnknownError(qqBotResponse.statusCode, qqBotResponse.body))
                             response.responseCount++
                             response.responseList.add(
                                 HTTPResponse(
                                     statusCode = HttpStatusCode.InternalServerError.value,
-                                    message = I18N.unknownError(qqBotResponse.statusCode, qqBotResponse.message)
+                                    body = I18N.unknownError(qqBotResponse.statusCode, qqBotResponse.body)
                                 )
                             )
                         }
@@ -177,7 +177,7 @@ class UniversalMessagingUtil {
                 response.responseList.add(
                     HTTPResponse(
                         statusCode = HttpStatusCode.ServiceUnavailable.value,
-                        message = I18N.qqBotOffline()
+                        body = I18N.qqBotOffline()
                     )
                 )
             }
@@ -200,7 +200,7 @@ class UniversalMessagingUtil {
                 response.responseList.add(
                     HTTPResponse(
                         statusCode = HttpStatusCode.ServiceUnavailable.value,
-                        message = I18N.noOnlineMcServer()
+                        body = I18N.noOnlineMcServer()
                     )
                 )
             } else {
@@ -220,7 +220,7 @@ class UniversalMessagingUtil {
                             response.responseList.add(
                                 HTTPResponse(
                                     statusCode = HttpStatusCode.OK.value,
-                                    message = I18N.broadcastSentToMCServer(minecraftServer.serverName)
+                                    body = I18N.broadcastSentToMCServer(minecraftServer.serverName)
                                 )
                             )
                         }
@@ -231,7 +231,7 @@ class UniversalMessagingUtil {
                             response.responseList.add(
                                 HTTPResponse(
                                     statusCode = HttpStatusCode.Unauthorized.value,
-                                    message = I18N.coreAuthkeyInvalid()
+                                    body = I18N.coreAuthkeyInvalid()
                                 )
                             )
                         }
@@ -242,7 +242,7 @@ class UniversalMessagingUtil {
                             response.responseList.add(
                                 HTTPResponse(
                                     statusCode = HttpStatusCode.ServiceUnavailable.value,
-                                    message = I18N.mcserverOfflineCannotSend(minecraftServer.serverName)
+                                    body = I18N.mcserverOfflineCannotSend(minecraftServer.serverName)
                                 )
                             )
                         }
@@ -251,14 +251,14 @@ class UniversalMessagingUtil {
                             logger.warn(
                                 I18N.logging_universalMessagingUtil_mcServerUnknownError(
                                     mcServerResponse.statusCode,
-                                    mcServerResponse.message
+                                    mcServerResponse.body
                                 )
                             )
                             response.responseCount++
                             response.responseList.add(
                                 HTTPResponse(
                                     statusCode = HttpStatusCode.InternalServerError.value,
-                                    message = I18N.unknownError(mcServerResponse.statusCode, mcServerResponse.message)
+                                    body = I18N.unknownError(mcServerResponse.statusCode, mcServerResponse.body)
                                 )
                             )
                         }
@@ -290,7 +290,7 @@ class UniversalMessagingUtil {
                             response.responseList.add(
                                 HTTPResponse(
                                     statusCode = HttpStatusCode.OK.value,
-                                    message = I18N.broadcastSentToGroup(qqGroup.groupName, qqGroup.groupCode)
+                                    body = I18N.broadcastSentToGroup(qqGroup.groupName, qqGroup.groupCode)
                                 )
                             )
                         }
@@ -301,7 +301,7 @@ class UniversalMessagingUtil {
                             response.responseList.add(
                                 HTTPResponse(
                                     statusCode = HttpStatusCode.Unauthorized.value,
-                                    message = I18N.coreAuthkeyInvalid()
+                                    body = I18N.coreAuthkeyInvalid()
                                 )
                             )
                         }
@@ -312,7 +312,7 @@ class UniversalMessagingUtil {
                             response.responseList.add(
                                 HTTPResponse(
                                     statusCode = HttpStatusCode.NotFound.value,
-                                    message = I18N.qqBotGroupNotFound(qqGroup.groupName, qqGroup.groupCode)
+                                    body = I18N.qqBotGroupNotFound(qqGroup.groupName, qqGroup.groupCode)
                                 )
                             )
                         }
@@ -323,18 +323,18 @@ class UniversalMessagingUtil {
                             response.responseList.add(
                                 HTTPResponse(
                                     statusCode = HttpStatusCode.ServiceUnavailable.value,
-                                    message = I18N.qqBotOfflineCannotSendGroup(qqGroup.groupName, qqGroup.groupCode)
+                                    body = I18N.qqBotOfflineCannotSendGroup(qqGroup.groupName, qqGroup.groupCode)
                                 )
                             )
                         }
 
                         else -> {
-                            logger.warn(I18N.logging_universalMessagingUtil_qqBotUnknownError(qqBotResponse.statusCode, qqBotResponse.message))
+                            logger.warn(I18N.logging_universalMessagingUtil_qqBotUnknownError(qqBotResponse.statusCode, qqBotResponse.body))
                             response.responseCount++
                             response.responseList.add(
                                 HTTPResponse(
                                     statusCode = HttpStatusCode.InternalServerError.value,
-                                    message = I18N.unknownError(qqBotResponse.statusCode, qqBotResponse.message)
+                                    body = I18N.unknownError(qqBotResponse.statusCode, qqBotResponse.body)
                                 )
                             )
                         }
@@ -348,7 +348,7 @@ class UniversalMessagingUtil {
                 response.responseList.add(
                     HTTPResponse(
                         statusCode = HttpStatusCode.ServiceUnavailable.value,
-                        message = I18N.qqBotOffline()
+                        body = I18N.qqBotOffline()
                     )
                 )
             }
