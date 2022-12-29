@@ -55,6 +55,17 @@ fun Route.status() {
                                 val onlineServers = MinecraftServers.getOnlineServers()
                                 for (minecraftServer in onlineServers) {
                                     li {
+                                        if (minecraftServer.getCompatibilityStatus()) {
+                                            i {
+                                                attributes["style"] = "color: green;"
+                                                +"[Compatible] "
+                                            }
+                                        } else {
+                                            i {
+                                                attributes["style"] = "color: red;"
+                                                +"[Incompatible] "
+                                            }
+                                        }
                                         b {
                                             +minecraftServer.serverName
                                         }
@@ -91,6 +102,19 @@ fun Route.status() {
                             }
                             val qqBot = QQBot.getBot()
                             p {
+                                if (qqBot.getCompatibilityStatus()) {
+                                    i {
+                                        attributes["style"] = "color: green;"
+                                        +"[Compatible] "
+                                    }
+                                } else {
+                                    if (qqBot.checkOnlineStatus()) {
+                                        i {
+                                            attributes["style"] = "color: red;"
+                                            +"[Incompatible] "
+                                        }
+                                    }
+                                }
                                 +"${qqBot.host} : ${qqBot.port} - "
                                 b {
                                     if (qqBot.checkOnlineStatus() == true) {
