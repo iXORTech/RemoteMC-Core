@@ -43,10 +43,10 @@ jobs:
       - id: step-4
         uses: crazy-max/ghaction-import-gpg@v5.2.0
         with:
-          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
-          git-user-signingkey: true
-          git-commit-gpgsign: true
+          git_user_signingkey: true
+          git_commit_gpgsign: true
       - id: step-5
         name: Commit Changes & Create Pull Request for dependency updates
         uses: peter-evans/create-pull-request@v4
