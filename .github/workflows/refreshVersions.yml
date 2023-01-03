@@ -56,4 +56,3 @@ jobs:
             prio:high
           assignees: Cubik65536
           reviewers: Cubik65536
-          draft: true
