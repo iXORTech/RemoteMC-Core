@@ -44,14 +44,14 @@ jobs:
           find: 'v'
           replace: ''
       - name: Get Version (Beta with numeric identifiers)
-        uses: frabert/replace-string-action@v2.3
+        uses: frabert/replace-string-action@v2.4
         id: getversion-beta
         with:
           string: ${{ steps.getversion.outputs.value }}
           pattern: '-beta\.'
           replace-with: ' Beta '
       - name: Get Version (Beta without numeric identifiers)
-        uses: frabert/replace-string-action@v2.3
+        uses: frabert/replace-string-action@v2.4
         id: getversion-beta-no-numeric
         with:
           string: ${{ steps.getversion-beta.outputs.replaced }}

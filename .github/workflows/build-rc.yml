@@ -44,14 +44,14 @@ jobs:
           find: 'v'
           replace: ''
       - name: Get Version (RC with numeric identifiers)
-        uses: frabert/replace-string-action@v2.3
+        uses: frabert/replace-string-action@v2.4
         id: getversion-rc
         with:
           string: ${{ steps.getversion.outputs.value }}
           pattern: '-rc\.'
           replace-with: ' Release Candidate '
       - name: Get Version (RC without numeric identifiers)
-        uses: frabert/replace-string-action@v2.3
+        uses: frabert/replace-string-action@v2.4
         id: getversion-rc-no-numeric
         with:
           string: ${{ steps.getversion-rc.outputs.replaced }}
