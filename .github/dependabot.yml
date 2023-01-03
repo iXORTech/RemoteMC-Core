@@ -23,5 +23,4 @@ updates:
       - "type:ci"
       - "type:dependencies"
       - "prio:high"
-      - "status:in-progress"
     open-pull-requests-limit: 25
