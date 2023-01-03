@@ -65,7 +65,7 @@ jobs:
         with:
           string: ${{ env.SHORT_SHA }}
       - name: Release
-        uses: ncipollo/release-action@v1.11.2
+        uses: ncipollo/release-action@v1.12.0
         with:
           token: ${{ secrets.GH_TOKEN }}
           name: "Version ${{ steps.getversion-rc-no-numeric.outputs.replaced }} (${{ steps.sha.outputs.uppercase }})"
