@@ -51,11 +51,9 @@ jobs:
           title: 'build(version.properties): Update Gradle dependencies'
           body: '[refreshVersions](https://github.com/jmfayard/refreshVersions) has found those library updates! 
           Automated changes by [create-pull-request](https://github.com/peter-evans/create-pull-request) GitHub action'
-          labels:
-            - "type:dependencies"
-            - "prio:high"
-          assignees:
-            - "Cubik65536"
-          reviewers:
-            - "Cubik65536"
+          labels: |
+            type:dependencies
+            prio:high
+          assignees: Cubik65536
+          reviewers: Cubik65536
           draft: true
