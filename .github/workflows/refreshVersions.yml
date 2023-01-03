@@ -41,21 +41,21 @@ jobs:
         with:
           arguments: refreshVersions
       - id: step-4
-        name: Commit updated version properties
-        uses: EndBug/add-and-commit@v9
+        name: Commit Changes & Create Pull Request for dependency updates
+        uses: peter-evans/create-pull-request@v4
         with:
-          author_name: GitHub Actions
-          author_email: noreply@github.com
-          message: 'build(version.properties): Update Gradle dependencies'
-          new_branch: dependency-update
-          push: --force --set-upstream origin dependency-update
-      - id: step-5
-        name: Create Pull Request for dependency updates
-        uses: repo-sync/pull-request@v2
-        with:
-          source_branch: dependency-update
-          destination_branch: main
-          pr_title: 'build(version.properties): Update Gradle dependencies'
-          pr_body: '[refreshVersions](https://github.com/jmfayard/refreshVersions) has found those library updates!'
-          pr_draft: true
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'build(version.properties): Update Gradle dependencies'
+          branch: gradle-dependency-update
+          branch-suffix: short-commit-hash
+          title: 'build(version.properties): Update Gradle dependencies'
+          body: '[refreshVersions](https://github.com/jmfayard/refreshVersions) has found those library updates! 
+          Automated changes by [create-pull-request](https://github.com/peter-evans/create-pull-request) GitHub action'
+          labels:
+            - "type:dependencies"
+            - "prio:high"
+          assignees:
+            - "Cubik65536"
+          reviewers:
+            - "Cubik65536"
+          draft: true
