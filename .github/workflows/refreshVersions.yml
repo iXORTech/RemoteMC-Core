@@ -41,11 +41,20 @@ jobs:
         with:
           arguments: refreshVersions
       - id: step-4
+        uses: crazy-max/ghaction-import-gpg@v3
+        with:
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          git-user-signingkey: true
+          git-commit-gpgsign: true
+      - id: step-5
         name: Commit Changes & Create Pull Request for dependency updates
         uses: peter-evans/create-pull-request@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT }}
           commit-message: 'build(version.properties): Update Gradle dependencies'
+          committer: Cubik65536 <cubik65536@cubik65536.top>
+          author: Cubik65536 <cubik65536@cubik65536.top>
           branch: gradle-dependency-update
           branch-suffix: short-commit-hash
           title: 'build(version.properties): Update Gradle dependencies'
