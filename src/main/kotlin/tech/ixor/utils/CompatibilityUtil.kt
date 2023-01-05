@@ -6,6 +6,10 @@ import tech.ixor.I18N
 import java.io.InputStream
 import java.io.StringReader
 
+enum class CompatibilityStatus {
+    COMPATIBLE, INCOMPATIBLE, UNKNOWN_MODULE
+}
+
 class CompatibilityUtil {
     private val logger = LoggerFactory.getLogger(javaClass)
 
@@ -27,7 +31,7 @@ class CompatibilityUtil {
         }
     }
 
-    fun checkComaptibility(module: String, version: String, stage: String): Boolean {
+    fun checkComaptibility(module: String, version: String, stage: String): CompatibilityStatus {
         logger.info(I18N.logging_compatibilityUtil_checkingCompatibility(module, version, stage))
 
         var stageList: List<String> = arrayListOf<String>()
@@ -49,15 +53,15 @@ class CompatibilityUtil {
 
         return if (stageList.isEmpty()) {
             logger.error(I18N.logging_compatibilityUtil_versionNotFound(version, module))
-            false
+            CompatibilityStatus.UNKNOWN_MODULE
         } else {
             logger.info(I18N.logging_compatibilityUtil_versionFound(version, module))
             if (stageList.contains(stage)) {
                 logger.info(I18N.logging_compatibilityUtil_stageFound(stage, module, version))
-                true
+                CompatibilityStatus.COMPATIBLE
             } else {
                 logger.error(I18N.logging_compatibilityUtil_stageNotFound(stage, module, version))
-                false
+                CompatibilityStatus.INCOMPATIBLE
             }
         }
     }

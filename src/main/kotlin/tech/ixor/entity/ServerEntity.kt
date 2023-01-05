@@ -8,6 +8,7 @@ import io.ktor.client.request.*
 import kotlinx.coroutines.runBlocking
 import org.slf4j.LoggerFactory
 import tech.ixor.I18N
+import tech.ixor.utils.CompatibilityStatus
 import tech.ixor.utils.CompatibilityUtil
 import tech.ixor.utils.UniversalMessagingUtil
 import java.net.ConnectException
@@ -55,7 +56,7 @@ open class ServerEntity constructor(val serverName: String, val host: String, va
                 responseContent?.module ?: "undefined",
                 responseContent?.version ?: "undefined",
                 responseContent?.stage ?: "undefined"
-            )
+            ) == CompatibilityStatus.COMPATIBLE
         }
         return response.statusCode
     }
