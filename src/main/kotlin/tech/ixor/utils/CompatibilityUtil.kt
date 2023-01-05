@@ -27,7 +27,7 @@ class CompatibilityUtil {
             compatibilityList
         } else {
             logger.error(I18N.logging_compatibilityUtil_compatibilityListNotFound(module))
-            ""
+            "UNKNOWN_MODULE"
         }
     }
 
@@ -35,9 +35,14 @@ class CompatibilityUtil {
         logger.info(I18N.logging_compatibilityUtil_checkingCompatibility(module, version, stage))
 
         var stageList: List<String> = arrayListOf<String>()
+        val compatibilityList = loadCompatibilityList(module)
+
+        if (compatibilityList == "UNKNOWN_MODULE") {
+            return CompatibilityStatus.UNKNOWN_MODULE
+        }
 
         try {
-            JsonReader(StringReader(loadCompatibilityList(module))).use { reader ->
+            JsonReader(StringReader(compatibilityList)).use { reader ->
                 reader.beginObject() {
                     while (reader.hasNext()) {
                         stageList = when (reader.nextName()) {
@@ -53,7 +58,7 @@ class CompatibilityUtil {
 
         return if (stageList.isEmpty()) {
             logger.error(I18N.logging_compatibilityUtil_versionNotFound(version, module))
-            CompatibilityStatus.UNKNOWN_MODULE
+            CompatibilityStatus.INCOMPATIBLE
         } else {
             logger.info(I18N.logging_compatibilityUtil_versionFound(version, module))
             if (stageList.contains(stage)) {
