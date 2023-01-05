@@ -53,8 +53,8 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           commit-message: 'build(version.properties): Update Gradle dependencies'
-          committer: Cubik65536 <cubik65536@cubik65536.top>
-          author: Cubik65536 <cubik65536@cubik65536.top>
+          committer: CubikTechBot <bot@cubik65536.top>
+          author: CubikTechBot <bot@cubik65536.top>
           branch: gradle-dependency-update
           branch-suffix: short-commit-hash
           title: 'build(version.properties): Update Gradle dependencies'
