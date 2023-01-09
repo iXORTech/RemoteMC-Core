@@ -1,6 +1,6 @@
-> This is an unofficial translation of the GNU Affero General Public License into Simplified Chinese. It was not published by the Free Software Foundation, and does not legally state the distribution terms for software that uses the GNU AGPL—only the original English text of the GNU AGPL does that. However, we hope that this translation will help Simplified Chinese speakers understand the GNU AGPL better. You may publish this translation, modified or unmodified, only under the terms at http://www.gnu.org/licenses/translations.html.
+> This is an unofficial translation of the GNU Affero General Public License into Simplified Chinese. It was not published by the Free Software Foundation, and does not legally state the distribution terms for software that uses the GNU AGPL—only the original English text of the GNU AGPL does that. However, we hope that this translation will help Simplified Chinese speakers understand the GNU AGPL better. You may publish this translation, modified or unmodified, only under the terms at <http://www.gnu.org/licenses/translations.html>.
 
-> 这是 GNU Affero 通用公共许可证（GNU AGPL）的非正式简体中文翻译。它并未被自由软件基金会发行，也不是使用 GNU AGPL 软件的发布法律声明——只有 GNU AGPL 的原始英文版才有法律意义。不过，我们希望该翻译能够帮助简体中文用户更好地理解 GNU AGPL。你可以发布本翻译或其修改版，前提是要遵守此处的条款：http://www.gnu.org/licenses/translations.html。
+> 这是 GNU Affero 通用公共许可证（GNU AGPL）的非正式简体中文翻译。它并未被自由软件基金会发行，也不是使用 GNU AGPL 软件的发布法律声明——只有 GNU AGPL 的原始英文版才有法律意义。不过，我们希望该翻译能够帮助简体中文用户更好地理解 GNU AGPL。你可以发布本翻译或其修改版，前提是要遵守此处的条款：<http://www.gnu.org/licenses/translations.html>。
 
 ---
 
@@ -16,7 +16,7 @@
 
 GNU Affero 通用公共许可证是一份适用于软件和其他类型的作品的，自由的 copyleft 许可证，专为用作网络服务器软件时，确保与社区的合作而设计。
 
-大多数软件和实用性作品的许可证，都设法剥夺你的自由，让你无法修改和分享作品。相反，我们的通用公共许可证力图保障你能自由地分享和修改一个程序的全部版本——确保该程序对每一位用户来说都是自由软件。
+大多数软件和其他实用性作品的许可证，都设法剥夺你的自由，让你无法修改和分享作品。相反，我们的通用公共许可证力图保障你能自由地分享和修改一个程序的全部版本——确保该程序对每一位用户来说都是自由软件。
 
 所谓自由软件，强调的是自由，而与价格无关。我们设计通用公共许可证，是为了确保你能够自由地分发自由软件的副本（你可以为此收费）、确保你能够接收到或在需要时索取到源代码、确保你能够修改软件或把它的一部分复用在新的自由的程序中，并确保你知道你可以做这些事。
 
@@ -93,7 +93,7 @@ Affero 发布过一份更老的许可证，名为 Affero 通用公共许可证�
 - c）你必须按照本许可证将该作品整体向获得副本的人授权，本许可证及第 7 节的任何适用的附加条款就此适用于整个作品，及其每一部分，不管打包方式如何。本许可证不允许以其他任何形式授权该作品，但如果你单独受到了这样的许可，则本许可证不否认该许可。
 - d）如果该作品有交互式用户界面，则每个交互式用户界面必须显示适当的法律声明。但是，如果本程序有交互式用户界面却不显示适当的法律声明，你的作品也不必如此。
 
-一个位于存储媒介或分发媒介之中的，涵盖作品与其他分离或独立的作品组成的联合体，在既不是涵盖作品的自然扩展、也不是为构筑更大的程序而组合的、同时其本身及其产生的版权不会用于限制该联合体的用户被单体作品授予的法律权利时，称为“聚合版”。在聚合版中包含涵盖作品并不会使本许可证影响聚合版的其他部分。
+一个位于存储媒介或分发媒介之中的，由涵盖作品与其他分离或独立的作品组成的联合体，在既不是涵盖作品的自然扩展、也不是为构筑更大的程序而组合的、同时其本身及其产生的版权不会用于限制该联合体的用户被单体作品授予的法律权利时，称为“聚合版”。在聚合版中包含涵盖作品并不会使本许可证影响聚合版的其他部分。
 
 ### 6. 输送非源代码的形式
 
@@ -140,7 +140,7 @@ Affero 发布过一份更老的许可证，名为 Affero 通用公共许可证�
 
 除非本许可证明确授权，你不得传播或修改涵盖作品。其他任何传播或修改涵盖作品的企图都是无效的，并将自动终止你通过本许可证获得的权利（包括第 11 节第 3 段中授予的一切专利许可）。
 
-然而，当你不再违反本许可证时，你的许可将从特定版权持有人处如下地恢复：(1) 暂时恢复，直到版权持有人明确终止你的许可；及 (2) 永久恢复，如果版权持有人没能在许可终止后 60 天内以合理的方式通知你的违反行为。
+然而，当你不再违反本许可证时，你的许可将从特定版权持有人处以如下方式恢复：(1) 暂时恢复，直到版权持有人明确终止你的许可；及 (2) 永久恢复，如果版权持有人没能在许可终止后 60 天内以合理的方式通知你的违反行为。
 
 再者，如果你第一次收到了特定版权持有人关于你违反本许可证（对任意作品）的通告，且在收到通知后 30 天内改正了该违反行为，那你可以继续享有此许可。
 
@@ -188,9 +188,9 @@ Affero 发布过一份更老的许可证，名为 Affero 通用公共许可证�
 
 ### 14. 本许可证的修订版
 
-自由软件基金会可能会不定时发布 GNU Affero 通用公共许可证的修订版和/或新版。新版将秉承当前版本的精神，但在细节上会有差异，以应对新的问题或忧虑。
+自由软件基金会可能会不定时发布 GNU Affero 通用公共许可证的修订版和/或新版。新版将秉承当前版本的精神，但在细节上会有差异，以应对新的问题或事项。
 
-每一版都会有不同的版本号，如果本程序指定其使用 GNU Affero 通用公共许可证的特定版本“或任何后续的版本”，你可以选择遵守该版本或者自由软件基金会发布的任何后续版本的条款。如果本程序没有指定 GNU Affero 通用公共许可证的版本，你可以选用自由软件基金会发布的任意版本。
+每一版都会有不同的版本号，如果本程序指定其使用 GNU Affero 通用公共许可证的特定版本“或任何后续的版本”，你可以选择遵守该版本或者自由软件基金会发布的任何后续版本的条款与条件。如果本程序没有指定 GNU Affero 通用公共许可证的版本，你可以选用自由软件基金会发布的任意版本。
 
 如果本程序指定一位代理人来决定使用哪个将来的 GNU Affero 通用公共许可证版本，则该代理人通过公开声明采用的版本，永久许可你为本程序使用该版本。
 
