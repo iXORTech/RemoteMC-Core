@@ -1,12 +1,5 @@
 name: Build dev version artifacts
-
-on:
-  push:
-    branches:
-      - "**"
-  pull_request:
-    branches:
-      - "**"
+on: [pull_request, push]
 
 jobs:
   build:
