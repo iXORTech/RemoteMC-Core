@@ -20,6 +20,8 @@ jobs:
           distribution: 'temurin'
       - name: Show Java version
         run: java -version
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2.3.3
         with:
