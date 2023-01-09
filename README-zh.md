@@ -75,7 +75,7 @@ RemoteMC 系列软件允许用户使用一个 RemoteMC-Core 连接多个 MC 服�
 
 ``` text
 RemoteMC-Core - RemoteMC 系列处理与API核心
-版权所有 (C) 2022 iXOR Technology, Cubik65536 以及 所有贡献者。
+版权所有 (C) 2022-2023 iXOR Technology, Cubik65536 以及 所有贡献者。
 
 本程序为自由软件：在自由软件基金会发布的 GNU Affero 通用公共许可证的约束下，
 你可以对其进行再分发及修改。许可证版本为第三版或（你可选的）后续版本。
