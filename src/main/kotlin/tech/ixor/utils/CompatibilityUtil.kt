@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory
 import tech.ixor.I18N
 import java.io.InputStream
 import java.io.StringReader
+import java.util.*
 
 enum class CompatibilityStatus {
     COMPATIBLE, INCOMPATIBLE, UNKNOWN_MODULE
@@ -14,19 +15,20 @@ class CompatibilityUtil {
     private val logger = LoggerFactory.getLogger(javaClass)
 
     private fun loadCompatibilityList(module: String): String {
-        logger.info(I18N.logging_compatibilityUtil_loadingCompatibilityList(module))
+        val moduleID = module.lowercase()
+        logger.info(I18N.logging_compatibilityUtil_loadingCompatibilityList(moduleID))
 
         val inputStream: InputStream? = this::class.java.getResourceAsStream(
-            "/compatibility-list/$module.json"
+            "/compatibility-list/$moduleID.json"
         )
 
         return if (inputStream != null) {
             val compatibilityList = inputStream.bufferedReader().use { it.readText() }
-            logger.info(I18N.logging_compatibilityUtil_compatibilityListLoaded(module))
+            logger.info(I18N.logging_compatibilityUtil_compatibilityListLoaded(moduleID))
             logger.info(I18N.logging_compatibilityUtil_compatibilityListContent(compatibilityList))
             compatibilityList
         } else {
-            logger.error(I18N.logging_compatibilityUtil_compatibilityListNotFound(module))
+            logger.error(I18N.logging_compatibilityUtil_compatibilityListNotFound(moduleID))
             "UNKNOWN_MODULE"
         }
     }
