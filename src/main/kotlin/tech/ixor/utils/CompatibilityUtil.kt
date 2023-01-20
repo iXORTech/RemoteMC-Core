@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory
 import tech.ixor.I18N
 import java.io.InputStream
 import java.io.StringReader
-import java.util.*
 
 enum class CompatibilityStatus {
     COMPATIBLE, INCOMPATIBLE, UNKNOWN_MODULE
