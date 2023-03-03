@@ -75,6 +75,7 @@ tasks {
 
     processResources {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        dependsOn(generateI18n4kFiles)
         exclude("conf/config.yaml")
         from(projectProps)
     }
