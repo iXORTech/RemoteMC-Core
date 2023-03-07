@@ -18,16 +18,7 @@ fun Route.status() {
             minecraftServerAliveMonitor.forceUpdate()
             val qqBotAliveMonitor = QQBotAliveMonitor()
             qqBotAliveMonitor.forceUpdate()
-            head {
-                title { +"${I18N.websiteStatus}" }
-                meta { charset = "utf-8" }
-                link(rel = "stylesheet", href = "/assets/style.css", type = "text/css")
-                meta {
-                    name = "viewport"
-                    content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-                }
-                script { src = "https://unpkg.com/feather-icons" }
-            }
+            htmlPageHead("${I18N.websiteStatus}")
             body {
                 div {
                     id = "page-wrapper"
