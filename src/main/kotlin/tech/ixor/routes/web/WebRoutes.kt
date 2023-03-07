@@ -5,6 +5,7 @@ import io.ktor.server.routing.*
 
 fun Application.registerWebRoutes() {
     routing {
+        about()
         index()
         ping()
         static()
