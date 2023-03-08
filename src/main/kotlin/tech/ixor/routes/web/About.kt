@@ -12,7 +12,11 @@ fun Route.about() {
         call.respondHtml(HttpStatusCode.OK) {
             htmlPageHead("${I18N.about}")
             body {
-                p { +"${I18N.about}" }
+                pageWrapper("${I18N.about}") {
+                    p {
+                        b { i { +"TODO" } }
+                    }
+                }
             }
         }
     }

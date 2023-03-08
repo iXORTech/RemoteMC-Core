@@ -15,58 +15,24 @@ fun Route.index() {
         call.respondHtml(HttpStatusCode.OK) {
             htmlPageHead("${I18N.welcome}")
             body {
-                div {
-                    id = "page-wrapper"
-                    div("index-container") {
-                        div("content") {
-                            h1 { +"${I18N.welcome}" }
+                pageWrapper("${I18N.welcome}", brBefore = false) {
+                    p {
+                        b { +"${I18N.version} " }
+                        +version
+                    }
+                    if (version.contains("dev") || version.contains("alpha") || version.contains("beta")) {
+                        p { b { +"${I18N.experimental}" } }
+                    } else if (version.contains("rc")) {
+                        p { b { +"${I18N.releaseCandidate}" } }
+                    }
 
-                            hr {}
+                    hr {}
+                    br {}
 
-                            p {
-                                b { +"${I18N.version} " }
-                                +version
-                            }
-                            if (version.contains("dev") || version.contains("alpha") || version.contains("beta")) {
-                                p { b { +"${I18N.experimental}" } }
-                            } else if (version.contains("rc")) {
-                                p { b { +"${I18N.releaseCandidate}" } }
-                            }
-
-                            hr {}
-                            br {}
-
-                            p {
-                                +"${I18N.successfullyInstalled}"
-                            }
-
-                            br {}
-
-                            footer {
-                                hr {}
-                                a(href = "https://github.com/iXORTech/RemoteMC-Core/issues") {
-                                    +"${I18N.reportBug}"
-                                }
-                                hr {}
-                                a(href = "https://github.com/iXORTech") {
-                                    i { attributes["data-feather"] = "github" }
-                                }
-                                +" | ${I18N.poweredBy} "
-                                a(href = "https://ixor.tech") { +"iXOR Technology" }
-                                +" ${I18N.withLove}"
-                                br {}
-                                +"${I18N.htmlThemeDesigned0}"
-                                a(href = "https://github.com/athul/archie") { +"Archie Theme" }
-                                +"${I18N.htmlThemeDesigned1}"
-                                a(href = "https://github.com/KevinZonda") { +"@KevinZonda" }
-                                +"${I18N.htmlThemeDesigned2}"
-                            }
-                        }
+                    p {
+                        +"${I18N.successfullyInstalled}"
                     }
                 }
-
-                script { +"feather.replace()" }
-
             }
         }
     }

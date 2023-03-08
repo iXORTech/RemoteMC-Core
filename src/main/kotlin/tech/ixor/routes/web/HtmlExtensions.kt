@@ -14,6 +14,22 @@ fun HTML.htmlPageHead(title: String) = head {
     script { src = "https://unpkg.com/feather-icons" }
 }
 
+fun BODY.pageWrapper(title: String, brBefore: Boolean = true, brAfter: Boolean = true,
+                     content: DIV.() -> Unit) = div {
+    id = "page-wrapper"
+    div("index-container") {
+        div("content") {
+            h1 { +title }
+            hr {}
+            if (brBefore) br {}
+            content()
+            if (brAfter) br {}
+            htmlPageFooter()
+            script { unsafe { +"feather.replace()" } }
+        }
+    }
+}
+
 fun DIV.htmlPageFooter() = footer {
     hr {}
     a(href = "https://github.com/iXORTech/RemoteMC-Core/issues") {
