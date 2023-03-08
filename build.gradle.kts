@@ -1,6 +1,9 @@
 import java.io.ByteArrayOutputStream
 import java.io.FileInputStream
+import java.time.ZoneId
 import java.util.Properties
+import java.time.format.DateTimeFormatter
+import java.time.ZonedDateTime
 
 val versionPropertiesFile = "${projectDir}/project.properties"
 
@@ -60,6 +63,11 @@ tasks {
         property("version", getVersion())
         property("stage", getStage())
         property("revision", getRevision())
+        property("buildDate",
+            ZonedDateTime
+                .now(ZoneId.of("UTC"))
+                .format(DateTimeFormatter.ofPattern("E, MMM dd yyyy"))
+        )
     }
 
     var shadowJarVersion = getVersion()
