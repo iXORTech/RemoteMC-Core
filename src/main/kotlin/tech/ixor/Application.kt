@@ -1,5 +1,6 @@
 package tech.ixor
 
+import io.ktor.server.application.Application
 import de.comahe.i18n4k.i18n4k
 import de.comahe.i18n4k.config.I18n4kConfigDefault
 import io.ktor.server.engine.*
@@ -72,8 +73,15 @@ fun main() {
     startMinecraftServerAliveMonitor()
     startQQBotAliveMonitor()
 
-    embeddedServer(Netty, port = config.ktor.port, host = "127.0.0.1") {
-        configureRouting()
-        configureSerialization()
-    }.start(wait = true)
+    embeddedServer(
+        Netty,
+        port = config.ktor.port,
+        host = "127.0.0.1",
+        module = Application::remotemcCoreApplicationModule
+    ).start(wait = true)
+}
+
+fun Application.remotemcCoreApplicationModule() {
+    configureRouting()
+    configureSerialization()
 }
