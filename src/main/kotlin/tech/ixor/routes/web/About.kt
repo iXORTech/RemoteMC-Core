@@ -6,6 +6,7 @@ import io.ktor.server.html.*
 import io.ktor.server.routing.*
 import kotlinx.html.*
 import tech.ixor.I18N
+import tech.ixor.utils.VersionUtil
 
 fun Route.about() {
     get("/about") {
@@ -14,7 +15,14 @@ fun Route.about() {
             body {
                 pageWrapper("${I18N.about}") {
                     p {
-                        b { i { +"TODO" } }
+                        style = "text-align: center;"
+                        b { +"RemoteMC-Core" }
+                    }
+                    p {
+                        style = "text-align: center;"
+                        +"${I18N.version} ${VersionUtil.getVersion()}"
+                        br {}
+                        +I18N.built(VersionUtil.getBuildDate())
                     }
                 }
             }
