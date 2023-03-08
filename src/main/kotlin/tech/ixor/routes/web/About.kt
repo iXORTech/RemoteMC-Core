@@ -24,6 +24,7 @@ fun Route.about() {
                         br {}
                         +I18N.built(VersionUtil.getBuildDate())
                     }
+                    br {}
                     h2 { +"Dependencies" }
                     val dependenciesInfo = VersionUtil.getDependenciesInfo()
                     ul {
