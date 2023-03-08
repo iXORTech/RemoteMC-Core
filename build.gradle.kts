@@ -48,7 +48,7 @@ fun getDependenciesInfo(): String {
             .replace("plugin.", "")
             .replace("..", ".")
         val version = props.getProperty(key.toString())
-        dependencies = "$dependency:$version;"
+        dependencies += "$dependency:$version;"
     }
     return if (dependencies == "") {
         dependencies
