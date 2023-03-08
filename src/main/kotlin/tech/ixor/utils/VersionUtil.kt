@@ -22,6 +22,23 @@ class VersionUtil {
             return buildDateProperty
         }
 
+        fun getDependenciesInfo(): List<String> {
+            val dependenciesInfoList = ArrayList<String>()
+            val dependenciesInfoProperty = getProperty("dependencies")
+            if (dependenciesInfoProperty == "") {
+                return MutableList(0) { "No dependencies properties found." }
+
+            }
+            val dependenciesInfo = dependenciesInfoProperty.split(";")
+            for (dependencyInfo in dependenciesInfo) {
+                val dependency = dependencyInfo.split(":")
+                val dependencyName = dependency[0]
+                val dependencyVersion = dependency[1]
+                dependenciesInfoList.add("$dependencyName: $dependencyVersion")
+            }
+            return dependenciesInfoList
+        }
+
         fun getVersion(): String {
             val versionProperty = getProperty("version")
             var revisionProperty = getProperty("revision")

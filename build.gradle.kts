@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter
 import java.time.ZonedDateTime
 
 val versionPropertiesFile = "${projectDir}/project.properties"
+val dependenciesPropertiesFile = "${projectDir}/versions.properties"
 
 fun String.runCommand(currentWorkingDir: File = file("./")): String {
     val byteOut = ByteArrayOutputStream()
@@ -34,6 +35,26 @@ fun getVersion(): String {
 
 fun getStage(): String {
     return getProperties(versionPropertiesFile, "stage")
+}
+
+fun getDependenciesInfo(): String {
+    val fileInputStream = FileInputStream(dependenciesPropertiesFile)
+    val props = Properties()
+    props.load(fileInputStream)
+    var dependencies = ""
+    for (key in props.keys) {
+        val dependency: String = key.toString()
+            .replace("version.", "")
+            .replace("plugin.", "")
+            .replace("..", ".")
+        val version = props.getProperty(key.toString())
+        dependencies = "$dependency:$version;"
+    }
+    return if (dependencies == "") {
+        dependencies
+    } else {
+        dependencies.substring(0, dependencies.length - 1)
+    }
 }
 
 plugins {
@@ -68,6 +89,7 @@ tasks {
                 .now(ZoneId.of("UTC"))
                 .format(DateTimeFormatter.ofPattern("E, MMM dd yyyy"))
         )
+        property("dependencies", getDependenciesInfo())
     }
 
     var shadowJarVersion = getVersion()
