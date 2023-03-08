@@ -10,20 +10,25 @@ import tech.ixor.utils.VersionUtil
 
 fun Route.index() {
     get("/") {
-        val version = VersionUtil.getVersion()
-
         call.respondHtml(HttpStatusCode.OK) {
             htmlPageHead("${I18N.welcome}")
             body {
                 pageWrapper("${I18N.welcome}", brBefore = false) {
                     p {
                         b { +"${I18N.version} " }
-                        +version
+                        +VersionUtil.getVersion()
                     }
-                    if (version.contains("dev") || version.contains("alpha") || version.contains("beta")) {
-                        p { b { +"${I18N.experimental}" } }
-                    } else if (version.contains("rc")) {
-                        p { b { +"${I18N.releaseCandidate}" } }
+                    val versionStage = VersionUtil.getProperty("stage")
+                    if (versionStage.contains("dev") || versionStage.contains("alpha") || versionStage.contains("beta")) {
+                        p {
+                            style = "color: orange;"
+                            b { +"${I18N.experimental}" }
+                        }
+                    } else if (versionStage.contains("rc")) {
+                        p {
+                            style = "color: orange;"
+                            b { +"${I18N.releaseCandidate}" }
+                        }
                     }
 
                     hr {}
