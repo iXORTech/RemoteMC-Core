@@ -21,6 +21,18 @@ fun BODY.pageWrapper(title: String, brBefore: Boolean = true, brAfter: Boolean =
         div("content") {
             h1 { +title }
             hr {}
+            a(href = "/") {
+                +"${I18N.home}"
+            }
+            b { +" | " }
+            a(href = "/status") {
+                +"${I18N.websiteStatus_title}"
+            }
+            b { +" | " }
+            a(href = "/about") {
+                +"${I18N.about_title}"
+            }
+            hr {}
             if (brBefore) br {}
             content()
             if (brAfter) br {}
