@@ -22,12 +22,12 @@ fun Route.index() {
                     if (versionStage.contains("dev") || versionStage.contains("alpha") || versionStage.contains("beta")) {
                         p {
                             style = "color: orange;"
-                            b { +"${I18N.experimental}" }
+                            b { +I18N.experimental() }
                         }
                     } else if (versionStage.contains("rc")) {
                         p {
                             style = "color: orange;"
-                            b { +"${I18N.releaseCandidate}" }
+                            b { +I18N.releaseCandidate() }
                         }
                     }
 
@@ -35,7 +35,7 @@ fun Route.index() {
                     br {}
 
                     p {
-                        +"${I18N.successfullyInstalled}"
+                        +I18N.successfullyInstalled()
                     }
                 }
             }

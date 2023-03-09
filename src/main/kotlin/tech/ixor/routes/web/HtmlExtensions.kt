@@ -22,15 +22,15 @@ fun BODY.pageWrapper(title: String, brBefore: Boolean = true, brAfter: Boolean =
             h1 { +title }
             hr {}
             a(href = "/") {
-                +"${I18N.home}"
+                +I18N.home()
             }
             b { +" | " }
             a(href = "/status") {
-                +"${I18N.websiteStatus_title}"
+                +I18N.websiteStatus_title()
             }
             b { +" | " }
             a(href = "/about") {
-                +"${I18N.about_title}"
+                +I18N.about_title()
             }
             hr {}
             if (brBefore) br {}
@@ -45,7 +45,7 @@ fun BODY.pageWrapper(title: String, brBefore: Boolean = true, brAfter: Boolean =
 fun DIV.htmlPageFooter() = footer {
     hr {}
     a(href = "https://github.com/iXORTech/RemoteMC-Core/issues") {
-        +"${I18N.reportBug}"
+        +I18N.reportBug()
     }
     hr {}
     a(href = "https://github.com/iXORTech") {
@@ -55,9 +55,9 @@ fun DIV.htmlPageFooter() = footer {
     a(href = "https://ixor.tech") { +"iXOR Technology" }
     +" ${I18N.withLove}"
     br {}
-    +"${I18N.htmlThemeDesigned0}"
+    +I18N.htmlThemeDesigned0()
     a(href = "https://github.com/athul/archie") { +"Archie Theme" }
-    +"${I18N.htmlThemeDesigned1}"
+    +I18N.htmlThemeDesigned1()
     a(href = "https://github.com/KevinZonda") { +"@KevinZonda" }
-    +"${I18N.htmlThemeDesigned2}"
+    +I18N.htmlThemeDesigned2()
 }
