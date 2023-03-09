@@ -23,6 +23,11 @@ fun Route.about() {
                         +"${I18N.version} ${VersionUtil.getVersion()}"
                         br {}
                         +I18N.built(VersionUtil.getBuildDate())
+                        br {}
+                        +I18N.license()
+                        a(href = "https://github.com/iXORTech/RemoteMC-Core/blob/main/LICENSE") {
+                            b { +"GNU Affero General Public License v3.0" }
+                        }
                     }
                     br {}
                     h2 { +"Dependencies" }
