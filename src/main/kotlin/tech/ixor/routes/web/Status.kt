@@ -23,16 +23,16 @@ fun Route.status() {
                 pageWrapper("${I18N.websiteStatus}") {
                     h2 {
                         b("h1a") {
-                            +"${I18N.connections}"
+                            +I18N.connections()
                         }
                     }
 
                     h3 {
-                        +"${I18N.minecraftServer}"
+                        +I18N.minecraftServer()
                     }
                     if (MinecraftServers.getOnlineServers().isNotEmpty()) {
                         h4 {
-                            +"${I18N.online} "
+                            +I18N.online()
                         }
                     }
                     ol {
@@ -66,7 +66,7 @@ fun Route.status() {
                     }
                     if (MinecraftServers.getOfflineServers().isNotEmpty()) {
                         h4 {
-                            +"${I18N.offline}"
+                            +I18N.offline()
                         }
                     }
                     ol {
@@ -82,7 +82,7 @@ fun Route.status() {
                     }
 
                     h3 {
-                        +"${I18N.qqChatBot}"
+                        +I18N.qqChatBot()
                     }
                     val qqBot = QQBot.getBot()
                     p {
@@ -102,14 +102,14 @@ fun Route.status() {
                         +"${qqBot.host} : ${qqBot.port} - "
                         b {
                             if (qqBot.checkOnlineStatus()) {
-                                +"${I18N.isOnline}"
+                                +I18N.isOnline()
                             } else {
-                                +"${I18N.isOffline}"
+                                +I18N.isOffline()
                             }
                         }
                     }
                     h4 {
-                        +"${I18N.qqGroups}"
+                        +I18N.qqGroups()
                     }
                     ol {
                         val qqGroups = qqBot.getQQGroups()
