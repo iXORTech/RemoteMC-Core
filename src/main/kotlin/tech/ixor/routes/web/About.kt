@@ -32,6 +32,22 @@ fun Route.about() {
                             li { +it }
                         }
                     }
+                    br {}
+                    h2 { +"Contributors" }
+                    ul {
+                        li {
+                            +"@Cubik65536"
+                            +" | "
+                            a(href = "https://cubik65536.top") {
+                                i { attributes["data-feather"] = "globe" }
+                            }
+                            +" | "
+                            a(href = "https://github.com/Cubik65536") {
+                                i { attributes["data-feather"] = "github" }
+                            }
+                            +" | "
+                        }
+                    }
                 }
             }
         }
