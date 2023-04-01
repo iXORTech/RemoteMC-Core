@@ -1,58 +1,95 @@
 package tech.ixor
 
 import org.junit.Test
+import tech.ixor.utils.CompatibilityStatus
 import tech.ixor.utils.CompatibilityUtil
 
 class CompatibilityUtilTest {
-    private fun checkIncompatibleModule() {
+    private fun checkUnknownModule() {
         val compatibilityUtil = CompatibilityUtil()
-        val module = "test"
-        val version = "0.2.0"
-        val stage = "dev"
+        val module = "unknown_module"
+        val version = "1.0.0"
+        val stage = "stable"
         println("Checking compatibility for $module $version $stage")
         val result = compatibilityUtil.checkComaptibility(module, version, stage)
         println("Result: $result")
-        assert(!result)
+        assert(result == CompatibilityStatus.UNKNOWN_MODULE)
     }
 
-    private fun checkIncompatibleVersion() {
+    private fun checkImcompatibleVersion() {
         val compatibilityUtil = CompatibilityUtil()
-        val module = "remotemc_mcdr"
-        val version = "0.0.0"
-        val stage = "dev"
+        val module = "remotemc_test"
+        val version = "0.1.0"
+        val stage = "alpha"
         println("Checking compatibility for $module $version $stage")
         val result = compatibilityUtil.checkComaptibility(module, version, stage)
         println("Result: $result")
-        assert(!result)
+        assert(result == CompatibilityStatus.INCOMPATIBLE_VERSION)
     }
 
     private fun checkIncompatibleStage() {
         val compatibilityUtil = CompatibilityUtil()
-        val module = "remotemc_mcdr"
-        val version = "0.2.0"
-        val stage = "unknown"
+        val module = "remotemc_test"
+        val version = "1.0.0"
+        val stage = "alpha"
         println("Checking compatibility for $module $version $stage")
         val result = compatibilityUtil.checkComaptibility(module, version, stage)
         println("Result: $result")
-        assert(!result)
+        assert(result == CompatibilityStatus.INCOMPATIBLE_STAGE)
     }
 
-    private fun checkCompatible() {
+    private fun checkCompatible1() {
         val compatibilityUtil = CompatibilityUtil()
-        val module = "remotemc_mcdr"
-        val version = "0.2.0"
-        val stage = "dev"
+        val module = "remotemc_test"
+        val version = "1.0.0"
+        val stage = "rc"
         println("Checking compatibility for $module $version $stage")
         val result = compatibilityUtil.checkComaptibility(module, version, stage)
         println("Result: $result")
-        assert(result)
+        assert(result == CompatibilityStatus.COMPATIBLE)
+    }
+
+    private fun checkCompatible2() {
+        val compatibilityUtil = CompatibilityUtil()
+        val module = "remotemc_test"
+        val version = "1.0.0"
+        val stage = "stable"
+        println("Checking compatibility for $module $version $stage")
+        val result = compatibilityUtil.checkComaptibility(module, version, stage)
+        println("Result: $result")
+        assert(result == CompatibilityStatus.COMPATIBLE)
+    }
+
+    private fun checkCompatible3() {
+        val compatibilityUtil = CompatibilityUtil()
+        val module = "remotemc_test"
+        val version = "1.1.0"
+        val stage = "alpha"
+        println("Checking compatibility for $module $version $stage")
+        val result = compatibilityUtil.checkComaptibility(module, version, stage)
+        println("Result: $result")
+        assert(result == CompatibilityStatus.COMPATIBLE)
+    }
+
+    private fun checkCompatible4() {
+        val compatibilityUtil = CompatibilityUtil()
+        val module = "remotemc_test"
+        val version = "1.1.0"
+        val stage = "stable"
+        println("Checking compatibility for $module $version $stage")
+        val result = compatibilityUtil.checkComaptibility(module, version, stage)
+        println("Result: $result")
+        assert(result == CompatibilityStatus.COMPATIBLE)
     }
 
     @Test
     fun testCheckCompatibility() {
-        checkIncompatibleModule()
-        checkIncompatibleVersion()
+        checkUnknownModule()
+        checkImcompatibleVersion()
         checkIncompatibleStage()
-        checkCompatible()
+        checkCompatible1()
+        checkCompatible2()
+        checkCompatible3()
+        checkCompatible4()
     }
 }
