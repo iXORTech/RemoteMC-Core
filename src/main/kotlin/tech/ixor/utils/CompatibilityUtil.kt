@@ -1,74 +1,53 @@
 package tech.ixor.utils
 
-import com.beust.klaxon.JsonReader
+import com.beust.klaxon.JsonArray
+import com.beust.klaxon.JsonObject
+import com.beust.klaxon.Parser
 import org.slf4j.LoggerFactory
 import tech.ixor.I18N
-import java.io.InputStream
-import java.io.StringReader
 
 enum class CompatibilityStatus {
-    COMPATIBLE, INCOMPATIBLE, UNKNOWN_MODULE
+    COMPATIBLE, INCOMPATIBLE_VERSION, INCOMPATIBLE_STAGE, UNKNOWN_MODULE
 }
 
 class CompatibilityUtil {
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    private fun loadCompatibilityList(module: String): String {
-        val moduleID = module.lowercase()
-        logger.info(I18N.logging_compatibilityUtil_loadingCompatibilityList(moduleID))
-
-        val inputStream: InputStream? = this::class.java.getResourceAsStream(
-            "/compatibility-list/$moduleID.json"
-        )
-
-        return if (inputStream != null) {
-            val compatibilityList = inputStream.bufferedReader().use { it.readText() }
-            logger.info(I18N.logging_compatibilityUtil_compatibilityListLoaded(moduleID))
-            logger.info(I18N.logging_compatibilityUtil_compatibilityListContent(compatibilityList))
-            compatibilityList
-        } else {
-            logger.error(I18N.logging_compatibilityUtil_compatibilityListNotFound(moduleID))
-            "UNKNOWN_MODULE"
-        }
-    }
-
     fun checkComaptibility(module: String, version: String, stage: String): CompatibilityStatus {
         logger.info(I18N.logging_compatibilityUtil_checkingCompatibility(module, version, stage))
 
-        var stageList: List<String> = arrayListOf<String>()
-        val compatibilityList = loadCompatibilityList(module)
+        val compatibilityResource = this::class.java.getResourceAsStream(
+            "/compatibility-list/$module.json"
+        )
 
-        if (compatibilityList == "UNKNOWN_MODULE") {
+        if (compatibilityResource == null) {
+            logger.error(I18N.logging_compatibilityUtil_compatibilityListNotFound(module))
             return CompatibilityStatus.UNKNOWN_MODULE
         }
 
-        try {
-            JsonReader(StringReader(compatibilityList)).use { reader ->
-                reader.beginObject() {
-                    while (reader.hasNext()) {
-                        stageList = when (reader.nextName()) {
-                            version -> reader.nextArray() as List<String>
-                            else -> emptyList()
-                        }
-                    }
-                }
-            }
-        } catch (klaxonException: com.beust.klaxon.KlaxonException) {
-            logger.error(klaxonException.message?.let { I18N.logging_compatibilityUtil_klaxonException(it) })
+        logger.info(I18N.logging_compatibilityUtil_compatibilityListLoaded(module))
+
+        val compatibleVersion = (
+            Parser.default().parse(compatibilityResource) as JsonArray<JsonObject>
+        ).filter {
+            it.string("version") == version
         }
 
-        return if (stageList.isEmpty()) {
-            logger.error(I18N.logging_compatibilityUtil_versionNotFound(version, module))
-            CompatibilityStatus.INCOMPATIBLE
-        } else {
-            logger.info(I18N.logging_compatibilityUtil_versionFound(version, module))
-            if (stageList.contains(stage)) {
-                logger.info(I18N.logging_compatibilityUtil_stageFound(stage, module, version))
-                CompatibilityStatus.COMPATIBLE
-            } else {
-                logger.error(I18N.logging_compatibilityUtil_stageNotFound(stage, module, version))
-                CompatibilityStatus.INCOMPATIBLE
-            }
+        if (compatibleVersion.isEmpty()) {
+            logger.warn(I18N.logging_compatibilityUtil_versionNotCompatible(module, version))
+            return CompatibilityStatus.INCOMPATIBLE_VERSION
         }
+
+        val compatibleStage = compatibleVersion.filter {
+            it.array<String>("stages")!!.contains(stage)
+        }
+
+        if (compatibleStage.isEmpty()) {
+            logger.warn(I18N.logging_compatibilityUtil_stageNotCompatible(module, version, stage))
+            return CompatibilityStatus.INCOMPATIBLE_STAGE
+        }
+
+        logger.info(I18N.logging_compatibilityUtil_moduleCompatible(module, version, stage))
+        return CompatibilityStatus.COMPATIBLE
     }
 }

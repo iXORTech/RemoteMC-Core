@@ -35,7 +35,12 @@ fun Route.ping() {
                 logger.error(I18N.logging_return200("/ping"))
                 call.respond(HttpStatusCode.OK)
             }
-            CompatibilityStatus.INCOMPATIBLE -> {
+            CompatibilityStatus.INCOMPATIBLE_VERSION -> {
+                logger.info(I18N.logging_moduleIsNotCompatible(module, version, stage))
+                logger.error(I18N.logging_return426("/ping"))
+                call.respond(HttpStatusCode.UpgradeRequired)
+            }
+            CompatibilityStatus.INCOMPATIBLE_STAGE -> {
                 logger.info(I18N.logging_moduleIsNotCompatible(module, version, stage))
                 logger.error(I18N.logging_return426("/ping"))
                 call.respond(HttpStatusCode.UpgradeRequired)
