@@ -45,7 +45,7 @@ jobs:
           git_commit_gpgsign: true
       - id: step-5
         name: Commit Changes & Create Pull Request for dependency updates
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.PAT }}
           commit-message: 'build(version.properties): Update Gradle dependencies'
