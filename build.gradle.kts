@@ -138,6 +138,7 @@ dependencies {
     implementation("dev.inmo:krontab:_")
     // Config Loader
     implementation("com.sksamuel.hoplite:hoplite-core:_")
+    implementation("com.sksamuel.hoplite:hoplite-json:_")
     implementation("com.sksamuel.hoplite:hoplite-yaml:_")
     // Ktor
     implementation("io.ktor:ktor-server-core-jvm:_")
