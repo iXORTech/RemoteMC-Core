@@ -39,6 +39,17 @@ RemoteMC 系列软件允许用户使用一个 RemoteMC-Core 连接多个 MC 服�
 
 如果您对以上条目感到不适，您应该考虑停止使用本项目。
 
+## 👨🏻‍💻贡献者
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
 ## 🎊 鸣谢
 
 > <span style="font-size: 0.96em">**IntelliJ IDEA**</span><br/>功能强大，符合人体工程学的 JVM IDE
