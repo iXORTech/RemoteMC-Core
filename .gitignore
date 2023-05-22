@@ -6,6 +6,7 @@
 *.log.gz
 
 # Generate when building/running
+/src/main/resources/.all-contributorsrc
 /src/main/resources/version.properties
 
 # Intellij IDEA Defaults

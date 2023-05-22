@@ -103,9 +103,15 @@ tasks {
         archiveClassifier.set("")
     }
 
+    val copyAllContributorSrc = register<Copy>("copyAllContributorSrc") {
+        from(layout.projectDirectory.file(".all-contributorsrc"))
+        into(layout.projectDirectory.dir("src/main/resources"))
+    }
+
     processResources {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         dependsOn(generateI18n4kFiles)
+        dependsOn(copyAllContributorSrc)
         exclude("conf/config.yaml")
         from(projectProps)
     }
