@@ -1,4 +1,7 @@
 **English** | [中文](README-zh.md)
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <h1 align="center">RemoteMC-Core</h1>
 
@@ -90,3 +93,25 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ```
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://cubik65536.top"><img src="https://avatars.githubusercontent.com/u/72877496?v=4?s=100" width="100px;" alt="Qian Qian "Cubik""/><br /><sub><b>Qian Qian "Cubik"</b></sub></a><br /><a href="https://github.com/iXORTech/RemoteMC-Core/issues?q=author%3ACubik65536" title="Bug reports">🐛</a> <a href="https://github.com/iXORTech/RemoteMC-Core/commits?author=Cubik65536" title="Code">💻</a> <a href="https://github.com/iXORTech/RemoteMC-Core/commits?author=Cubik65536" title="Documentation">📖</a> <a href="#ideas-Cubik65536" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-Cubik65536" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-Cubik65536" title="Maintenance">🚧</a> <a href="#question-Cubik65536" title="Answering Questions">💬</a> <a href="https://github.com/iXORTech/RemoteMC-Core/pulls?q=is%3Apr+reviewed-by%3ACubik65536" title="Reviewed Pull Requests">👀</a> <a href="#tool-Cubik65536" title="Tools">🔧</a> <a href="#translation-Cubik65536" title="Translation">🌍</a> <a href="https://github.com/iXORTech/RemoteMC-Core/commits?author=Cubik65536" title="Tests">⚠️</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
