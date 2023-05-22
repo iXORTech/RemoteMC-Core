@@ -44,6 +44,22 @@ RemoteMC 系列软件允许用户使用一个 RemoteMC-Core 连接多个 MC 服�
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://cubik65536.top"><img src="https://avatars.githubusercontent.com/u/72877496?v=4?s=100" width="100px;" alt="Qian Qian "Cubik""/><br /><sub><b>Qian Qian "Cubik"</b></sub></a><br /><a href="https://github.com/iXORTech/RemoteMC-Core/issues?q=author%3ACubik65536" title="Bug reports">🐛</a> <a href="https://github.com/iXORTech/RemoteMC-Core/commits?author=Cubik65536" title="Code">💻</a> <a href="https://github.com/iXORTech/RemoteMC-Core/commits?author=Cubik65536" title="Documentation">📖</a> <a href="#ideas-Cubik65536" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-Cubik65536" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-Cubik65536" title="Maintenance">🚧</a> <a href="#question-Cubik65536" title="Answering Questions">💬</a> <a href="https://github.com/iXORTech/RemoteMC-Core/pulls?q=is%3Apr+reviewed-by%3ACubik65536" title="Reviewed Pull Requests">👀</a> <a href="#tool-Cubik65536" title="Tools">🔧</a> <a href="#translation-Cubik65536" title="Translation">🌍</a> <a href="https://github.com/iXORTech/RemoteMC-Core/commits?author=Cubik65536" title="Tests">⚠️</a></td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td align="center" size="13px" colspan="7">
+        <img src="https://raw.githubusercontent.com/all-contributors/all-contributors-cli/1b8533af435da9854653492b1327a23a4dbd0a10/assets/logo-small.svg">
+          <a href="https://all-contributors.js.org/docs/en/bot/usage">Add your contributions</a>
+        </img>
+      </td>
+    </tr>
+  </tfoot>
+</table>
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
