@@ -40,6 +40,17 @@ This announcement is made due to the [disharmony event of Mirai](https://github.
 
 If you feel discomfort about the announcement above, you should consider stopping using this project.
 
+## 👨🏻‍💻Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
 ## 🎊 Thanks
 
 > <span style="font-size: 0.96em">**IntelliJ IDEA**</span><br/>Capable and Ergonomic IDE for JVM

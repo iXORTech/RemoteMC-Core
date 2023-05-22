@@ -6,6 +6,7 @@ import io.ktor.server.html.*
 import io.ktor.server.routing.*
 import kotlinx.html.*
 import tech.ixor.I18N
+import tech.ixor.entity.AllContributorsEntity
 import tech.ixor.utils.VersionUtil
 
 fun Route.about() {
@@ -39,18 +40,29 @@ fun Route.about() {
                     }
                     br {}
                     h2 { +"Contributors" }
+                    val contributors = AllContributorsEntity().loadAllContributorsSrc().contributors
                     ul {
-                        li {
-                            +"@Cubik65536"
-                            +" | "
-                            a(href = "https://cubik65536.top") {
-                                i { attributes["data-feather"] = "globe" }
+                        contributors.forEach { contributor ->
+                            li {
+                                +"${contributor.name} (@${contributor.login})"
+                                +" | "
+                                if (!contributor.profile.startsWith("https://github.com")) {
+                                    a(href = contributor.profile) {
+                                        i { attributes["data-feather"] = "globe" }
+                                    }
+                                    +" | "
+                                }
+                                a(href = "https://github.com/${contributor.login}") {
+                                    i { attributes["data-feather"] = "github" }
+                                }
+                                br {}
+                                + "/"
+                                contributor.contributions.forEach { contribution ->
+                                    +contribution
+                                    +"/"
+                                }
+
                             }
-                            +" | "
-                            a(href = "https://github.com/Cubik65536") {
-                                i { attributes["data-feather"] = "github" }
-                            }
-                            +" | "
                         }
                     }
                 }

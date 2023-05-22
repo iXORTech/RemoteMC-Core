@@ -103,9 +103,15 @@ tasks {
         archiveClassifier.set("")
     }
 
+    val copyAllContributorSrc = register<Copy>("copyAllContributorSrc") {
+        from(layout.projectDirectory.file(".all-contributorsrc"))
+        into(layout.projectDirectory.dir("src/main/resources"))
+    }
+
     processResources {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         dependsOn(generateI18n4kFiles)
+        dependsOn(copyAllContributorSrc)
         exclude("conf/config.yaml")
         from(projectProps)
     }
@@ -132,6 +138,7 @@ dependencies {
     implementation("dev.inmo:krontab:_")
     // Config Loader
     implementation("com.sksamuel.hoplite:hoplite-core:_")
+    implementation("com.sksamuel.hoplite:hoplite-json:_")
     implementation("com.sksamuel.hoplite:hoplite-yaml:_")
     // Ktor
     implementation("io.ktor:ktor-server-core-jvm:_")
