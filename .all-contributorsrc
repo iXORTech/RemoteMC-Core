@@ -3,7 +3,10 @@
   "projectOwner": "iXORTech",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "files": ["README.md", "README-zh.md"],
+  "files": [
+    "README.md",
+    "README-zh.md"
+  ],
   "imageSize": 100,
   "commit": false,
   "commitConvention": "angular",
@@ -11,5 +14,25 @@
   "contributorsSortAlphabetically": false,
   "linkToUsage": true,
   "skipCi": true,
-  "contributors": []
+  "contributors": [
+    {
+      "login": "Cubik65536",
+      "name": "Qian Qian \"Cubik\"",
+      "avatar_url": "https://avatars.githubusercontent.com/u/72877496?v=4",
+      "profile": "https://cubik65536.top",
+      "contributions": [
+        "bug",
+        "code",
+        "doc",
+        "ideas",
+        "infra",
+        "maintenance",
+        "question",
+        "review",
+        "tool",
+        "translation",
+        "test"
+      ]
+    }
+  ]
 }
