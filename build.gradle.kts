@@ -94,7 +94,7 @@ tasks {
 
     var shadowJarVersion = getVersion()
     shadowJar {
-        if (getStage() == "dev" || getStage() == "alpha" || getStage() == "beta" || getStage() == "rc") {
+        if (getStage() == "SNAPSHOT" || getStage() == "alpha" || getStage() == "beta" || getStage() == "rc") {
             shadowJarVersion = shadowJarVersion + "-" + getStage()
         }
         shadowJarVersion = shadowJarVersion + "+" + getRevision()

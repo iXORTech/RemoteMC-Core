@@ -19,7 +19,7 @@ fun Route.index() {
                         +VersionUtil.getVersion()
                     }
                     val versionStage = VersionUtil.getProperty("stage")
-                    if (versionStage.contains("dev") || versionStage.contains("alpha") || versionStage.contains("beta")) {
+                    if (versionStage.contains("SNAPSHOT") || versionStage.contains("alpha") || versionStage.contains("beta")) {
                         p {
                             style = "color: orange;"
                             b { +I18N.experimental() }

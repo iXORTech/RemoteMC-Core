@@ -47,7 +47,7 @@ class VersionUtil {
             if (stageProperty == "stable") {
                 return "$versionProperty ($revisionProperty)"
             }
-            stageProperty = stageProperty.replace(regex = Regex("dev"), replacement = "DEV")
+            stageProperty = stageProperty.replace(regex = Regex("SNAPSHOT"), replacement = "SNAPSHOT")
             stageProperty = stageProperty.replace(regex = Regex("alpha\\."), replacement = "Alpha ")
             stageProperty = stageProperty.replace(regex = Regex("alpha"), replacement = "Alpha")
             stageProperty = stageProperty.replace(regex = Regex("beta\\."), replacement = "Beta ")

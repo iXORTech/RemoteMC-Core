@@ -62,7 +62,7 @@ fun main() {
     logger.info("${I18N.version} ${VersionUtil.getVersion()}")
     logger.info(I18N.built(VersionUtil.getBuildDate()))
     val stage = VersionUtil.getProperty("stage")
-    if (stage.contains("dev") || stage.contains("alpha") || stage.contains("beta")) {
+    if (stage.contains("SNAPSHOT") || stage.contains("alpha") || stage.contains("beta")) {
         logger.warn("${I18N.experimental}")
     } else if (stage.contains("rc")) {
         logger.warn("${I18N.releaseCandidate}")
