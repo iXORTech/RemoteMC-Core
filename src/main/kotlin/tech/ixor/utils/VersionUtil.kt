@@ -13,13 +13,11 @@ class VersionUtil {
         }
 
         fun getProperty(key: String): String {
-            val property = properties.getProperty(key)
-            return property
+            return properties.getProperty(key)
         }
 
         fun getBuildDate(): String {
-            val buildDateProperty = getProperty("buildDate")
-            return buildDateProperty
+            return getProperty("buildDate")
         }
 
         fun getDependenciesInfo(): List<String> {
