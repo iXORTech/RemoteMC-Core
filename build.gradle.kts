@@ -65,7 +65,7 @@ plugins {
 }
 
 group = "tech.ixor"
-version = version + "-" + getStage() + "+" + getRevision()
+version = getVersion() + "-" + getStage() + "+" + getRevision()
 
 i18n4k {
     sourceCodeLocales = listOf("en", "zh_CN")
@@ -81,7 +81,7 @@ tasks {
     val projectProps by registering(WriteProperties::class) {
         outputFile = file("${projectDir}/src/main/resources/version.properties")
         encoding = "UTF-8"
-        property("version", version)
+        property("version", getVersion())
         property("stage", getStage())
         property("revision", getRevision())
         property("buildDate",
@@ -92,7 +92,7 @@ tasks {
         property("dependencies", getDependenciesInfo())
     }
 
-    var shadowJarVersion = version
+    var shadowJarVersion = getVersion()
     shadowJar {
         if (getStage() == "SNAPSHOT" || getStage() == "alpha" || getStage() == "beta" || getStage() == "rc") {
             shadowJarVersion = shadowJarVersion + "-" + getStage()
@@ -149,9 +149,9 @@ dependencies {
     implementation(Ktor.plugins.serialization.gson)
     implementation("io.ktor:ktor-client-core-jvm:_")
     implementation("io.ktor:ktor-client-okhttp:_")
+    implementation("io.ktor:ktor-client-okhttp-jvm:_")
     // Logback
     implementation("ch.qos.logback:logback-classic:_")
-    implementation("io.ktor:ktor-client-okhttp-jvm:2.3.4")
 
     // Test Dependencies
     // Ktor
