@@ -148,7 +148,7 @@ dependencies {
     implementation(Ktor.server.contentNegotiation)
     implementation(Ktor.plugins.serialization.gson)
     implementation("io.ktor:ktor-client-core-jvm:_")
-    implementation("io.ktor:ktor-client-cio-jvm:_")
+    implementation("io.ktor:ktor-client-okhttp:_")
     // Logback
     implementation("ch.qos.logback:logback-classic:_")
 
