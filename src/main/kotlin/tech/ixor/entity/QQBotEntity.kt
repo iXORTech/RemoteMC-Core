@@ -1,20 +1,18 @@
 package tech.ixor.entity
 
-import io.ktor.client.*
 import io.ktor.client.call.*
-import io.ktor.client.engine.cio.*
-import io.ktor.client.request.*
 import io.ktor.http.*
 import org.slf4j.LoggerFactory
 import tech.ixor.I18N
+import tech.ixor.utils.HttpUtil
 import java.net.ConnectException
 
-class QQBotEntity constructor(
+class QQBotEntity(
     host: String, port: Int, ssl: Boolean
 ) : ServerEntity(I18N.qqBotServerName(), host, port, ssl) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    inner class QQGroupEntity constructor(
+    inner class QQGroupEntity(
         val groupName: String, val groupCode: Long
     ) {
         private val authKey = ConfigEntity().loadConfig().authKey
@@ -26,9 +24,8 @@ class QQBotEntity constructor(
         private suspend fun sendRequest(url: String): HTTPResponse {
             logger.info(I18N.logging_sendingRequestToUrl(url))
 
-            val client = HttpClient(CIO)
             val httpResponse: io.ktor.client.statement.HttpResponse = try {
-                client.post(url) {
+                HttpUtil.PostRequests.request(url) {
                     method = HttpMethod.Post
                 }
             } catch (e: ConnectException) {
@@ -52,7 +49,8 @@ class QQBotEntity constructor(
                 return HTTPResponse.get503(logger, serverName)
             }
             val url = getUrl() +
-                    "/groupMessage?authKey=$authKey&group=$groupCode&sender_id=$senderID&source=$source&sender=$sender&message=$message"
+                    "/groupMessage?authKey=$authKey&group=$groupCode" +
+                    "&sender_id=$senderID&source=$source&sender=$sender&message=$message"
             return sendRequest(url)
         }
 

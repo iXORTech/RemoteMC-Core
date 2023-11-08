@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory
 
 import tech.ixor.entity.MinecraftServers
 
-class MinecraftServerAliveMonitor() {
+class MinecraftServerAliveMonitor {
     private val logger = LoggerFactory.getLogger(javaClass)
 
     fun start() {

@@ -1,19 +1,17 @@
 package tech.ixor.entity
 
 import com.beust.klaxon.Klaxon
-import io.ktor.client.*
-import io.ktor.client.call.body
-import io.ktor.client.engine.cio.*
-import io.ktor.client.request.*
+import io.ktor.client.call.*
 import kotlinx.coroutines.runBlocking
 import org.slf4j.LoggerFactory
 import tech.ixor.I18N
 import tech.ixor.utils.CompatibilityStatus
 import tech.ixor.utils.CompatibilityUtil
+import tech.ixor.utils.HttpUtil
 import tech.ixor.utils.UniversalMessagingUtil
 import java.net.ConnectException
 
-open class ServerEntity constructor(val serverName: String, val host: String, val port: Int, val ssl: Boolean) {
+open class ServerEntity(val serverName: String, val host: String, val port: Int, val ssl: Boolean) {
     private var isOnline: Boolean = false
     private var isCompatible: Boolean = false
     protected val authKey = ConfigEntity().loadConfig().authKey
@@ -21,9 +19,8 @@ open class ServerEntity constructor(val serverName: String, val host: String, va
 
     protected suspend fun getResponse(url: String): HTTPResponse {
         logger.info(I18N.logging_sendingGetRequest(url))
-        val client = HttpClient(CIO)
         val httpResponse: io.ktor.client.statement.HttpResponse = try {
-            client.get(url)
+            HttpUtil.GetRequests.request(url)
         } catch (e: ConnectException) {
             return HTTPResponse.get503(logger, serverName)
         }

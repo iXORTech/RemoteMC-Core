@@ -1,16 +1,15 @@
 package tech.ixor.entity
 
 import com.beust.klaxon.Klaxon
-import io.ktor.client.*
-import io.ktor.client.call.body
-import io.ktor.client.engine.cio.*
+import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import org.slf4j.LoggerFactory
 import tech.ixor.I18N
+import tech.ixor.utils.HttpUtil
 import java.net.ConnectException
 
-class MinecraftServerEntity constructor(
+class MinecraftServerEntity(
     serverName: String, host: String, port: Int,
     ssl: Boolean, val default: Boolean
 ) : ServerEntity(serverName, host, port, ssl) {
@@ -41,9 +40,8 @@ class MinecraftServerEntity constructor(
         val url = getUrl() + "/api/v1/mcserver/execute_command"
         logger.info(I18N.logging_sendingRequestToUrl(url))
 
-        val client = HttpClient(CIO)
         val httpResponse: io.ktor.client.statement.HttpResponse = try {
-            client.post(url) {
+            HttpUtil.PostRequests.request(url) {
                 contentType(ContentType.Application.Json)
                 setBody(
                     Klaxon().toJsonString(
@@ -78,9 +76,8 @@ class MinecraftServerEntity constructor(
         val url = getUrl() + "/api/v1/mcserver/send_message"
         logger.info(I18N.logging_sendingRequestToUrl(url))
 
-        val client = HttpClient(CIO)
         val httpResponse: io.ktor.client.statement.HttpResponse = try {
-            client.post(url) {
+            HttpUtil.PostRequests.request(url) {
                 contentType(ContentType.Application.Json)
                 setBody(
                     Klaxon().toJsonString(
@@ -117,9 +114,8 @@ class MinecraftServerEntity constructor(
         val url = getUrl() + "/api/v1/mcserver/broadcast"
         logger.info(I18N.logging_sendingRequestToUrl(url))
 
-        val client = HttpClient(CIO)
         val httpResponse: io.ktor.client.statement.HttpResponse = try {
-            client.post(url) {
+            HttpUtil.PostRequests.request(url) {
                 contentType(ContentType.Application.Json)
                 setBody(
                     Klaxon().toJsonString(
