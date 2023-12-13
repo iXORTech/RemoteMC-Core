@@ -1,5 +1,10 @@
 **English** | [中文](README-zh.md)
 
+> [!IMPORTANT]
+> The development of this project (RemoteMC series in general) will be suspended
+> due to QQ's policy going against bots with designs that RemoteMC uses and
+> due to a lost of interest from the developer.
+
 <h1 align="center">RemoteMC-Core</h1>
 
 <p align="center"> 

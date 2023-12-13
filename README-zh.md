@@ -1,5 +1,9 @@
 [English](README.md) | **中文**
 
+> [!IMPORTANT]
+> 由于开发者的兴趣的缺失以及对非官方 QQ 机器人来说非常不友好的 QQ 机器人政策，
+> 本项目（RemoteMC 系列）的开发将会暂停。
+
 <h1 align="center">RemoteMC-Core</h1>
 
 <p align="center">
